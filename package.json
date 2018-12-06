@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "tslint": "tslint --project .",
-    "server-up": "ts-node src/index.ts"
+    "server-up": "ts-node src/index.ts",
+    "test": "ts-node utils/test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.3.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",

@@ -1,23 +1,73 @@
+type Mutation {
+  addConsultingRecord(
+    name: String!
+    sex: String!
+    birthYear: String!
+    where: String!
+    bigFrom: String!
+  ): MutationResult!
+}
+type MutationResult {
+  success: Boolean!
+}
 type Query {
   playlist(songListId: String!): [Song!]!
-  doubanIntheater: [Movie!]!
 }
 type Song {
-  id: String!
+  songid: String!
   name: String!
   artist: String!
   url: String!
   cover: String!
   lrc: String!
 }
-type Movie {
+# 员工主表
+type Staff {
   id: ID!
-  movieId: String!
-  title: String!
-  numRaters: String!
-  rating: String!
-  genres: [String!]!
-  summary: String!
-  image: String!
-  detailLink: String!
+  userName: String!
+  password: String!
+  role: Int!
+  privilege: [RoutePage!]!
+}
+# 客户主表
+type UserBasic {
+  id: ID!
+  mobile: String #手机号
+  qq: String #qq号
+  wechat: String #微信号
+  name: String! #姓名
+  sex: String! #性别
+  birthYear: String! #出生年份
+  birthDay: String #出生年月日
+  where: String! #区域（二级联动）
+  bigFrom: String! #大来源
+  categoryFromAd: String #广告来源之类别
+  planFromAd: String #广告来源之计划
+  categoryFromMarket: String #市场来源之类型
+  agencyFromMarket: String #市场来源之机构
+  userDetail: UserDetail
+}
+# 客户辅表（详细信息）
+type UserDetail {
+  id: ID!
+  vipLevel: String
+  vipNum: String
+  idCard: String
+  email: String
+  secondNum: String
+  sponser: String #介绍人
+  job: String
+  married: String
+  phoneType: String
+  carType: String
+  addressBasic: String #二级联动
+  addressDetail: String #具体地址
+  illnessHistory: String
+  ps: String #备注
+}
+# 路由页面表, CRM的路由页面
+type RoutePage {
+  id: ID!
+  pageIndex: Int!
+  pageName: String!
 }
