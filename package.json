@@ -6,7 +6,7 @@
   "scripts": {
     "tslint": "tslint --project .",
     "server-up": "ts-node src/index.ts",
-    "test": "ts-node utils/test.ts"
+    "test": "ts-node test/test.ts"
   },
   "keywords": [],
   "author": "",

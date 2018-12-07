@@ -22,25 +22,40 @@ type UserBasic {
   planFromAd: String #广告来源之计划
   categoryFromMarket: String #市场来源之类型
   agencyFromMarket: String #市场来源之机构
-  userDetail: UserDetail
-}
-# 客户辅表（详细信息）
-type UserDetail {
-  id: ID! @unique
-  vipLevel: String
-  vipNum: String
-  idCard: String
+  vipLevel: String #vip等级
+  vipID: String #会员卡号
+  idCard: String #身份证号
   email: String
-  secondNum: String
-  sponser: String #介绍人
-  job: String
-  married: String
-  phoneType: String
-  carType: String
-  addressBasic: String #二级联动
-  addressDetail: String #具体地址
-  illnessHistory: String
-  ps: String #备注
+  secondPhoneNum: String #第二联系电话
+  introducer: String #介绍人
+  career: String #职业
+  marriage: String #婚姻状况
+  phoneModel: String #手机型号
+  carModel: String #汽车型号
+  addressDetail: String #二级联动详细地址
+  addressSpecific: String #具体地址
+  medicalHistory: String #病史
+  reMark: String #备注
+  mainProject: [String!]!
+  focusProject: [String!]!
+  toBeDevelopedProject: [String!]!
+  haveDoneInThisHospital: [String!]!
+  haveDoneInAnotherHospital: [String!]!
+  tag: [String!]!
+}
+type ConsultingRecord {
+  id: ID! @unique
+  userId: String!
+  advisoryWay: String
+  advisoryResult: String
+  advisorySummary: String
+  advisoryDetail: String
+}
+type BookingRecord {
+  id: ID! @unique
+  userId: String!
+  toHospitalCate: String!
+  time: String!
 }
 # 路由页面表, CRM的路由页面
 type RoutePage {

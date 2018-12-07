@@ -4,8 +4,19 @@ import * as jwt from 'jsonwebtoken';
 import { prisma } from '../../generated/prisma-client';
 
 const Mutation = {
-  addConsultingRecord: async (parent, args, context) => {
+  addUser: async (parent, args, context) => {
     await prisma.createUserBasic(args);
+    console.log(`${new Date()} addUserBasic`);
+    return { success: true };
+  },
+  addConsultingRecord: async (parent, args, context) => {
+    await prisma.createConsultingRecord(args);
+    console.log(`${new Date()} addConsultingRecord`);
+    return { success: true };
+  },
+  addBookingRecord: async (parent, args, context) => {
+    await prisma.createBookingRecord(args);
+    console.log(`${new Date()} addBookingRecord`);
     return { success: true };
   }
   // login: async (_parent, { email, password }, ctx) => {
