@@ -10,12 +10,24 @@ const Mutation = {
     return { success: true };
   },
   addConsultingRecord: async (parent, args, context) => {
-    await prisma.createConsultingRecord(args);
+    await prisma.createConsultingRecord({
+      advisoryDetail: args.advisoryDetail,
+      advisoryResult: args.advisoryResult,
+      advisoryWay: args.advisoryWay,
+      advisorySummary: args.advisorySummary,
+      user: { connect: { id: args.userId } }
+    });
+
     console.log(`${new Date()} addConsultingRecord`);
     return { success: true };
   },
   addBookingRecord: async (parent, args, context) => {
-    await prisma.createBookingRecord(args);
+    await prisma.createBookingRecord({
+      user: { connect: { id: args.userId } },
+      toHospitalCate: args.toHospitalCate,
+      time: args.time
+    });
+
     console.log(`${new Date()} addBookingRecord`);
     return { success: true };
   }
