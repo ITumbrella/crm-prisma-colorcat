@@ -67,3 +67,9 @@ type RoutePage {
   pageIndex: Int!
   pageName: String!
 }
+#字典
+type Dictionary {
+  id: ID! @unique
+  dictionaryItemName: String! @unique
+  dictionaryItemValues: [String!]!
+}

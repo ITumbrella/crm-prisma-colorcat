@@ -50,6 +50,10 @@ type Mutation {
     toHospitalCate: String! #来院类别
     time: String! #预到时间
   ): MutationResult!
+  addDictionaryItem(
+    dictionaryItemName: String!
+    dictionaryItemValues: [String!]!
+  ): MutationResult!
 }
 type MutationResult {
   success: Boolean!
@@ -58,6 +62,7 @@ type Query {
   userBasics: [UserBasic!]!
   consultingRecords: [ConsultingRecord!]!
   bookingRecords: [BookingRecord!]!
+  dictionaries: [Dictionary!]!
 }
 
 # 路由页面表, CRM的路由页面
@@ -132,4 +137,10 @@ type BookingRecord {
   toHospitalCate: String! #来院类别
   time: String! #预到时间
   createdAt: DateTime!
+}
+#字典
+type Dictionary {
+  id: ID!
+  dictionaryItemName: String!
+  dictionaryItemValues: [String!]!
 }

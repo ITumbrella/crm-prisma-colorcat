@@ -36,9 +36,15 @@ const Mutation = {
 
     console.log(`${new Date()} addBookingRecord`);
     return { success: true };
+  },
+  addDictionaryItem: async (parent, args, context) => {
+    const dictionaryItemValues = { set: args.dictionaryItemValues };
+    await prisma.createDictionary({
+      dictionaryItemName: args.dictionaryItemName,
+      dictionaryItemValues: dictionaryItemValues
+    });
+    return { success: true };
   }
-  // login: async (_parent, { email, password }, ctx) => {
-  //   const user = await ctx.db.user({ email });
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
   //   if (!valid || !user) {
   //     throw new Error("Invalid Credentials");
