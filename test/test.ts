@@ -21,9 +21,10 @@ async function test() {
   // const to = new Date().getTime();
   // const data = (to - from) / 1000;
 
-  const data = await prisma.consultingRecords();
-  const data2 = await prisma.deleteManyConsultingRecords();
+  const data = await prisma.deleteManyBookingRecords();
+  // const data = await prisma.consultingRecords();
+  // const data2 = await prisma.deleteManyConsultingRecords();
   console.log(data);
-  console.log(data2);
+  // console.log(data2);
 }
 test();

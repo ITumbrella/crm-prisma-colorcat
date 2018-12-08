@@ -5,9 +5,15 @@ import { prisma } from '../../generated/prisma-client';
 
 const Mutation = {
   addUser: async (parent, args, context) => {
-    await prisma.createUserBasic(args);
+    // args.mainProject = { set: args.mainProject };
+    // args.focusProject = { set: args.focusProject };
+    // args.toBeDevelopedProject = { set: args.toBeDevelopedProject };
+    // args.haveDoneInAnotherHospital = { set: args.haveDoneInAnotherHospital };
+    // args.haveDoneInThisHospital = { set: args.haveDoneInThisHospital };
+    // args.tag = { set: args.tag };
+    const user = await prisma.createUserBasic(args);
     console.log(`${new Date()} addUserBasic`);
-    return { success: true };
+    return { success: true, userId: user.id };
   },
   addConsultingRecord: async (parent, args, context) => {
     await prisma.createConsultingRecord({
