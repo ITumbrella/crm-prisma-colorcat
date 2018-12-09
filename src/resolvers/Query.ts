@@ -1,5 +1,4 @@
-import { prisma } from '../../generated/prisma-client';
-import { api } from '../api/api';
+import { prisma } from "../../generated/prisma-client";
 
 const Query = {
   userBasics: async () => await prisma.userBasics(),

@@ -1,7 +1,7 @@
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
-import { prisma } from '../../generated/prisma-client';
+import { prisma } from "../../generated/prisma-client";
 
 const Mutation = {
   addUser: async (parent, args, context) => {
@@ -38,10 +38,10 @@ const Mutation = {
     return { success: true };
   },
   addDictionaryItem: async (parent, args, context) => {
-    const dictionaryItemValues = { set: args.dictionaryItemValues };
     await prisma.createDictionary({
-      dictionaryItemName: args.dictionaryItemName,
-      dictionaryItemValues: dictionaryItemValues
+      itemName: args.itemName,
+      itemLevel: args.itemLevel,
+      itemParentId: args.itemParentId
     });
     return { success: true };
   }
