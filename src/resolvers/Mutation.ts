@@ -1,7 +1,7 @@
-import * as bcrypt from "bcryptjs";
-import * as jwt from "jsonwebtoken";
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 
-import { prisma } from "../../generated/prisma-client";
+import { prisma } from '../../generated/prisma-client';
 
 const Mutation = {
   addUser: async (parent, args, context) => {
@@ -43,6 +43,18 @@ const Mutation = {
       itemLevel: args.itemLevel,
       itemParentId: args.itemParentId
     });
+    return { success: true };
+  },
+  addAd: async (parent, args, context) => {
+    await prisma.createAd(args);
+    return { success: true };
+  },
+  addAdConsumptionRec: async (parent, args, context) => {
+    await prisma.createAdConsumptionRec(args);
+    return { success: true };
+  },
+  addConsultationWork: async (parent, args, context) => {
+    await prisma.createConsultationWork(args);
     return { success: true };
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
