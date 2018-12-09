@@ -1,6 +1,9 @@
 scalar DateTime
 scalar CustomReturn
 
+type MutationResult {
+  success: Boolean!
+}
 type Mutation {
   addUser(
     name: String! #姓名
@@ -51,18 +54,35 @@ type Mutation {
     time: String! #预到时间
   ): MutationResult!
   addDictionaryItem(
-    dictionaryItemName: String!
-    dictionaryItemValues: [String!]!
+    itemName: String!
+    itemParentId: ID
+    itemLevel: Int!
   ): MutationResult!
-}
-type MutationResult {
-  success: Boolean!
+  addAd(typeName: String!, plan: String!): MutationResult!
+  addAdConsumptionRec(
+    typeName: String!
+    plan: String!
+    displayAmount: Int!
+    clickAmount: Int!
+    consumption: Int!
+    time: String!
+    editor: String!
+  ): MutationResult!
+  addConsultationWork(
+    consultationType: String!
+    dialogA: Int!
+    dialogB: Int!
+    dialongC: Int!
+  ): MutationResult!
 }
 type Query {
   userBasics: [UserBasic!]!
   consultingRecords: [ConsultingRecord!]!
   bookingRecords: [BookingRecord!]!
   dictionaries: [Dictionary!]!
+  ads: [Ad!]!
+  adConsumptions: [AdConsumptionRec!]!
+  consultationWorks: [ConsultationWork!]!
 }
 
 # 路由页面表, CRM的路由页面
@@ -141,6 +161,32 @@ type BookingRecord {
 #字典
 type Dictionary {
   id: ID!
-  dictionaryItemName: String!
-  dictionaryItemValues: [String!]!
+  itemName: String!
+  itemParentId: ID
+  itemLevel: Int!
+}
+#广告类别
+type Ad {
+  id: ID!
+  typeName: String!
+  plan: String!
+}
+#广告消费记录
+type AdConsumptionRec {
+  id: ID!
+  typeName: String!
+  plan: String!
+  displayAmount: Int!
+  clickAmount: Int!
+  consumption: Int!
+  time: String!
+  editor: String!
+}
+#咨询工作
+type ConsultationWork {
+  id: ID!
+  consultationType: String!
+  dialogA: Int!
+  dialogB: Int!
+  dialongC: Int!
 }

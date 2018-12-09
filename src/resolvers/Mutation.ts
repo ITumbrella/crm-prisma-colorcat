@@ -38,11 +38,23 @@ const Mutation = {
     return { success: true };
   },
   addDictionaryItem: async (parent, args, context) => {
-    const dictionaryItemValues = { set: args.dictionaryItemValues };
     await prisma.createDictionary({
-      dictionaryItemName: args.dictionaryItemName,
-      dictionaryItemValues: dictionaryItemValues
+      itemName: args.itemName,
+      itemLevel: args.itemLevel,
+      itemParentId: args.itemParentId
     });
+    return { success: true };
+  },
+  addAd: async (parent, args, context) => {
+    await prisma.createAd(args);
+    return { success: true };
+  },
+  addAdConsumptionRec: async (parent, args, context) => {
+    await prisma.createAdConsumptionRec(args);
+    return { success: true };
+  },
+  addConsultationWork: async (parent, args, context) => {
+    await prisma.createConsultationWork(args);
     return { success: true };
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");

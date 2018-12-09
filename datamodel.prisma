@@ -45,6 +45,7 @@ type UserBasic {
   tag: String
   createdAt: DateTime!
 }
+#咨询记录
 type ConsultingRecord {
   id: ID! @unique
   user: UserBasic!
@@ -54,6 +55,7 @@ type ConsultingRecord {
   advisoryDetail: String
   createdAt: DateTime!
 }
+#预约
 type BookingRecord {
   id: ID! @unique
   user: UserBasic!
@@ -70,6 +72,32 @@ type RoutePage {
 #字典
 type Dictionary {
   id: ID! @unique
-  dictionaryItemName: String! @unique
-  dictionaryItemValues: [String!]!
+  itemName: String!
+  itemParentId: ID
+  itemLevel: Int!
+}
+#广告类别
+type Ad {
+  id: ID! @unique
+  typeName: String!
+  plan: String!
+}
+#广告消费记录
+type AdConsumptionRec {
+  id: ID! @unique
+  typeName: String!
+  plan: String!
+  displayAmount: Int!
+  clickAmount: Int!
+  consumption: Int!
+  time: String!
+  editor: String!
+}
+#咨询工作
+type ConsultationWork {
+  id: ID! @unique
+  consultationType: String!
+  dialogA: Int!
+  dialogB: Int!
+  dialongC: Int!
 }
