@@ -73,6 +73,7 @@ type Mutation {
     dialogA: Int!
     dialogB: Int!
     dialogC: Int!
+    workTime: String!
   ): MutationResult!
 }
 type Query {
@@ -191,5 +192,6 @@ type ConsultationWork {
   dialogA: Int!
   dialogB: Int!
   dialogC: Int!
+  workTime: String!
   editor: String
 }

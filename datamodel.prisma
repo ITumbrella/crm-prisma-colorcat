@@ -100,5 +100,6 @@ type ConsultationWork {
   dialogA: Int!
   dialogB: Int!
   dialogC: Int!
+  workTime: String!
   editor: String
 }
