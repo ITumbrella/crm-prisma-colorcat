@@ -99,5 +99,6 @@ type ConsultationWork {
   consultationType: String!
   dialogA: Int!
   dialogB: Int!
-  dialongC: Int!
+  dialogC: Int!
+  editor: String
 }
