@@ -73,8 +73,7 @@ type RoutePage {
 type Dictionary {
   id: ID! @unique
   itemName: String!
-  itemParentId: ID
-  itemLevel: Int!
+  itemParentId: String
 }
 #广告类别
 type Ad {

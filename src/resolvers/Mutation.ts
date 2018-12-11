@@ -37,14 +37,6 @@ const Mutation = {
     console.log(`${new Date()} addBookingRecord`);
     return { success: true };
   },
-  addDictionaryItem: async (parent, args, context) => {
-    await prisma.createDictionary({
-      itemName: args.itemName,
-      itemLevel: args.itemLevel,
-      itemParentId: args.itemParentId
-    });
-    return { success: true };
-  },
   addAd: async (parent, args, context) => {
     await prisma.createAd(args);
     return { success: true };
@@ -55,6 +47,17 @@ const Mutation = {
   },
   addConsultationWork: async (parent, args, context) => {
     await prisma.createConsultationWork(args);
+    return { success: true };
+  },
+  addDictionaryItem: async (parent, args, context) => {
+    await prisma.createDictionary(args);
+    return { success: true };
+  },
+  updateDictionaryItem: async (parent, args, context) => {
+    await prisma.updateDictionary({
+      data: { itemName: args.itemName },
+      where: { id: args.id }
+    });
     return { success: true };
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
