@@ -59,6 +59,10 @@ const Mutation = {
       where: { id: args.id }
     });
     return { success: true };
+  },
+  deleteDictionaryItem: async (parent, args, context) => {
+    await prisma.deleteDictionary({ id: args.id });
+    return { success: true };
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
   //   if (!valid || !user) {
