@@ -70,7 +70,7 @@ type Mutation {
     dialogC: Int!
     workTime: String!
   ): MutationResult!
-  updateDictionaryItem(id: String!, itemName: String!): MutationResult!
+  updateDictionaryItem(id: String!, itemName: String!): [Dictionary!]!
   addDictionaryItem(itemName: String!, itemParentId: String): [Dictionary!]!
   deleteDictionaryItem(id: String!): [Dictionary!]!
   deleteConsultationWork(id: String!): MutationResult!

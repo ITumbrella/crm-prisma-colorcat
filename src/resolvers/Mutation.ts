@@ -58,7 +58,7 @@ const Mutation = {
       data: { itemName: args.itemName },
       where: { id: args.id }
     });
-    return { success: true };
+    return await prisma.dictionaries();
   },
   deleteDictionaryItem: async (parent, args, context) => {
     await prisma.deleteDictionary({ id: args.id });
