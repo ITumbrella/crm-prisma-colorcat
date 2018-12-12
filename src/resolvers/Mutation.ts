@@ -63,6 +63,14 @@ const Mutation = {
   deleteDictionaryItem: async (parent, args, context) => {
     await prisma.deleteDictionary({ id: args.id });
     return await prisma.dictionaries();
+  },
+  deleteConsultationWork: async (parent, args, context) => {
+    await prisma.deleteConsultationWork({ id: args.id });
+    return { success: true };
+  },
+  deleteAdConsumption: async (parent, args, context) => {
+    await prisma.deleteAdConsumptionRec({ id: args.id });
+    return { success: true };
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
   //   if (!valid || !user) {

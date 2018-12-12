@@ -73,6 +73,8 @@ type Mutation {
   updateDictionaryItem(id: String!, itemName: String!): MutationResult!
   addDictionaryItem(itemName: String!, itemParentId: String): [Dictionary!]!
   deleteDictionaryItem(id: String!): [Dictionary!]!
+  deleteConsultationWork(id: String!): MutationResult!
+  deleteAdConsumption(id: String!): MutationResult!
 }
 type Query {
   userBasics: [UserBasic!]!
