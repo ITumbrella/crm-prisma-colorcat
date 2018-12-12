@@ -71,7 +71,7 @@ type Mutation {
     workTime: String!
   ): MutationResult!
   updateDictionaryItem(id: String!, itemName: String!): MutationResult!
-  addDictionaryItem(itemName: String!, itemParentId: String): MutationResult!
+  addDictionaryItem(itemName: String!, itemParentId: String): [Dictionary!]!
   deleteDictionaryItem(id: String!): [Dictionary!]!
 }
 type Query {

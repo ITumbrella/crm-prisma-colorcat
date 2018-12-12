@@ -51,7 +51,7 @@ const Mutation = {
   },
   addDictionaryItem: async (parent, args, context) => {
     await prisma.createDictionary(args);
-    return { success: true };
+    return await prisma.dictionaries();
   },
   updateDictionaryItem: async (parent, args, context) => {
     await prisma.updateDictionary({
