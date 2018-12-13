@@ -44,7 +44,7 @@ const Mutation = {
   updateAd: async (parent, args, context) => {
     await prisma.updateAd({
       data: {
-        typeName: args.itemName,
+        typeName: args.typeName,
         plan: args.plan,
         availiable: args.availiable
       },
