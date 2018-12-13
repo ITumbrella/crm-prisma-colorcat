@@ -4,6 +4,7 @@ scalar CustomReturn
 type AuthPayload {
   token: String!
   userId: String!
+  routePages: [Int!]!
 }
 
 type MutationResult {
@@ -108,7 +109,7 @@ type Admin {
   name: String!
   userName: String!
   password: String!
-  RoutePage: [Int!]! #管理员权限
+  routePages: [Int!]! #管理员权限
   createdAt: DateTime!
 }
 

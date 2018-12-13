@@ -25,9 +25,11 @@ const Mutation = {
       "crm-mc-colorcat" as jwt.Secret,
       { expiresIn: 60 }
     );
+    const user = await prisma.admin({ id: userId });
     return {
       userId: userId,
-      token
+      token,
+      routePages: user.routePages
     };
   },
 
@@ -48,7 +50,8 @@ const Mutation = {
 
     return {
       userId: user.id,
-      token
+      token,
+      routePages: user.routePages
     };
   },
   addUser: async (parent, args, context) => {

@@ -67,7 +67,7 @@ type Admin {
   name: String!
   userName: String! @unique
   password: String!
-  RoutePage: [Int!]! #管理员权限
+  routePages: [Int!]! #管理员权限
   createdAt: DateTime!
 }
 #广告类别
