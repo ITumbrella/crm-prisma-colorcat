@@ -41,6 +41,19 @@ const Mutation = {
     await prisma.createAd(args);
     return { success: true };
   },
+  updateAd: async (parent, args, context) => {
+    await prisma.updateAd({
+      data: {
+        typeName: args.itemName,
+        plan: args.plan,
+        availiable: args.availiable
+      },
+      where: {
+        id: args.id
+      }
+    });
+    return { success: true };
+  },
   addAdConsumptionRec: async (parent, args, context) => {
     await prisma.createAdConsumptionRec(args);
     return { success: true };

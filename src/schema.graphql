@@ -54,6 +54,12 @@ type Mutation {
     time: String! #预到时间
   ): MutationResult!
   addAd(typeName: String!, plan: String!, availiable: Boolean!): MutationResult!
+  updateAd(
+    id: String!
+    typeName: String!
+    plan: String!
+    availiable: Boolean!
+  ): MutationResult!
   addAdConsumptionRec(
     typeName: String!
     plan: String!
@@ -165,6 +171,7 @@ type Dictionary {
   itemName: String!
   itemParentId: ID
 }
+
 #广告类别和广告计划
 type Ad {
   id: ID!
