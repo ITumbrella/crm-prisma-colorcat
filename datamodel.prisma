@@ -82,6 +82,7 @@ type Ad {
   plan: String!
   availiable: Boolean!
   editor: String
+  createdAt: DateTime!
 }
 #广告消费记录
 type AdConsumptionRec {
