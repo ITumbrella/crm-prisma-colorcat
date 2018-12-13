@@ -53,7 +53,7 @@ type Mutation {
     toHospitalCate: String! #来院类别
     time: String! #预到时间
   ): MutationResult!
-  addAd(typeName: String!, plan: String!): MutationResult!
+  addAd(typeName: String!, plan: String!, availiable: Boolean!): MutationResult!
   addAdConsumptionRec(
     typeName: String!
     plan: String!
@@ -170,7 +170,7 @@ type Ad {
   id: ID!
   typeName: String!
   plan: String!
-  parentId: ID
+  availiable: Boolean!
   editor: String
 }
 #广告消费记录
