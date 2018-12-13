@@ -4,13 +4,54 @@ import * as jwt from 'jsonwebtoken';
 import { prisma } from '../../generated/prisma-client';
 
 const Mutation = {
+  signup: async (parent, args, context) => {
+    const password = await bcrypt.hash(args.password, 10);
+    await prisma.createAdmin({
+      name: args.name,
+      userName: args.userName,
+      password: password
+    });
+
+    return { success: true };
+  },
+
+  autoLogin: async (parent, args, context) => {
+    const { userId } = jwt.verify(args.token, "crm-mc-colorcat") as {
+      userId: string;
+    };
+    //续费
+    const token = jwt.sign(
+      { userId: userId },
+      "crm-mc-colorcat" as jwt.Secret,
+      { expiresIn: 60 }
+    );
+    return {
+      userId: userId,
+      token
+    };
+  },
+
+  login: async (parent, args, context) => {
+    const user = await prisma.admin({ userName: args.userName });
+    const valid = await bcrypt.compare(
+      args.password,
+      user ? user.password : ""
+    );
+    if (!valid || !user) {
+      throw new Error("Invalid Credentials");
+    }
+    const token = jwt.sign(
+      { userId: user.id },
+      "crm-mc-colorcat" as jwt.Secret,
+      { expiresIn: 60 }
+    );
+
+    return {
+      userId: user.id,
+      token
+    };
+  },
   addUser: async (parent, args, context) => {
-    // args.mainProject = { set: args.mainProject };
-    // args.focusProject = { set: args.focusProject };
-    // args.toBeDevelopedProject = { set: args.toBeDevelopedProject };
-    // args.haveDoneInAnotherHospital = { set: args.haveDoneInAnotherHospital };
-    // args.haveDoneInThisHospital = { set: args.haveDoneInThisHospital };
-    // args.tag = { set: args.tag };
     const user = await prisma.createUserBasic(args);
     console.log(`${new Date()} addUserBasic`);
     return { success: true, userId: user.id };

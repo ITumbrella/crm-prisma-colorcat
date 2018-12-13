@@ -1,5 +1,10 @@
+# Common
 scalar DateTime
 scalar CustomReturn
+type AuthPayload {
+  token: String!
+  userId: String!
+}
 
 type MutationResult {
   success: Boolean!
@@ -81,6 +86,9 @@ type Mutation {
   deleteDictionaryItem(id: String!): [Dictionary!]!
   deleteConsultationWork(id: String!): MutationResult!
   deleteAdConsumption(id: String!): MutationResult!
+  signup(name: String!, userName: String!, password: String!): MutationResult!
+  login(userName: String!, password: String!): AuthPayload!
+  autoLogin(token: String!): AuthPayload!
 }
 type Query {
   userBasics: [UserBasic!]!
@@ -90,21 +98,17 @@ type Query {
   ads: [Ad!]!
   adConsumptions: [AdConsumptionRec!]!
   consultationWorks: [ConsultationWork!]!
+  admins: [Admin!]!
 }
 
-# 路由页面表, CRM的路由页面
-type RoutePage {
+#实体 datamodel
+
+type Admin {
   id: ID!
-  pageIndex: Int!
-  pageName: String!
-}
-# 员工主表
-type Staff {
-  id: ID!
+  name: String!
   userName: String!
   password: String!
-  role: Int!
-  privilege: [RoutePage!]!
+  RoutePage: [Int!]! #管理员权限
   createdAt: DateTime!
 }
 

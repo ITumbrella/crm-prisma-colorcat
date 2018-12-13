@@ -1,11 +1,3 @@
-# 员工主表
-type Staff {
-  id: ID! @unique
-  userName: String!
-  password: String!
-  role: Int!
-  privilege: [RoutePage!]!
-}
 # 客户主表
 type UserBasic {
   id: ID! @unique
@@ -63,17 +55,20 @@ type BookingRecord {
   time: String!
   createdAt: DateTime!
 }
-# 路由页面表, CRM的路由页面
-type RoutePage {
-  id: ID! @unique
-  pageIndex: Int!
-  pageName: String!
-}
 #字典
 type Dictionary {
   id: ID! @unique
   itemName: String!
   itemParentId: String
+}
+#管理员
+type Admin {
+  id: ID! @unique
+  name: String!
+  userName: String! @unique
+  password: String!
+  RoutePage: [Int!]! #管理员权限
+  createdAt: DateTime!
 }
 #广告类别
 type Ad {
