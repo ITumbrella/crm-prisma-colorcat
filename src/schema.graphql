@@ -3,6 +3,7 @@ scalar DateTime
 scalar CustomReturn
 type AuthPayload {
   token: String!
+  name: String!
   userId: String!
   routePages: [Int!]!
 }

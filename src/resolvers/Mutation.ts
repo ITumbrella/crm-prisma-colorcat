@@ -28,6 +28,7 @@ const Mutation = {
     const user = await prisma.admin({ id: userId });
     return {
       userId: userId,
+      name: user.name,
       token,
       routePages: user.routePages
     };
@@ -50,6 +51,7 @@ const Mutation = {
 
     return {
       userId: user.id,
+      name: user.name,
       token,
       routePages: user.routePages
     };
