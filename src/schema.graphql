@@ -87,13 +87,13 @@ type Mutation {
     id: String!
     itemName: String!
     itemAvailiable: Boolean!
-  ): [Dictionary!]!
+  ): Dictionary
   addDictionaryItem(
     itemName: String!
     itemParentId: String
     itemAvailiable: Boolean!
-  ): [Dictionary!]!
-  deleteDictionaryItem(id: String!): [Dictionary!]!
+  ): Dictionary
+  deleteDictionaryItem(id: String!): Dictionary
   deleteConsultationWork(id: String!): MutationResult!
   deleteAdConsumption(id: String!): MutationResult!
   signup(name: String!, userName: String!, password: String!): MutationResult!

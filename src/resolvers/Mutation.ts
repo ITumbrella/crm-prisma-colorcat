@@ -109,19 +109,17 @@ const Mutation = {
     return { success: true };
   },
   addDictionaryItem: async (parent, args, context) => {
-    await prisma.createDictionary(args);
-    return await prisma.dictionaries();
+    return await prisma.createDictionary(args);
   },
   updateDictionaryItem: async (parent, args, context) => {
-    await prisma.updateDictionary({
+    const item = await prisma.updateDictionary({
       data: { itemName: args.itemName, itemAvailiable: args.itemAvailiable },
       where: { id: args.id }
     });
-    return await prisma.dictionaries();
+    return item;
   },
   deleteDictionaryItem: async (parent, args, context) => {
-    await prisma.deleteDictionary({ id: args.id });
-    return await prisma.dictionaries();
+    return prisma.deleteDictionary({ id: args.id });
   },
   deleteConsultationWork: async (parent, args, context) => {
     await prisma.deleteConsultationWork({ id: args.id });
