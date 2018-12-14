@@ -176,6 +176,7 @@ type Dictionary {
   id: ID!
   itemName: String!
   itemParentId: ID
+  itemAvailiable: Boolean!
 }
 
 #广告类别和广告计划

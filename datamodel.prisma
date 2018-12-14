@@ -60,6 +60,7 @@ type Dictionary {
   id: ID! @unique
   itemName: String!
   itemParentId: String
+  itemAvailiable: Boolean!
 }
 #管理员
 type Admin {
