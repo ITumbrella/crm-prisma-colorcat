@@ -61,6 +61,7 @@ type Dictionary {
   itemName: String!
   itemParentId: String
   itemAvailiable: Boolean!
+  createdAt: DateTime!
 }
 #管理员
 type Admin {

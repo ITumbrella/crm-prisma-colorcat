@@ -185,6 +185,7 @@ type Dictionary {
   itemName: String!
   itemParentId: ID
   itemAvailiable: Boolean!
+  createdAt: DateTime!
 }
 
 #广告类别和广告计划
