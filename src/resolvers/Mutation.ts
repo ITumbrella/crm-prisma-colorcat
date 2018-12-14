@@ -114,7 +114,7 @@ const Mutation = {
   },
   updateDictionaryItem: async (parent, args, context) => {
     await prisma.updateDictionary({
-      data: { itemName: args.itemName },
+      data: { itemName: args.itemName, itemAvailiable: args.itemAvailiable },
       where: { id: args.id }
     });
     return await prisma.dictionaries();
