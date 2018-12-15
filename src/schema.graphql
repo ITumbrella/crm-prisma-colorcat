@@ -76,13 +76,6 @@ type Mutation {
     time: String!
     editor: String!
   ): MutationResult!
-  addConsultationWork(
-    consultationType: String!
-    dialogA: Int!
-    dialogB: Int!
-    dialogC: Int!
-    workTime: String!
-  ): MutationResult!
   updateDictionaryItem(
     id: String!
     itemName: String!
@@ -93,8 +86,23 @@ type Mutation {
     itemParentId: String
     itemAvailiable: Boolean!
   ): Dictionary
+  addConsultationWork(
+    consultationType: String!
+    dialogA: Int!
+    dialogB: Int!
+    dialogC: Int!
+    workTime: String!
+  ): ConsultationWork!
+  deleteConsultationWork(id: String!): ConsultationWork!
+  updateConsutationWork(
+    id: String!
+    consultationType: String!
+    dialogA: Int!
+    dialogB: Int!
+    dialogC: Int!
+    workTime: String!
+  ): ConsultationWork!
   deleteDictionaryItem(id: String!): Dictionary
-  deleteConsultationWork(id: String!): MutationResult!
   deleteAdConsumption(id: String!): MutationResult!
   signup(name: String!, userName: String!, password: String!): MutationResult!
   login(userName: String!, password: String!): AuthPayload!
@@ -113,15 +121,23 @@ type Query {
 
 #实体 datamodel
 
+#管理员
 type Admin {
   id: ID!
   name: String!
   userName: String!
   password: String!
+  departmentName: String!
+  availiable: Boolean!
   routePages: [Int!]! #管理员权限
   createdAt: DateTime!
 }
-
+#权限组
+type Department {
+  id: ID!
+  name: String!
+  routePages: [Int!]! #权限设置
+}
 # 客户主表
 type UserBasic {
   id: ID!

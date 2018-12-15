@@ -104,8 +104,8 @@ const Mutation = {
     await prisma.createAdConsumptionRec(args);
     return { success: true };
   },
-  addConsultationWork: async (parent, args, context) => {
-    await prisma.createConsultationWork(args);
+  deleteAdConsumption: async (parent, args, context) => {
+    await prisma.deleteAdConsumptionRec({ id: args.id });
     return { success: true };
   },
   addDictionaryItem: async (parent, args, context) => {
@@ -121,13 +121,26 @@ const Mutation = {
   deleteDictionaryItem: async (parent, args, context) => {
     return prisma.deleteDictionary({ id: args.id });
   },
-  deleteConsultationWork: async (parent, args, context) => {
-    await prisma.deleteConsultationWork({ id: args.id });
-    return { success: true };
+  //权限组管理
+
+  // 咨询工作量mutation
+  addConsultationWork: async (parent, args, context) => {
+    return await prisma.createConsultationWork(args);
   },
-  deleteAdConsumption: async (parent, args, context) => {
-    await prisma.deleteAdConsumptionRec({ id: args.id });
-    return { success: true };
+  deleteConsultationWork: async (parent, args, context) => {
+    return await prisma.deleteConsultationWork({ id: args.id });
+  },
+  updateConsutationWork: async (parent, args, context) => {
+    return await prisma.updateConsultationWork({
+      data: {
+        consultationType: args.consultationType,
+        dialogA: args.dialogA,
+        dialogB: args.dialogB,
+        dialogC: args.dialogC,
+        workTime: args.workTime
+      },
+      where: { id: args.id }
+    });
   }
   //   const valid = await bcrypt.compare(password, user ? user.password : "");
   //   if (!valid || !user) {

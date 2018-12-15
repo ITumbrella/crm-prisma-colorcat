@@ -69,8 +69,16 @@ type Admin {
   name: String!
   userName: String! @unique
   password: String!
+  departmentName: String!
+  availiable: Boolean!
   routePages: [Int!]! #管理员权限
   createdAt: DateTime!
+}
+#权限组
+type Department {
+  id: ID! @unique
+  name: String!
+  routePages: [Int!]! #权限设置
 }
 #广告类别
 type Ad {
