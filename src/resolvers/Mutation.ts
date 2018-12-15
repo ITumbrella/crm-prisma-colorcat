@@ -141,6 +141,12 @@ const Mutation = {
       }
     });
   },
+  updateAdminAvailiable: async (parent, args, context) => {
+    return await prisma.updateAdmin({
+      data: { availiable: args.availiable },
+      where: { id: args.id }
+    });
+  },
 
   // 咨询工作量mutation
   addConsultationWork: async (parent, args, context) => {

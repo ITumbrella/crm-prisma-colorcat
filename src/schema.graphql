@@ -115,11 +115,12 @@ type Mutation {
   deleteAdmin(id: String!): Admin!
   updateAdmin(
     id: String!
-    name: String
-    password: String
-    availiable: Boolean
-    departmentId: String
+    name: String!
+    password: String!
+    availiable: Boolean!
+    departmentId: String!
   ): Admin!
+  updateAdminAvailiable(id: String!, availiable: Boolean): Admin!
 
   deleteDictionaryItem(id: String!): Dictionary
   deleteAdConsumption(id: String!): MutationResult!
