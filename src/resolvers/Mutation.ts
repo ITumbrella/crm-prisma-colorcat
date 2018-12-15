@@ -4,19 +4,6 @@ import * as jwt from 'jsonwebtoken';
 import { prisma } from '../../generated/prisma-client';
 
 const Mutation = {
-  signup: async (parent, args, context) => {
-    const password = await bcrypt.hash(args.password, 10);
-    const department = await prisma.department({ id: args.departmentId });
-    return await prisma.createAdmin({
-      routePages: { set: department.routePages },
-      departmentName: department.name,
-      availiable: true,
-      name: args.name,
-      userName: args.userName,
-      password: password
-    });
-  },
-
   autoLogin: async (parent, args, context) => {
     const { userId } = jwt.verify(args.token, "crm-mc-colorcat") as {
       userId: string;
@@ -123,7 +110,37 @@ const Mutation = {
   deleteDictionaryItem: async (parent, args, context) => {
     return prisma.deleteDictionary({ id: args.id });
   },
-  //权限组管理
+  //系统用户权限
+  signup: async (parent, args, context) => {
+    const password = await bcrypt.hash(args.password, 10);
+    const department = await prisma.department({ id: args.departmentId });
+    return await prisma.createAdmin({
+      routePages: { set: department.routePages },
+      departmentName: department.name,
+      availiable: true,
+      name: args.name,
+      userName: args.userName,
+      password: password
+    });
+  },
+  deleteAdmin: async (parent, args, context) => {
+    return await prisma.deleteAdmin({ id: args.id });
+  },
+  updateAdmin: async (parent, args, context) => {
+    const password = await bcrypt.hash(args.password, 10);
+    const department = await prisma.department({ id: args.departmentId });
+    return await prisma.updateAdmin({
+      data: {
+        availiable: args.availiable,
+        routePages: { set: department.routePages },
+        password: password,
+        name: args.name
+      },
+      where: {
+        id: args.id
+      }
+    });
+  },
 
   // 咨询工作量mutation
   addConsultationWork: async (parent, args, context) => {
@@ -144,17 +161,5 @@ const Mutation = {
       where: { id: args.id }
     });
   }
-  //   const valid = await bcrypt.compare(password, user ? user.password : "");
-  //   if (!valid || !user) {
-  //     throw new Error("Invalid Credentials");
-  //   }
-  //   console.log(process.env.APP_SECRET);
-  //   const token = jwt.sign({ userId: user.id }, process.env
-  //     .APP_SECRET as jwt.Secret);
-  //   return {
-  //     id: user.id,
-  //     token
-  //   };
-  // }
 };
 export default Mutation;

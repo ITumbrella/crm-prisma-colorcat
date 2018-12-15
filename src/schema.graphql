@@ -86,6 +86,8 @@ type Mutation {
     itemParentId: String
     itemAvailiable: Boolean!
   ): Dictionary
+
+  #咨询工作量
   addConsultationWork(
     consultationType: String!
     dialogA: Int!
@@ -102,14 +104,25 @@ type Mutation {
     dialogC: Int!
     workTime: String!
   ): ConsultationWork!
-  deleteDictionaryItem(id: String!): Dictionary
-  deleteAdConsumption(id: String!): MutationResult!
+
+  #系统用户权限
   signup(
     name: String!
     userName: String!
     password: String!
     departmentId: String!
   ): Admin!
+  deleteAdmin(id: String!): Admin!
+  updateAdmin(
+    id: String!
+    name: String!
+    password: String!
+    availiable: Boolean!
+    departmentId: String!
+  ): Admin!
+
+  deleteDictionaryItem(id: String!): Dictionary
+  deleteAdConsumption(id: String!): MutationResult!
   login(userName: String!, password: String!): AuthPayload!
   autoLogin(token: String!): AuthPayload!
 }
