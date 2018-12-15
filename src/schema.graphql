@@ -135,6 +135,7 @@ type Query {
   adConsumptions: [AdConsumptionRec!]!
   consultationWorks: [ConsultationWork!]!
   admins: [Admin!]!
+  departments: [Department!]!
 }
 
 #实体 datamodel
