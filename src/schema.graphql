@@ -104,7 +104,12 @@ type Mutation {
   ): ConsultationWork!
   deleteDictionaryItem(id: String!): Dictionary
   deleteAdConsumption(id: String!): MutationResult!
-  signup(name: String!, userName: String!, password: String!): MutationResult!
+  signup(
+    name: String!
+    userName: String!
+    password: String!
+    departmentId: String!
+  ): Admin!
   login(userName: String!, password: String!): AuthPayload!
   autoLogin(token: String!): AuthPayload!
 }

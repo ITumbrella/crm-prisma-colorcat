@@ -6,13 +6,15 @@ import { prisma } from '../../generated/prisma-client';
 const Mutation = {
   signup: async (parent, args, context) => {
     const password = await bcrypt.hash(args.password, 10);
-    await prisma.createAdmin({
+    const department = await prisma.department({ id: args.departmentId });
+    return await prisma.createAdmin({
+      routePages: { set: department.routePages },
+      departmentName: department.name,
+      availiable: true,
       name: args.name,
       userName: args.userName,
       password: password
     });
-
-    return { success: true };
   },
 
   autoLogin: async (parent, args, context) => {
