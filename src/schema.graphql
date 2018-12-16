@@ -67,19 +67,27 @@ type Mutation {
     plan: String!
     availiable: Boolean!
   ): MutationResult!
+  login(userName: String!, password: String!): AuthPayload!
+  autoLogin(token: String!): AuthPayload!
+
+  #字典
   updateDictionaryItem(
     id: String!
-    itemName: String!
-    itemAvailiable: Boolean!
+    itemName: String
+    itemAvailiable: Boolean
+    sortIndex: Int
+    rootIndex: Int
+    ps: String
   ): Dictionary
   addDictionaryItem(
     itemName: String!
     itemParentId: String
     itemAvailiable: Boolean!
+    sortIndex: Int
+    rootIndex: Int
+    ps: String
   ): Dictionary
   deleteDictionaryItem(id: String!): Dictionary
-  login(userName: String!, password: String!): AuthPayload!
-  autoLogin(token: String!): AuthPayload!
 
   #广告消费记录
   addAdConsumptionRec(
@@ -238,6 +246,9 @@ type Dictionary {
   itemName: String!
   itemParentId: ID
   itemAvailiable: Boolean!
+  rootIndex: Int
+  sortIndex: Int
+  ps: String
   createdAt: DateTime!
 }
 

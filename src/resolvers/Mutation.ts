@@ -89,19 +89,6 @@ const Mutation = {
     });
     return { success: true };
   },
-  addDictionaryItem: async (parent, args, context) => {
-    return await prisma.createDictionary(args);
-  },
-  updateDictionaryItem: async (parent, args, context) => {
-    const item = await prisma.updateDictionary({
-      data: { itemName: args.itemName, itemAvailiable: args.itemAvailiable },
-      where: { id: args.id }
-    });
-    return item;
-  },
-  deleteDictionaryItem: async (parent, args, context) => {
-    return prisma.deleteDictionary({ id: args.id });
-  },
 
   //广告消费记录 mutations
   addAdConsumptionRec: async (parent, args, context) => {
@@ -124,6 +111,26 @@ const Mutation = {
         id: args.id
       }
     });
+  },
+  //字典
+  addDictionaryItem: async (parent, args, context) => {
+    return await prisma.createDictionary(args);
+  },
+  updateDictionaryItem: async (parent, args, context) => {
+    const item = await prisma.updateDictionary({
+      data: {
+        itemName: args.itemName,
+        itemAvailiable: args.itemAvailiable,
+        sortIndex: args.sortIndex,
+        rootIndex: args.rootIndex,
+        ps: args.ps
+      },
+      where: { id: args.id }
+    });
+    return item;
+  },
+  deleteDictionaryItem: async (parent, args, context) => {
+    return prisma.deleteDictionary({ id: args.id });
   },
 
   //系统用户权限
