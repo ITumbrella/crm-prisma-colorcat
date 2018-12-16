@@ -79,6 +79,7 @@ type Department {
   id: ID! @unique
   name: String!
   routePages: [Int!]! #权限设置
+  createdAt: DateTime!
 }
 #广告类别
 type Ad {
