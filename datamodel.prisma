@@ -80,7 +80,7 @@ type Admin {
 #权限组
 type Department {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   routePages: [Int!]! #权限设置
   createdAt: DateTime!
 }

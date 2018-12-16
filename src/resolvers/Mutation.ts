@@ -199,7 +199,7 @@ const Mutation = {
     });
   },
   updateDepartment: async (parent, args, context) => {
-    return await prisma.updateDepartment({
+    const department = await prisma.updateDepartment({
       data: {
         name: args.name,
         routePages: { set: args.routePages }
@@ -208,6 +208,16 @@ const Mutation = {
         id: args.id
       }
     });
+    await prisma.updateManyAdmins({
+      data: {
+        departmentName: department.name,
+        routePages: { set: department.routePages }
+      },
+      where: {
+        departmentName: department.name
+      }
+    });
+    return department;
   },
   deleteDepartment: async (parent, args, context) => {
     return await prisma.deleteDepartment({ id: args.id });
