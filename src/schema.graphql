@@ -137,6 +137,11 @@ type Mutation {
     departmentId: String!
   ): Admin!
   updateAdminAvailiable(id: String!, availiable: Boolean): Admin!
+
+  #部门 mutations
+  addDepartment(name: String!, routePages: [Int!]!): Department!
+  updateDepartment(id: String!, name: String!, routePages: [Int!]!): Department!
+  deleteDepartment(id: String!): Department!
 }
 type Query {
   userBasics: [UserBasic!]!

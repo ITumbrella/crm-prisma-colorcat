@@ -102,7 +102,8 @@ const Mutation = {
   deleteDictionaryItem: async (parent, args, context) => {
     return prisma.deleteDictionary({ id: args.id });
   },
-  //广告消费记录
+
+  //广告消费记录 mutations
   addAdConsumptionRec: async (parent, args, context) => {
     return await prisma.createAdConsumptionRec(args);
   },
@@ -181,6 +182,28 @@ const Mutation = {
       },
       where: { id: args.id }
     });
+  },
+
+  // 部门 mutations
+  addDepartment: async (parent, args, context) => {
+    return await prisma.createDepartment({
+      name: args.name,
+      routePages: { set: args.routePages }
+    });
+  },
+  updateDepartment: async (parent, args, context) => {
+    return await prisma.updateDepartment({
+      data: {
+        name: args.name,
+        routePages: { set: args.routePages }
+      },
+      where: {
+        id: args.id
+      }
+    });
+  },
+  deleteDepartment: async (parent, args, context) => {
+    return await prisma.deleteDepartment({ id: args.id });
   }
 };
 export default Mutation;
