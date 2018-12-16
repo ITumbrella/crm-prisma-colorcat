@@ -67,15 +67,6 @@ type Mutation {
     plan: String!
     availiable: Boolean!
   ): MutationResult!
-  addAdConsumptionRec(
-    typeName: String!
-    plan: String!
-    displayAmount: Int!
-    clickAmount: Int!
-    consumption: Int!
-    time: String!
-    editor: String!
-  ): MutationResult!
   updateDictionaryItem(
     id: String!
     itemName: String!
@@ -86,6 +77,31 @@ type Mutation {
     itemParentId: String
     itemAvailiable: Boolean!
   ): Dictionary
+  deleteDictionaryItem(id: String!): Dictionary
+  login(userName: String!, password: String!): AuthPayload!
+  autoLogin(token: String!): AuthPayload!
+
+  #广告消费记录
+  addAdConsumptionRec(
+    typeName: String
+    plan: String
+    displayAmount: Int
+    clickAmount: Int
+    consumption: Int
+    time: String
+    editor: String
+  ): AdConsumptionRec!
+  deleteAdConsumptionRec(id: String!): AdConsumptionRec!
+  updateAdConsumptionRec(
+    id: String!
+    typeName: String
+    plan: String
+    displayAmount: Int
+    clickAmount: Int
+    consumption: Int
+    time: String
+    editor: String
+  ): AdConsumptionRec!
 
   #咨询工作量
   addConsultationWork(
@@ -121,11 +137,6 @@ type Mutation {
     departmentId: String!
   ): Admin!
   updateAdminAvailiable(id: String!, availiable: Boolean): Admin!
-
-  deleteDictionaryItem(id: String!): Dictionary
-  deleteAdConsumption(id: String!): MutationResult!
-  login(userName: String!, password: String!): AuthPayload!
-  autoLogin(token: String!): AuthPayload!
 }
 type Query {
   userBasics: [UserBasic!]!

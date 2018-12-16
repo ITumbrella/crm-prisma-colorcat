@@ -89,14 +89,6 @@ const Mutation = {
     });
     return { success: true };
   },
-  addAdConsumptionRec: async (parent, args, context) => {
-    await prisma.createAdConsumptionRec(args);
-    return { success: true };
-  },
-  deleteAdConsumption: async (parent, args, context) => {
-    await prisma.deleteAdConsumptionRec({ id: args.id });
-    return { success: true };
-  },
   addDictionaryItem: async (parent, args, context) => {
     return await prisma.createDictionary(args);
   },
@@ -110,6 +102,29 @@ const Mutation = {
   deleteDictionaryItem: async (parent, args, context) => {
     return prisma.deleteDictionary({ id: args.id });
   },
+  //广告消费记录
+  addAdConsumptionRec: async (parent, args, context) => {
+    return await prisma.createAdConsumptionRec(args);
+  },
+  deleteAdConsumptionRec: async (parent, args, context) => {
+    return await prisma.deleteAdConsumptionRec({ id: args.id });
+  },
+  updateAdConsumptionRec: async (parent, args, context) => {
+    return await prisma.updateAdConsumptionRec({
+      data: {
+        typeName: args.typeName,
+        plan: args.plan,
+        displayAmount: args.displayAmount,
+        clickAmount: args.clickAmount,
+        consumption: args.consumption,
+        time: args.time
+      },
+      where: {
+        id: args.id
+      }
+    });
+  },
+
   //系统用户权限
   signup: async (parent, args, context) => {
     const password = await bcrypt.hash(args.password, 10);
