@@ -199,6 +199,7 @@ const Mutation = {
     });
   },
   updateDepartment: async (parent, args, context) => {
+    const oldDepartment = await prisma.department({ id: args.id });
     const department = await prisma.updateDepartment({
       data: {
         name: args.name,
@@ -214,7 +215,7 @@ const Mutation = {
         routePages: { set: department.routePages }
       },
       where: {
-        departmentName: department.name
+        departmentName: oldDepartment.name
       }
     });
     return department;
