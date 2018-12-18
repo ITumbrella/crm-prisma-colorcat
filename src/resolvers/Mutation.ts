@@ -45,11 +45,6 @@ const Mutation = {
       routePages: user.routePages
     };
   },
-  addUser: async (parent, args, context) => {
-    const user = await prisma.createUserBasic(args);
-    console.log(`${new Date()} addUserBasic`);
-    return { success: true, userId: user.id };
-  },
   addConsultingRecord: async (parent, args, context) => {
     await prisma.createConsultingRecord({
       advisoryDetail: args.advisoryDetail,
@@ -87,6 +82,18 @@ const Mutation = {
         id: args.id
       }
     });
+    return { success: true };
+  },
+
+  //用户
+  addUser: async (parent, args, context) => {
+    const user = await prisma.createUserBasic(args);
+    console.log(`${new Date()} addUserBasic`);
+    return { success: true, userId: user.id };
+  },
+  deleteUser: async (parent, args, context) => {
+    await prisma.deleteUserBasic({ id: args.id });
+    console.log(`${new Date().toString()} deleteUser`);
     return { success: true };
   },
 

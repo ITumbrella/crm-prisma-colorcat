@@ -12,6 +12,7 @@ type MutationResult {
   success: Boolean!
 }
 type Mutation {
+  #用户
   addUser(
     name: String! #姓名
     sex: String! #性别
@@ -48,6 +49,8 @@ type Mutation {
     haveDoneInAnotherHospital: String #他院已做项目
     tag: String #客户标签
   ): CustomReturn! #{ success: true, userId: user.id }
+  deleteUser(id: ID!): MutationResult!
+
   addConsultingRecord(
     userId: ID!
     advisoryWay: String #咨询方式
