@@ -14,8 +14,14 @@ const Query = {
     const ret = [];
     let users = await prisma.userBasics();
     for (const user of users) {
+      const consultations = await prisma.consultingRecords({
+        where: { user: { id: user.id } },
+        first: 1
+      });
+
       ret.push({
         ...user,
+        firstAdvisoryWay: consultations[0].advisoryWay,
         consultationCount: await prisma
           .consultingRecordsConnection({ where: { user: { id: user.id } } })
           .aggregate()
