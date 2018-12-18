@@ -170,7 +170,7 @@ type Query {
   consultationWorks: [ConsultationWork!]!
   admins: [Admin!]!
   departments: [Department!]!
-  userDetailWDView: CustomReturn
+  usersDetailWDView: CustomReturn
   bills: [Bill!]!
 }
 

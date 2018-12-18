@@ -10,11 +10,40 @@ const Query = {
   consultationWorks: async () => await prisma.consultationWorks(),
   admins: async () => await prisma.admins(),
   departments: async () => await prisma.departments(),
-  userDetailWDView: async () => {
-    const users = await prisma.userBasics();
-    console.log(users);
-    return users;
+  usersDetailWDView: async () => {
+    const ret = [];
+    let users = await prisma.userBasics();
+    for (const user of users) {
+      ret.push({
+        ...user,
+        consultationCount: await prisma
+          .consultingRecordsConnection({ where: { user: { id: user.id } } })
+          .aggregate()
+          .count(),
+        bookingCount: await prisma
+          .bookingRecordsConnection({ where: { user: { id: user.id } } })
+          .aggregate()
+          .count(),
+        billsCount: await prisma
+          .billsConnection({ where: { user: { id: user.id } } })
+          .aggregate()
+          .count()
+      });
+    }
+
+    return ret;
   },
   bills: async () => prisma.bills()
 };
+export interface UserDetail {
+  id: String;
+  name: String;
+  vipLevel: String;
+  age: String;
+  where: String;
+  bigFrom: String;
+  mainProject: String;
+  createdAt: String;
+  sex: String;
+}
 export default Query;
