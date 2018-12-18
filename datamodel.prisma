@@ -114,3 +114,23 @@ type ConsultationWork {
   workTime: String!
   editor: String
 }
+
+#消费单
+type Bill {
+  id: ID! @unique
+  billId: String! @unique
+  userId: String!
+  userName: String
+  billPrice: Int
+  pay: Int
+  creator: String
+  project: String
+  payStatus: String
+  payType: String
+  doctorName: String
+  frontDesk: String
+  from: String
+  where: String
+  consultant: String
+  createdAt: DateTime!
+}

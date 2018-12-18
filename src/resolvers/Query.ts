@@ -9,6 +9,12 @@ const Query = {
   adConsumptions: async () => await prisma.adConsumptionRecs(),
   consultationWorks: async () => await prisma.consultationWorks(),
   admins: async () => await prisma.admins(),
-  departments: async () => await prisma.departments()
+  departments: async () => await prisma.departments(),
+  userDetailWDView: async () => {
+    const users = await prisma.userBasics();
+    console.log(users);
+    return users;
+  },
+  bills: async () => prisma.bills()
 };
 export default Query;

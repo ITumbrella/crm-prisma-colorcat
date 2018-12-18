@@ -222,6 +222,25 @@ const Mutation = {
   },
   deleteDepartment: async (parent, args, context) => {
     return await prisma.deleteDepartment({ id: args.id });
+  },
+
+  //消费单
+  addBill: async (parent, args, context) => {
+    return await prisma.createBill({
+      billId: new Date().toString(),
+      userId: args.userId
+    });
+  },
+  deleteBill: async (parent, args, context) => {
+    return await prisma.deleteBill({ id: args.id });
+  },
+  updateBill: async (parent, args, context) => {
+    return await prisma.updateBill({
+      data: {},
+      where: {
+        id: args.id
+      }
+    });
   }
 };
 export default Mutation;

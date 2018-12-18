@@ -150,7 +150,13 @@ type Mutation {
   addDepartment(name: String!, routePages: [Int!]!): Department!
   updateDepartment(id: String!, name: String!, routePages: [Int!]!): Department!
   deleteDepartment(id: String!): Department!
+
+  #消费单
+  addBill(billId: String!, userId: String!): Bill!
+  deleteBill(id: String!): Bill!
+  updateBill(id: String!): Bill!
 }
+
 type Query {
   userBasics: [UserBasic!]!
   consultingRecords: [ConsultingRecord!]!
@@ -161,6 +167,8 @@ type Query {
   consultationWorks: [ConsultationWork!]!
   admins: [Admin!]!
   departments: [Department!]!
+  userDetailWDView: CustomReturn
+  bills: [Bill!]!
 }
 
 #实体 datamodel
@@ -281,4 +289,24 @@ type ConsultationWork {
   dialogC: Int!
   workTime: String!
   editor: String
+}
+
+#消费单
+type Bill {
+  id: ID!
+  billId: String
+  userId: String
+  userName: String
+  billPrice: Int
+  pay: Int
+  creator: String
+  project: String
+  payStatus: String
+  payType: String
+  doctorName: String
+  frontDesk: String
+  from: String
+  where: String
+  consultant: String
+  createdAt: DateTime!
 }
