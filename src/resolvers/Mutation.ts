@@ -225,12 +225,6 @@ const Mutation = {
   },
 
   //消费单
-  addBill: async (parent, args, context) => {
-    return await prisma.createBill({
-      billId: new Date().toString(),
-      userId: args.userId
-    });
-  },
   deleteBill: async (parent, args, context) => {
     return await prisma.deleteBill({ id: args.id });
   },
@@ -241,6 +235,16 @@ const Mutation = {
         id: args.id
       }
     });
+  },
+  addBill: async (parent, args, context) => {
+    const bill = await prisma.createBill({
+      user: { connect: { id: args.userId } },
+      billId: new Date().toString()
+    });
+    console.log(bill);
+    console.log(`${new Date()} addBill`);
+
+    return bill;
   }
 };
 export default Mutation;

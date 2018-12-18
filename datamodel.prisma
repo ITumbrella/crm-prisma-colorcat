@@ -119,8 +119,7 @@ type ConsultationWork {
 type Bill {
   id: ID! @unique
   billId: String! @unique
-  userId: String!
-  userName: String
+  user: UserBasic!
   billPrice: Int
   pay: Int
   creator: String

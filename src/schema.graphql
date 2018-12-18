@@ -152,7 +152,7 @@ type Mutation {
   deleteDepartment(id: String!): Department!
 
   #消费单
-  addBill(billId: String!, userId: String!): Bill!
+  addBill(billId: String!, userId: ID!): Bill!
   deleteBill(id: String!): Bill!
   updateBill(id: String!): Bill!
 }
@@ -294,8 +294,8 @@ type ConsultationWork {
 #消费单
 type Bill {
   id: ID!
-  billId: String
-  userId: String
+  billId: String!
+  user: UserBasic!
   userName: String
   billPrice: Int
   pay: Int
