@@ -193,6 +193,7 @@ type Department {
   name: String!
   routePages: [Int!]! #权限设置
   createdAt: DateTime!
+  parentId: ID
 }
 # 客户主表
 type UserBasic {
