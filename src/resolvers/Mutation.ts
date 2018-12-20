@@ -201,6 +201,7 @@ const Mutation = {
   // 部门 mutations
   addDepartment: async (parent, args, context) => {
     return await prisma.createDepartment({
+      parentId: args.parentId,
       name: args.name,
       routePages: { set: args.routePages }
     });
@@ -210,7 +211,8 @@ const Mutation = {
     const department = await prisma.updateDepartment({
       data: {
         name: args.name,
-        routePages: { set: args.routePages }
+        routePages: { set: args.routePages },
+        parentId: args.parentId
       },
       where: {
         id: args.id

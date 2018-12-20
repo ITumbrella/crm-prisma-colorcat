@@ -150,8 +150,17 @@ type Mutation {
   updateAdminAvailiable(id: String!, availiable: Boolean): Admin!
 
   #部门 mutations
-  addDepartment(name: String!, routePages: [Int!]!): Department!
-  updateDepartment(id: String!, name: String!, routePages: [Int!]!): Department!
+  addDepartment(
+    name: String!
+    routePages: [Int!]!
+    parentId: String!
+  ): Department!
+  updateDepartment(
+    id: String!
+    name: String!
+    routePages: [Int!]!
+    parentId: String!
+  ): Department!
   deleteDepartment(id: String!): Department!
 
   #消费单
