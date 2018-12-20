@@ -73,6 +73,7 @@ type Admin {
   userName: String! @unique
   password: String!
   departmentName: String!
+  departmentId: ID! @default(value: "0")
   availiable: Boolean!
   routePages: [Int!]! #管理员权限
   createdAt: DateTime!

@@ -147,6 +147,7 @@ const Mutation = {
     return await prisma.createAdmin({
       routePages: { set: department.routePages },
       departmentName: department.name,
+      departmentId: args.departmentId,
       availiable: true,
       name: args.name,
       userName: args.userName,
