@@ -42,7 +42,8 @@ const Mutation = {
       userId: user.id,
       name: user.name,
       token,
-      routePages: user.routePages
+      routePages: user.routePages,
+      departmentId: user.departmentId
     };
   },
   addConsultingRecord: async (parent, args, context) => {
