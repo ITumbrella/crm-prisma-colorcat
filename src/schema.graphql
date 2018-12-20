@@ -6,6 +6,7 @@ type AuthPayload {
   name: String!
   userId: String!
   routePages: [Int!]!
+  departmentId: String!
 }
 
 type MutationResult {
