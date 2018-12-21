@@ -1,10 +1,19 @@
+# Common
 scalar DateTime
 scalar CustomReturn
+type AuthPayload {
+  token: String!
+  name: String!
+  userId: String!
+  routePages: [Int!]!
+  departmentId: String!
+}
 
 type MutationResult {
   success: Boolean!
 }
 type Mutation {
+  #用户
   addUser(
     name: String! #姓名
     sex: String! #性别
@@ -41,6 +50,8 @@ type Mutation {
     haveDoneInAnotherHospital: String #他院已做项目
     tag: String #客户标签
   ): CustomReturn! #{ success: true, userId: user.id }
+  deleteUser(id: ID!): MutationResult!
+
   addConsultingRecord(
     userId: ID!
     advisoryWay: String #咨询方式
@@ -54,28 +65,111 @@ type Mutation {
     time: String! #预到时间
   ): MutationResult!
   addAd(typeName: String!, plan: String!, availiable: Boolean!): MutationResult!
-  addAdConsumptionRec(
+  updateAd(
+    id: String!
     typeName: String!
     plan: String!
-    displayAmount: Int!
-    clickAmount: Int!
-    consumption: Int!
-    time: String!
-    editor: String!
+    availiable: Boolean!
   ): MutationResult!
+  login(userName: String!, password: String!): AuthPayload!
+  autoLogin(token: String!): AuthPayload!
+
+  #字典
+  updateDictionaryItem(
+    id: String!
+    itemName: String
+    itemAvailiable: Boolean
+    sortIndex: Int
+    rootIndex: Int
+    ps: String
+  ): Dictionary
+  addDictionaryItem(
+    itemName: String!
+    itemParentId: String
+    itemAvailiable: Boolean!
+    sortIndex: Int
+    rootIndex: Int
+    ps: String
+  ): Dictionary
+  deleteDictionaryItem(id: String!): Dictionary
+
+  #广告消费记录
+  addAdConsumptionRec(
+    typeName: String
+    plan: String
+    displayAmount: Int
+    clickAmount: Int
+    consumption: Int
+    time: String
+    editor: String
+  ): AdConsumptionRec!
+  deleteAdConsumptionRec(id: String!): AdConsumptionRec!
+  updateAdConsumptionRec(
+    id: String!
+    typeName: String
+    plan: String
+    displayAmount: Int
+    clickAmount: Int
+    consumption: Int
+    time: String
+    editor: String
+  ): AdConsumptionRec!
+
+  #咨询工作量
   addConsultationWork(
     consultationType: String!
     dialogA: Int!
     dialogB: Int!
     dialogC: Int!
     workTime: String!
-  ): MutationResult!
-  updateDictionaryItem(id: String!, itemName: String!): [Dictionary!]!
-  addDictionaryItem(itemName: String!, itemParentId: String): [Dictionary!]!
-  deleteDictionaryItem(id: String!): [Dictionary!]!
-  deleteConsultationWork(id: String!): MutationResult!
-  deleteAdConsumption(id: String!): MutationResult!
+  ): ConsultationWork!
+  deleteConsultationWork(id: String!): ConsultationWork!
+  updateConsutationWork(
+    id: String!
+    consultationType: String!
+    dialogA: Int!
+    dialogB: Int!
+    dialogC: Int!
+    workTime: String!
+  ): ConsultationWork!
+
+  #系统用户权限
+  signup(
+    name: String!
+    userName: String!
+    password: String!
+    departmentId: String!
+  ): Admin!
+  deleteAdmin(id: String!): Admin!
+  updateAdmin(
+    id: String!
+    name: String!
+    password: String!
+    availiable: Boolean!
+    departmentId: String!
+  ): Admin!
+  updateAdminAvailiable(id: String!, availiable: Boolean): Admin!
+
+  #部门 mutations
+  addDepartment(
+    name: String!
+    routePages: [Int!]!
+    parentId: String!
+  ): Department!
+  updateDepartment(
+    id: String!
+    name: String!
+    routePages: [Int!]!
+    parentId: String!
+  ): Department!
+  deleteDepartment(id: String!): Department!
+
+  #消费单
+  addBill(billId: String!, userId: ID!): Bill!
+  deleteBill(id: String!): Bill!
+  updateBill(id: String!): Bill!
 }
+
 type Query {
   userBasics: [UserBasic!]!
   consultingRecords: [ConsultingRecord!]!
@@ -84,24 +178,34 @@ type Query {
   ads: [Ad!]!
   adConsumptions: [AdConsumptionRec!]!
   consultationWorks: [ConsultationWork!]!
+  admins: [Admin!]!
+  departments: [Department!]!
+  usersDetailWDView: CustomReturn
+  bills: [Bill!]!
 }
 
-# 路由页面表, CRM的路由页面
-type RoutePage {
+#实体 datamodel
+
+#管理员
+type Admin {
   id: ID!
-  pageIndex: Int!
-  pageName: String!
-}
-# 员工主表
-type Staff {
-  id: ID!
+  name: String!
   userName: String!
   password: String!
-  role: Int!
-  privilege: [RoutePage!]!
+  departmentName: String!
+  departmentId: ID!
+  availiable: Boolean!
+  routePages: [Int!]! #管理员权限
   createdAt: DateTime!
 }
-
+#权限组
+type Department {
+  id: ID!
+  name: String!
+  routePages: [Int!]! #权限设置
+  createdAt: DateTime!
+  parentId: ID
+}
 # 客户主表
 type UserBasic {
   id: ID!
@@ -164,7 +268,13 @@ type Dictionary {
   id: ID!
   itemName: String!
   itemParentId: ID
+  itemAvailiable: Boolean!
+  rootIndex: Int
+  sortIndex: Int
+  ps: String
+  createdAt: DateTime!
 }
+
 #广告类别和广告计划
 type Ad {
   id: ID!
@@ -172,6 +282,7 @@ type Ad {
   plan: String!
   availiable: Boolean!
   editor: String
+  createdAt: DateTime!
 }
 #广告消费记录
 type AdConsumptionRec {
@@ -193,4 +304,24 @@ type ConsultationWork {
   dialogC: Int!
   workTime: String!
   editor: String
+}
+
+#消费单
+type Bill {
+  id: ID!
+  billId: String!
+  user: UserBasic!
+  userName: String
+  billPrice: Int
+  pay: Int
+  creator: String
+  project: String
+  payStatus: String
+  payType: String
+  doctorName: String
+  frontDesk: String
+  from: String
+  where: String
+  consultant: String
+  createdAt: DateTime!
 }
