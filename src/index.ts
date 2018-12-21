@@ -10,5 +10,5 @@ const server = new GraphQLServer({
 });
 
 server.start(async () => {
-  console.log("Server is running on http://localhost:4000");
+  console.log("CRMServer is running on http://localhost:4000");
 });
