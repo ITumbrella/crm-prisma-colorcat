@@ -18,22 +18,26 @@ const Query = {
         where: { user: { id: user.id } },
         first: 1
       });
-
+      const consultationCount = await prisma
+        .consultingRecordsConnection({ where: { user: { id: user.id } } })
+        .aggregate()
+        .count();
+      const bookingCount = await prisma
+        .bookingRecordsConnection({ where: { user: { id: user.id } } })
+        .aggregate()
+        .count();
+      const billsCount = await prisma
+        .billsConnection({ where: { user: { id: user.id } } })
+        .aggregate()
+        .count();
       ret.push({
         ...user,
-        firstAdvisoryWay: consultations[0].advisoryWay,
-        consultationCount: await prisma
-          .consultingRecordsConnection({ where: { user: { id: user.id } } })
-          .aggregate()
-          .count(),
-        bookingCount: await prisma
-          .bookingRecordsConnection({ where: { user: { id: user.id } } })
-          .aggregate()
-          .count(),
-        billsCount: await prisma
-          .billsConnection({ where: { user: { id: user.id } } })
-          .aggregate()
-          .count()
+        firstAdvisoryWay: consultations[0].advisoryWay
+          ? consultations[0].advisoryWay
+          : "无",
+        consultationCount,
+        bookingCount,
+        billsCount
       });
     }
 
