@@ -33,9 +33,8 @@ const Query = {
       console.log(consultations);
       ret.push({
         ...user,
-        firstAdvisoryWay: consultations[0].advisoryWay
-          ? consultations[0].advisoryWay
-          : "无",
+        firstAdvisoryWay:
+          consultations.length !== 0 ? consultations[0].advisoryWay : "无",
         consultationCount,
         bookingCount,
         billsCount
