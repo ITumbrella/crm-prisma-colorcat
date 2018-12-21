@@ -77,6 +77,7 @@ type Mutation {
     bookingStatus: String!
   ): BookingRecord
   updateBookingRecord(
+    id: ID!
     toHospitalCate: String
     bookingStatus: String
   ): BookingRecord

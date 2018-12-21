@@ -55,6 +55,15 @@ type BookingRecord {
   bookingStatus: String
   time: String!
   createdAt: DateTime!
+  #流水
+  consultant: String
+  consultantID: ID
+  frontDesk: String
+  frontDeskId: ID
+  assistant: String
+  assistantId: ID
+  doctor: String
+  doctorId: ID
 }
 #字典
 type Dictionary {
