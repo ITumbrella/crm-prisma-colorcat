@@ -30,6 +30,7 @@ const Query = {
         .billsConnection({ where: { user: { id: user.id } } })
         .aggregate()
         .count();
+      console.log(consultations);
       ret.push({
         ...user,
         firstAdvisoryWay: consultations[0].advisoryWay
