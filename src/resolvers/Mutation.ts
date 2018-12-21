@@ -58,16 +58,6 @@ const Mutation = {
     console.log(`${new Date()} addConsultingRecord`);
     return { success: true };
   },
-  addBookingRecord: async (parent, args, context) => {
-    await prisma.createBookingRecord({
-      user: { connect: { id: args.userId } },
-      toHospitalCate: args.toHospitalCate,
-      time: args.time
-    });
-
-    console.log(`${new Date()} addBookingRecord`);
-    return { success: true };
-  },
   addAd: async (parent, args, context) => {
     await prisma.createAd(args);
     return { success: true };
@@ -84,6 +74,34 @@ const Mutation = {
       }
     });
     return { success: true };
+  },
+
+  //预约记录
+  addBookingRecord: async (parent, args, context) => {
+    const newR = await prisma.createBookingRecord({
+      user: { connect: { id: args.userId } },
+      toHospitalCate: args.toHospitalCate,
+      time: args.time,
+      bookingStatus: args.bookingStatus
+    });
+    console.log(`${new Date()} addBookingRecord`);
+    return newR;
+  },
+  updateBookingRecord: async (parent, args, context) => {
+    const newR = await prisma.updateBookingRecord({
+      data: {
+        toHospitalCate: args.toHospitalCate,
+        bookingStatus: args.bookingStatus
+      },
+      where: {
+        id: args.id
+      }
+    });
+    console.log(`${new Date()} updateBookingRecord`);
+    return newR;
+  },
+  deleteBookingRecord: async (parent, args, context) => {
+    return await prisma.deleteBookingRecord({ id: args.id });
   },
 
   //用户

@@ -52,6 +52,7 @@ type BookingRecord {
   id: ID! @unique
   user: UserBasic!
   toHospitalCate: String!
+  bookingStatus: String
   time: String!
   createdAt: DateTime!
 }
@@ -116,7 +117,6 @@ type ConsultationWork {
   workTime: String!
   editor: String
 }
-
 #消费单
 type Bill {
   id: ID! @unique
