@@ -278,7 +278,7 @@ const Mutation = {
 
   //机构
   addAgency: async (parent, args, context) => {
-    console.log(context.request.get("Authorization"));
+    console.log(context.request.header("authorization"));
 
     return await prisma.createAgency(args);
   },
