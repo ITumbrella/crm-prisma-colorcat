@@ -144,3 +144,25 @@ type Bill {
   consultant: String
   createdAt: DateTime!
 }
+#机构
+type Agency {
+  id: ID! @unique
+  agencyName: String
+  agencyType: String
+  agencyLevel: String
+  coStatus: String
+  availiable: Boolean
+  agencyHead: String
+  headTel: String
+  agencyContact: String
+  contactTel: String
+  introducer: String
+  whereLevel1: String
+  whereLevel2: String
+  whereDetail: String
+  commission: String #佣金
+  dealTime: String
+  marketor: String
+  detail: String
+  createdAt: DateTime!
+}

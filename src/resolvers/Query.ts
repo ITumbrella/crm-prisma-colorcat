@@ -1,15 +1,18 @@
 import { prisma } from '../../generated/prisma-client';
 
+export interface UserDetail {
+  id: String;
+  name: String;
+  vipLevel: String;
+  age: String;
+  where: String;
+  bigFrom: String;
+  mainProject: String;
+  createdAt: String;
+  sex: String;
+}
+
 const Query = {
-  userBasics: async () => await prisma.userBasics(),
-  consultingRecords: async () => await prisma.consultingRecords(),
-  bookingRecords: async () => await prisma.bookingRecords(),
-  dictionaries: async () => await prisma.dictionaries(),
-  ads: async () => await prisma.ads(),
-  adConsumptions: async () => await prisma.adConsumptionRecs(),
-  consultationWorks: async () => await prisma.consultationWorks(),
-  admins: async () => await prisma.admins(),
-  departments: async () => await prisma.departments(),
   usersDetailWDView: async () => {
     const ret = [];
     let users = await prisma.userBasics();
@@ -43,17 +46,17 @@ const Query = {
 
     return ret;
   },
-  bills: async () => prisma.bills()
+  userBasics: async () => await prisma.userBasics(),
+  consultingRecords: async () => await prisma.consultingRecords(),
+  bookingRecords: async () => await prisma.bookingRecords(),
+  dictionaries: async () => await prisma.dictionaries(),
+  ads: async () => await prisma.ads(),
+  adConsumptions: async () => await prisma.adConsumptionRecs(),
+  consultationWorks: async () => await prisma.consultationWorks(),
+  admins: async () => await prisma.admins(),
+  departments: async () => await prisma.departments(),
+  bills: async () => await prisma.bills(),
+  agencies: async () => await prisma.agencies()
 };
-export interface UserDetail {
-  id: String;
-  name: String;
-  vipLevel: String;
-  age: String;
-  where: String;
-  bigFrom: String;
-  mainProject: String;
-  createdAt: String;
-  sex: String;
-}
+
 export default Query;

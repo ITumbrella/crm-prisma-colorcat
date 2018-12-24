@@ -177,6 +177,48 @@ type Mutation {
   addBill(billId: String!, userId: ID!): Bill!
   deleteBill(id: String!): Bill!
   updateBill(id: String!): Bill!
+
+  #机构
+  addAgency(
+    agencyName: String
+    agencyType: String
+    agencyLevel: String
+    coStatus: String
+    availiable: Boolean
+    agencyHead: String
+    headTel: String
+    agencyContact: String
+    contactTel: String
+    introducer: String
+    whereLevel1: String
+    whereLevel2: String
+    whereDetail: String
+    commission: String #佣金
+    dealTime: String
+    marketor: String
+    detail: String
+  ): Agency!
+  deleteAgency(id: String!): Agency!
+  updateAgency(
+    id: String!
+    agencyName: String
+    agencyType: String
+    agencyLevel: String
+    coStatus: String
+    availiable: Boolean
+    agencyHead: String
+    headTel: String
+    agencyContact: String
+    contactTel: String
+    introducer: String
+    whereLevel1: String
+    whereLevel2: String
+    whereDetail: String
+    commission: String #佣金
+    dealTime: String
+    marketor: String
+    detail: String
+  ): Agency!
 }
 
 type Query {
@@ -191,6 +233,7 @@ type Query {
   departments: [Department!]!
   usersDetailWDView: CustomReturn
   bills: [Bill!]!
+  agencies: [Agency!]!
 }
 
 #实体 datamodel
@@ -333,5 +376,27 @@ type Bill {
   from: String
   where: String
   consultant: String
+  createdAt: DateTime!
+}
+#机构
+type Agency {
+  id: ID!
+  agencyName: String
+  agencyType: String
+  agencyLevel: String
+  coStatus: String
+  availiable: Boolean
+  agencyHead: String
+  headTel: String
+  agencyContact: String
+  contactTel: String
+  introducer: String
+  whereLevel1: String
+  whereLevel2: String
+  whereDetail: String
+  commission: String #佣金
+  dealTime: String
+  marketor: String
+  detail: String
   createdAt: DateTime!
 }

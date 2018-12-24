@@ -274,6 +274,25 @@ const Mutation = {
     console.log(`${new Date()} addBill`);
 
     return bill;
+  },
+
+  //机构
+  addAgency: async (parent, args, context) => {
+    return await prisma.createAgency(args);
+  },
+  updateAgency: async (parent, args, context) => {
+    const id = args.id;
+    delete args["id"];
+
+    return await prisma.updateAgency({
+      data: args,
+      where: {
+        id: id
+      }
+    });
+  },
+  deleteAgency: async (parent, args, context) => {
+    return await prisma.deleteAgency({ id: args.id });
   }
 };
 export default Mutation;
