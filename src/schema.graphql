@@ -356,7 +356,12 @@ type ConsultationWork {
   dialogB: Int!
   dialogC: Int!
   workTime: String!
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
   editor: String
+  editorId: ID
+  editedAt: String
 }
 
 #消费单
