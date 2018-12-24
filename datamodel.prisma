@@ -36,6 +36,9 @@ type UserBasic {
   haveDoneInAnotherHospital: String
   tag: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #咨询记录
 type ConsultingRecord {
@@ -46,6 +49,9 @@ type ConsultingRecord {
   advisorySummary: String
   advisoryDetail: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #预约
 type BookingRecord {
@@ -55,6 +61,9 @@ type BookingRecord {
   bookingStatus: String
   time: String!
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
   #流水
   consultant: String
   consultantID: ID
@@ -75,6 +84,9 @@ type Dictionary {
   sortIndex: Int
   ps: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #管理员
 type Admin {
@@ -83,18 +95,24 @@ type Admin {
   userName: String! @unique
   password: String!
   departmentName: String!
-  departmentId: String! @default(value: "asd")
+  departmentId: String!
   availiable: Boolean!
   routePages: [Int!]! #管理员权限
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #权限组
 type Department {
   id: ID! @unique
   name: String! @unique
   routePages: [Int!]! #权限设置
-  createdAt: DateTime!
   parentId: ID
+  createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #广告类别
 type Ad {
@@ -102,8 +120,10 @@ type Ad {
   typeName: String!
   plan: String!
   availiable: Boolean!
-  editor: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #广告消费记录
 type AdConsumptionRec {
@@ -114,7 +134,10 @@ type AdConsumptionRec {
   clickAmount: Int
   consumption: Int
   time: String
+  createdAt: DateTime!
+  creator: String
   editor: String
+  editedAt: String
 }
 #咨询工作
 type ConsultationWork {
@@ -124,7 +147,10 @@ type ConsultationWork {
   dialogB: Int!
   dialogC: Int!
   workTime: String!
+  createdAt: DateTime!
+  creator: String
   editor: String
+  editedAt: String
 }
 #消费单
 type Bill {
@@ -133,7 +159,6 @@ type Bill {
   user: UserBasic!
   billPrice: Int
   pay: Int
-  creator: String
   project: String
   payStatus: String
   payType: String
@@ -143,6 +168,9 @@ type Bill {
   where: String
   consultant: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
 #机构
 type Agency {
@@ -165,4 +193,7 @@ type Agency {
   marketor: String
   detail: String
   createdAt: DateTime!
+  creator: String
+  editor: String
+  editedAt: String
 }
