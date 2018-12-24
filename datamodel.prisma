@@ -36,7 +36,9 @@ type UserBasic {
   haveDoneInAnotherHospital: String
   tag: String
   createdAt: DateTime!
+  creatorId: ID
   creator: String
+  editorId: ID
   editor: String
   editedAt: String
 }
@@ -49,7 +51,9 @@ type ConsultingRecord {
   advisorySummary: String
   advisoryDetail: String
   createdAt: DateTime!
+  creatorId: ID
   creator: String
+  editorId: ID
   editor: String
   editedAt: String
 }
@@ -61,7 +65,9 @@ type BookingRecord {
   bookingStatus: String
   time: String!
   createdAt: DateTime!
+  creatorId: ID
   creator: String
+  editorId: ID
   editor: String
   editedAt: String
   #流水
@@ -85,7 +91,9 @@ type Dictionary {
   ps: String
   createdAt: DateTime!
   creator: String
+  creatorId: ID
   editor: String
+  editorId: ID
   editedAt: String
 }
 #管理员
@@ -99,8 +107,10 @@ type Admin {
   availiable: Boolean!
   routePages: [Int!]! #管理员权限
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #权限组
@@ -110,8 +120,10 @@ type Department {
   routePages: [Int!]! #权限设置
   parentId: ID
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #广告类别
@@ -121,8 +133,10 @@ type Ad {
   plan: String!
   availiable: Boolean!
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #广告消费记录
@@ -135,8 +149,10 @@ type AdConsumptionRec {
   consumption: Int
   time: String
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #咨询工作
@@ -148,8 +164,10 @@ type ConsultationWork {
   dialogC: Int!
   workTime: String!
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #消费单
@@ -168,8 +186,10 @@ type Bill {
   where: String
   consultant: String
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }
 #机构
@@ -193,7 +213,9 @@ type Agency {
   marketor: String
   detail: String
   createdAt: DateTime!
+  creatorId: ID
   creator: String
   editor: String
+  editorId: ID
   editedAt: String
 }

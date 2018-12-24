@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
 import { prisma } from '../../generated/prisma-client';
+import { Certify, Identity } from '../utils';
 
 const Mutation = {
   autoLogin: async (parent, args, context) => {
@@ -12,7 +13,7 @@ const Mutation = {
     const token = jwt.sign(
       { userId: userId },
       "crm-mc-colorcat" as jwt.Secret,
-      { expiresIn: 60 }
+      { expiresIn: "24h" }
     );
     const user = await prisma.admin({ id: userId });
     return {
@@ -35,7 +36,7 @@ const Mutation = {
     const token = jwt.sign(
       { userId: user.id },
       "crm-mc-colorcat" as jwt.Secret,
-      { expiresIn: 60 }
+      { expiresIn: "24h" }
     );
 
     return {
@@ -200,20 +201,16 @@ const Mutation = {
 
   // 咨询工作量mutation
   addConsultationWork: async (parent, args, context) => {
+    args = await Certify(context, args, Identity.Creator);
     return await prisma.createConsultationWork(args);
   },
   deleteConsultationWork: async (parent, args, context) => {
     return await prisma.deleteConsultationWork({ id: args.id });
   },
   updateConsutationWork: async (parent, args, context) => {
+    args = await Certify(context, args, Identity.Editor);
     return await prisma.updateConsultationWork({
-      data: {
-        consultationType: args.consultationType,
-        dialogA: args.dialogA,
-        dialogB: args.dialogB,
-        dialogC: args.dialogC,
-        workTime: args.workTime
-      },
+      data: args,
       where: { id: args.id }
     });
   },
@@ -278,11 +275,12 @@ const Mutation = {
 
   //机构
   addAgency: async (parent, args, context) => {
-    console.log(context.request.header("authorization"));
-
+    args = await Certify(context, args, Identity.Creator);
     return await prisma.createAgency(args);
   },
   updateAgency: async (parent, args, context) => {
+    args = await Certify(context, args, Identity.Editor);
+
     const id = args.id;
     delete args["id"];
 
