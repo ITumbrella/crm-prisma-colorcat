@@ -36,7 +36,7 @@ const Mutation = {
     const token = jwt.sign(
       { userId: user.id },
       "crm-mc-colorcat" as jwt.Secret,
-      { expiresIn: "24h" }
+      { expiresIn: "2s" }
     );
 
     return {
