@@ -214,7 +214,7 @@ type Mutation {
     whereLevel1: String
     whereLevel2: String
     whereDetail: String
-    commission: String #佣金
+    commission: Float #佣金
     dealTime: String
     marketor: String
     detail: String
