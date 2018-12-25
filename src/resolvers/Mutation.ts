@@ -23,7 +23,6 @@ const Mutation = {
       routePages: user.routePages
     };
   },
-
   login: async (parent, args, context) => {
     const user = await prisma.admin({ userName: args.userName });
     const valid = await bcrypt.compare(
@@ -120,12 +119,22 @@ const Mutation = {
     return await prisma.deleteBookingRecord({ id: args.id });
   },
 
-  //用户
   addUser: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     const user = await prisma.createUserBasic(payload);
-    console.log(`${new Date()} addUserBasic`);
+    console.log(`${new Date().toString()} addUserBasic`);
     return { success: true, userId: user.id };
+  },
+  updateUserBasic: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+    const id = payload.id;
+    delete payload["id"];
+    const user = await prisma.updateUserBasic({
+      data: payload,
+      where: { id }
+    });
+    console.log(`${new Date().toString()} updated User by ${payload.editor}`);
+    return user;
   },
   deleteUser: async (parent, args, context) => {
     await prisma.deleteUserBasic({ id: args.id });

@@ -44,6 +44,8 @@ const Query = {
     }
     return ret;
   },
+  userBasicById: async (parent, args, context) =>
+    await prisma.userBasic({ id: args.id }),
   userBasics: async () => await prisma.userBasics(),
   consultingRecords: async () => await prisma.consultingRecords(),
   bookingRecords: async () => await prisma.bookingRecords(),

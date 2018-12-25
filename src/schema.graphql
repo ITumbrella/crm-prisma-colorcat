@@ -50,6 +50,43 @@ type Mutation {
     haveDoneInAnotherHospital: String #他院已做项目
     tag: String #客户标签
   ): CustomReturn! #{ success: true, userId: user.id }
+  updateUserBasic(
+    id: ID!
+    name: String #姓名
+    sex: String #性别
+    birthYear: String #出生年份
+    age: String
+    where: String #区域（二级联动）
+    bigFrom: String #大来源
+    mobile: String #手机号
+    qq: String #qq号
+    wechat: String #微信号
+    birthDay: String #出生年月日
+    categoryFromAd: String #广告来源之类别
+    planFromAd: String #广告来源之计划
+    categoryFromMarket: String #市场来源之类型
+    agencyFromMarket: String #市场来源之机构
+    vipLevel: String #vip等级
+    vipID: String #会员卡号
+    idCard: String #身份证号
+    email: String
+    secondPhoneNum: String #第二联系电话
+    introducer: String #介绍人
+    career: String #职业
+    marriage: String #婚姻状况
+    phoneModel: String #手机型号
+    carModel: String #汽车型号
+    addressDetail: String #二级联动详细地址
+    addressSpecific: String #具体地址
+    medicalHistory: String #病史
+    reMark: String #备注
+    mainProject: String #主项目
+    focusProject: String #关注项目
+    toBeDevelopedProject: String #待开发项目
+    haveDoneInThisHospital: String #本院已做项目
+    haveDoneInAnotherHospital: String #他院已做项目
+    tag: String #客户标签
+  ): UserBasic!
   deleteUser(id: ID!): MutationResult!
 
   addConsultingRecord(
@@ -236,7 +273,7 @@ type Mutation {
 }
 
 type Query {
-  userBasicById: UserBasic!
+  userBasicById(id: ID!): UserBasic!
   userBasics: [UserBasic!]!
   consultingRecords: [ConsultingRecord!]!
   bookingRecords: [BookingRecord!]!
