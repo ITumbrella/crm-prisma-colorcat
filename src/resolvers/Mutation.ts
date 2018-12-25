@@ -92,13 +92,13 @@ const Mutation = {
       creator: payload.creator,
       creatorId: payload.creatorId,
       consultant: payload.consultant ? payload.consultant : null,
-      consultantID: payload.consultantID ? payload.consultant : null,
-      frontDesk: payload.frontDesk ? payload.consultant : null,
-      frontDeskId: payload.frontDeskId ? payload.consultant : null,
-      assistant: payload.assistant ? payload.consultant : null,
-      assistantId: payload.assistantId ? payload.consultant : null,
-      doctor: payload.doctor ? payload.consultant : null,
-      doctorId: payload.doctorId ? payload.consultant : null
+      consultantID: payload.consultantID ? payload.consultantID : null,
+      frontDesk: payload.frontDesk ? payload.frontDesk : null,
+      frontDeskId: payload.frontDeskId ? payload.frontDeskId : null,
+      assistant: payload.assistant ? payload.assistant : null,
+      assistantId: payload.assistantId ? payload.assistantId : null,
+      doctor: payload.doctor ? payload.doctor : null,
+      doctorId: payload.doctorId ? payload.doctorId : null
     });
     console.log(`${new Date()} addBookingRecord`);
     return br;
