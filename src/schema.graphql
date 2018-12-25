@@ -238,39 +238,19 @@ type Query {
 
 #实体 datamodel
 
-#管理员
-type Admin {
-  id: ID!
-  name: String!
-  userName: String!
-  password: String!
-  departmentName: String!
-  departmentId: ID!
-  availiable: Boolean!
-  routePages: [Int!]! #管理员权限
-  createdAt: DateTime!
-}
-#权限组
-type Department {
-  id: ID!
-  name: String!
-  routePages: [Int!]! #权限设置
-  createdAt: DateTime!
-  parentId: ID
-}
 # 客户主表
 type UserBasic {
   id: ID!
-  mobile: String #手机号
-  qq: String #qq号
-  wechat: String #微信号
+  mobile: String! #手机号
   name: String! #姓名
-  age: String! #年龄
   sex: String! #性别
+  age: String! #年龄
   birthYear: String! #出生年份
   birthDay: String #出生年月日
   where: String! #区域（二级联动）
   bigFrom: String! #大来源
+  qq: String #qq号
+  wechat: String #微信号
   categoryFromAd: String #广告来源之类别
   planFromAd: String #广告来源之计划
   categoryFromMarket: String #市场来源之类型
@@ -289,73 +269,83 @@ type UserBasic {
   addressSpecific: String #具体地址
   medicalHistory: String #病史
   reMark: String #备注
-  mainProject: String #主项目
-  focusProject: String #关注项目
-  toBeDevelopedProject: String #待开发项目
-  haveDoneInThisHospital: String #本院已做项目
-  haveDoneInAnotherHospital: String #他院已做项目
-  tag: String #客户标签
+  mainProject: String
+  focusProject: String
+  toBeDevelopedProject: String
+  haveDoneInThisHospital: String
+  haveDoneInAnotherHospital: String
+  tag: String
   createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editorId: ID
+  editor: String
+  editedAt: String
 }
 #咨询记录
 type ConsultingRecord {
   id: ID!
   user: UserBasic!
-  advisoryWay: String #咨询方式
-  advisoryResult: String #咨询结果
-  advisorySummary: String #咨询总结
-  advisoryDetail: String #咨询详情
+  advisoryWay: String
+  advisoryResult: String
+  advisorySummary: String
+  advisoryDetail: String
   createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editorId: ID
+  editor: String
+  editedAt: String
 }
-#预约记录
+#预约
 type BookingRecord {
   id: ID!
   user: UserBasic!
-  toHospitalCate: String! #来院类别
+  toHospitalCate: String!
   bookingStatus: String
-  time: String! #预到时间
+  time: String!
   createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editorId: ID
+  editor: String
+  editedAt: String
+  #流水
+  consultant: String
+  consultantID: ID
+  frontDesk: String
+  frontDeskId: ID
+  assistant: String
+  assistantId: ID
+  doctor: String
+  doctorId: ID
 }
 #字典
 type Dictionary {
   id: ID!
   itemName: String!
-  itemParentId: ID
+  itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int
   sortIndex: Int
   ps: String
   createdAt: DateTime!
+  creator: String
+  creatorId: ID
+  editor: String
+  editorId: ID
+  editedAt: String
 }
-
-#广告类别和广告计划
-type Ad {
+#管理员
+type Admin {
   id: ID!
-  typeName: String!
-  plan: String!
+  name: String!
+  userName: String!
+  password: String!
+  departmentName: String!
+  departmentId: String!
   availiable: Boolean!
-  editor: String
-  createdAt: DateTime!
-}
-#广告消费记录
-type AdConsumptionRec {
-  id: ID!
-  typeName: String!
-  plan: String!
-  displayAmount: Int!
-  clickAmount: Int!
-  consumption: Int!
-  time: String!
-  editor: String
-}
-#咨询工作
-type ConsultationWork {
-  id: ID!
-  consultationType: String!
-  dialogA: Int!
-  dialogB: Int!
-  dialogC: Int!
-  workTime: String!
+  routePages: [Int!]! #管理员权限
   createdAt: DateTime!
   creatorId: ID
   creator: String
@@ -363,16 +353,70 @@ type ConsultationWork {
   editorId: ID
   editedAt: String
 }
-
+#权限组
+type Department {
+  id: ID!
+  name: String!
+  routePages: [Int!]! #权限设置
+  parentId: ID
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#广告类别
+type Ad {
+  id: ID
+  typeName: String
+  plan: String
+  availiable: Boolean
+  createdAt: DateTime
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#广告消费记录
+type AdConsumptionRec {
+  id: ID
+  typeName: String
+  plan: String
+  displayAmount: Int
+  clickAmount: Int
+  consumption: Int
+  time: String
+  createdAt: DateTime
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#咨询工作
+type ConsultationWork {
+  id: ID
+  consultationType: String
+  dialogA: Int
+  dialogB: Int
+  dialogC: Int
+  workTime: String
+  createdAt: DateTime
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
 #消费单
 type Bill {
-  id: ID!
-  billId: String!
-  user: UserBasic!
-  userName: String
+  id: ID
+  billId: String
+  user: UserBasic
   billPrice: Int
   pay: Int
-  creator: String
   project: String
   payStatus: String
   payType: String
@@ -381,11 +425,16 @@ type Bill {
   from: String
   where: String
   consultant: String
-  createdAt: DateTime!
+  createdAt: DateTime
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
 }
 #机构
 type Agency {
-  id: ID!
+  id: ID
   agencyName: String
   agencyType: String
   agencyLevel: String
@@ -403,5 +452,10 @@ type Agency {
   dealTime: String
   marketor: String
   detail: String
-  createdAt: DateTime!
+  createdAt: DateTime
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
 }

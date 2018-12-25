@@ -48,19 +48,23 @@ const Mutation = {
     };
   },
   addConsultingRecord: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
     await prisma.createConsultingRecord({
-      advisoryDetail: args.advisoryDetail,
-      advisoryResult: args.advisoryResult,
-      advisoryWay: args.advisoryWay,
-      advisorySummary: args.advisorySummary,
-      user: { connect: { id: args.userId } }
+      advisoryDetail: payload.advisoryDetail,
+      advisoryResult: payload.advisoryResult,
+      advisoryWay: payload.advisoryWay,
+      advisorySummary: payload.advisorySummary,
+      user: { connect: { id: payload.userId } },
+      creator: payload.creator,
+      creatorId: payload.creatorId
     });
 
     console.log(`${new Date()} addConsultingRecord`);
     return { success: true };
   },
   addAd: async (parent, args, context) => {
-    await prisma.createAd(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    await prisma.createAd(payload);
     return { success: true };
   },
   updateAd: async (parent, args, context) => {
@@ -79,11 +83,14 @@ const Mutation = {
 
   //预约记录
   addBookingRecord: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
     const newR = await prisma.createBookingRecord({
-      user: { connect: { id: args.userId } },
-      toHospitalCate: args.toHospitalCate,
-      time: args.time,
-      bookingStatus: args.bookingStatus
+      user: { connect: { id: payload.userId } },
+      toHospitalCate: payload.toHospitalCate,
+      time: payload.time,
+      bookingStatus: payload.bookingStatus,
+      creator: payload.creator,
+      creatorId: payload.creatorId
     });
     console.log(`${new Date()} addBookingRecord`);
     return newR;
@@ -107,7 +114,8 @@ const Mutation = {
 
   //用户
   addUser: async (parent, args, context) => {
-    const user = await prisma.createUserBasic(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    const user = await prisma.createUserBasic(payload);
     console.log(`${new Date()} addUserBasic`);
     return { success: true, userId: user.id };
   },
@@ -141,7 +149,8 @@ const Mutation = {
   },
   //字典
   addDictionaryItem: async (parent, args, context) => {
-    return await prisma.createDictionary(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createDictionary(payload);
   },
   updateDictionaryItem: async (parent, args, context) => {
     const item = await prisma.updateDictionary({
@@ -162,6 +171,7 @@ const Mutation = {
 
   //系统用户权限
   signup: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
     const password = await bcrypt.hash(args.password, 10);
     const department = await prisma.department({ id: args.departmentId });
     return await prisma.createAdmin({
@@ -171,7 +181,9 @@ const Mutation = {
       availiable: true,
       name: args.name,
       userName: args.userName,
-      password: password
+      password: password,
+      creator: payload.creator,
+      creatorId: payload.creatorId
     });
   },
   deleteAdmin: async (parent, args, context) => {
@@ -201,8 +213,8 @@ const Mutation = {
 
   // 咨询工作量mutation
   addConsultationWork: async (parent, args, context) => {
-    args = await Certify(context, args, Identity.Creator);
-    return await prisma.createConsultationWork(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createConsultationWork(payload);
   },
   deleteConsultationWork: async (parent, args, context) => {
     return await prisma.deleteConsultationWork({ id: args.id });
@@ -217,10 +229,13 @@ const Mutation = {
 
   // 部门 mutations
   addDepartment: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
     return await prisma.createDepartment({
-      parentId: args.parentId,
-      name: args.name,
-      routePages: { set: args.routePages }
+      parentId: payload.parentId,
+      name: payload.name,
+      routePages: { set: payload.routePages },
+      creator: payload.creator,
+      creatorId: payload.creatorId
     });
   },
   updateDepartment: async (parent, args, context) => {
@@ -263,11 +278,13 @@ const Mutation = {
     });
   },
   addBill: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
     const bill = await prisma.createBill({
-      user: { connect: { id: args.userId } },
+      creator: payload.creator,
+      creatorId: payload.creatorId,
+      user: { connect: { id: payload.userId } },
       billId: new Date().toString()
     });
-    console.log(bill);
     console.log(`${new Date()} addBill`);
 
     return bill;
@@ -275,17 +292,17 @@ const Mutation = {
 
   //机构
   addAgency: async (parent, args, context) => {
-    args = await Certify(context, args, Identity.Creator);
-    return await prisma.createAgency(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createAgency(payload);
   },
   updateAgency: async (parent, args, context) => {
-    args = await Certify(context, args, Identity.Editor);
+    const payload = await Certify(context, args, Identity.Editor);
 
-    const id = args.id;
-    delete args["id"];
+    const id = payload.id;
+    delete payload["id"];
 
     return await prisma.updateAgency({
-      data: args,
+      data: payload,
       where: {
         id: id
       }
