@@ -84,16 +84,24 @@ const Mutation = {
   //预约记录
   addBookingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
-    const newR = await prisma.createBookingRecord({
+    const br = await prisma.createBookingRecord({
       user: { connect: { id: payload.userId } },
       toHospitalCate: payload.toHospitalCate,
       time: payload.time,
       bookingStatus: payload.bookingStatus,
       creator: payload.creator,
-      creatorId: payload.creatorId
+      creatorId: payload.creatorId,
+      consultant: payload.consultant ? payload.consultant : null,
+      consultantID: payload.consultantID ? payload.consultant : null,
+      frontDesk: payload.frontDesk ? payload.consultant : null,
+      frontDeskId: payload.frontDeskId ? payload.consultant : null,
+      assistant: payload.assistant ? payload.consultant : null,
+      assistantId: payload.assistantId ? payload.consultant : null,
+      doctor: payload.doctor ? payload.consultant : null,
+      doctorId: payload.doctorId ? payload.consultant : null
     });
     console.log(`${new Date()} addBookingRecord`);
-    return newR;
+    return br;
   },
   updateBookingRecord: async (parent, args, context) => {
     const newR = await prisma.updateBookingRecord({

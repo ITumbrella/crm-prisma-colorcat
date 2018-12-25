@@ -33,17 +33,15 @@ const Query = {
         .billsConnection({ where: { user: { id: user.id } } })
         .aggregate()
         .count();
-      console.log(consultations);
       ret.push({
         ...user,
         firstAdvisoryWay:
-          consultations.length !== 0 ? consultations[0].advisoryWay : "无",
+          consultations.length !== 0 ? consultations[0].advisoryWay : "",
         consultationCount,
         bookingCount,
         billsCount
       });
     }
-
     return ret;
   },
   userBasics: async () => await prisma.userBasics(),
