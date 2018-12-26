@@ -120,7 +120,7 @@ type Mutation {
     doctor: String
     doctorId: ID
   ): BookingRecord
-  updateBookingRecord(5y7
+  updateBookingRecord(
     id: ID!
     toHospitalCate: String!
     bookingStatus: String
