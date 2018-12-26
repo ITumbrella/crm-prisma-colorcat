@@ -92,10 +92,11 @@ const Mutation = {
   },
   updateBookingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Editor);
+    delete payload["id"];
     const record = await prisma.updateBookingRecord({
       data: payload,
       where: {
-        id: args.user.id
+        id: args.id
       }
     });
     console.log(`${new Date()} updateBookingRecord by ${payload.editor}`);
