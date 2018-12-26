@@ -277,11 +277,8 @@ type Mutation {
     userId: ID #客户Id
     tel: String #客户电话
     type: String #回访类型
-    way: String #回访方式
     topic: String #回访主题
     status: String #回访状态
-    result: String #回访结果
-    flow: String #客户流向
     date: String #待回访日期
     visitorId: String #回访人id
     visitor: String #回访人
@@ -297,11 +294,8 @@ type Mutation {
     userId: ID #客户Id
     tel: String #客户电话
     type: String #回访类型
-    way: String #回访方式
     topic: String #回访主题
     status: String #回访状态
-    result: String #回访结果
-    flow: String #客户流向
     date: String #待回访日期
     visitorId: String #回访人id
     visitor: String #回访人
@@ -320,6 +314,9 @@ type Mutation {
     tel: String #客户电话
     type: String #回访类型
     topic: String #回访主题
+    result: String #回访结果
+    way: String #回访方式
+    flow: String #客户流向
     returnVisitDate: String #回访日期
     returnVisitor: String #回访人
     returnVisitorId: String #回访人id
@@ -336,6 +333,9 @@ type Mutation {
     tel: String #客户电话
     type: String #回访类型
     topic: String #回访主题
+    result: String #回访结果
+    way: String #回访方式
+    flow: String #客户流向
     returnVisitDate: String #回访日期
     returnVisitor: String #回访人
     returnVisitorId: String #回访人id
@@ -597,20 +597,17 @@ type ReturnVisitTask {
   userId: ID #客户Id
   tel: String #客户电话
   type: String #回访类型
-  way: String #回访方式
   topic: String #回访主题
   status: String #回访状态
-  result: String #回访结果
-  flow: String #客户流向
   date: String #待回访日期
   visitorId: String #回访人id
   visitor: String #回访人
-  createdAt: DateTime!
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
+  createdAt: DateTime!
 }
 
 # 回访记录
@@ -621,13 +618,16 @@ type ReturnVisitRecord {
   tel: String #客户电话
   type: String #回访类型
   topic: String #回访主题
+  result: String #回访结果
+  way: String #回访方式
+  flow: String #客户流向
   returnVisitDate: String #回访日期
   returnVisitor: String #回访人
   returnVisitorId: String #回访人id
-  createdAt: DateTime!
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
+  createdAt: DateTime!
 }
