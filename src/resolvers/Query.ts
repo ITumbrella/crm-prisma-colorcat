@@ -66,7 +66,9 @@ const Query = {
   admins: async () => await prisma.admins(),
   departments: async () => await prisma.departments(),
   bills: async () => await prisma.bills(),
-  agencies: async () => await prisma.agencies()
+  agencies: async () => await prisma.agencies(),
+  returnVisitTasks: async () => await prisma.returnVisitTasks(),
+  returnVisitRecords: async () => await prisma.returnVisitRecords()
 };
 
 export default Query;

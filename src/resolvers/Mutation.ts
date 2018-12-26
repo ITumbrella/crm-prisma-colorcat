@@ -325,8 +325,49 @@ const Mutation = {
       }
     });
   },
-  deleteAgency: async (parent, args, context) => {
-    return await prisma.deleteAgency({ id: args.id });
-  }
+  deleteAgency: async (parent, args, context) =>
+    await prisma.deleteAgency({ id: args.id }),
+
+  // 回访任务
+  addReturnVisitTask: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createReturnVisitTask(payload);
+  },
+  updateReturnVisitTask: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+
+    const id = payload.id;
+    delete payload["id"];
+
+    return await prisma.updateReturnVisitTask({
+      data: payload,
+      where: {
+        id: id
+      }
+    });
+  },
+  deleteReturnVisitTask: async (parent, args, context) =>
+    await prisma.deleteReturnVisitTask({ id: args.id }),
+
+  // 回访记录
+  addReturnVisitRecord: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createReturnVisitRecord(payload);
+  },
+  updateReturnVisitRecord: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+
+    const id = payload.id;
+    delete payload["id"];
+
+    return await prisma.updateReturnVisitRecord({
+      data: payload,
+      where: {
+        id: id
+      }
+    });
+  },
+  deleteReturnVisitRecord: async (parent, args, context) =>
+    await prisma.deleteReturnVisitRecord({ id: args.id })
 };
 export default Mutation;

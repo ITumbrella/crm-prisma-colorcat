@@ -219,3 +219,44 @@ type Agency {
   editorId: ID
   editedAt: String
 }
+# 回访任务
+type ReturnVisitTask {
+  id: ID! @unique
+  name: String #客户名称
+  userId: ID #客户Id
+  tel: String #客户电话
+  type: String #回访类型
+  way: String #回访方式
+  topic: String #回访主题
+  status: String #回访状态
+  result: String #回访结果
+  flow: String #客户流向
+  date: String #待回访日期
+  visitorId: String #回访人id
+  visitor: String #回访人
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+
+# 回访记录
+type ReturnVisitRecord {
+  id: ID! @unique
+  name: String #客户名称
+  userId: ID #客户Id
+  tel: String #客户电话
+  type: String #回访类型
+  topic: String #回访主题
+  returnVisitDate: String #回访日期
+  returnVisitor: String #回访人
+  returnVisitorId: String #回访人id
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
