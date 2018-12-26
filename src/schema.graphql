@@ -282,11 +282,6 @@ type Mutation {
     date: String #待回访日期
     visitorId: String #回访人id
     visitor: String #回访人
-    creatorId: ID
-    creator: String
-    editor: String
-    editorId: ID
-    editedAt: String
   ): ReturnVisitTask!
   updateReturnVisitTask(
     id: ID!
@@ -299,11 +294,6 @@ type Mutation {
     date: String #待回访日期
     visitorId: String #回访人id
     visitor: String #回访人
-    creatorId: ID
-    creator: String
-    editor: String
-    editorId: ID
-    editedAt: String
   ): ReturnVisitTask!
   deleteReturnVisitTask(id: ID!): ReturnVisitTask!
 
@@ -320,11 +310,6 @@ type Mutation {
     returnVisitDate: String #回访日期
     returnVisitor: String #回访人
     returnVisitorId: String #回访人id
-    creatorId: ID
-    creator: String
-    editor: String
-    editorId: ID
-    editedAt: String
   ): ReturnVisitRecord!
   updateReturnVisitRecord(
     id: ID!
@@ -339,11 +324,6 @@ type Mutation {
     returnVisitDate: String #回访日期
     returnVisitor: String #回访人
     returnVisitorId: String #回访人id
-    creatorId: ID
-    creator: String
-    editor: String
-    editorId: ID
-    editedAt: String
   ): ReturnVisitRecord!
   deleteReturnVisitRecord(id: ID!): ReturnVisitRecord!
 }
