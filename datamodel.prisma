@@ -71,8 +71,6 @@ type BookingRecord {
   editor: String
   editedAt: String
   #流水
-  consultant: String
-  consultantID: ID
   frontDesk: String
   frontDeskId: ID
   assistant: String

@@ -112,14 +112,7 @@ type Mutation {
     toHospitalCate: String! #来院类别
     time: String! #预到时间
     bookingStatus: String!
-    creatorId: ID
-    creator: String
-    editorId: ID
-    editor: String
-    editedAt: String
     #流水
-    consultant: String
-    consultantID: ID
     frontDesk: String
     frontDeskId: ID
     assistant: String
@@ -127,10 +120,18 @@ type Mutation {
     doctor: String
     doctorId: ID
   ): BookingRecord
-  updateBookingRecord(
+  updateBookingRecord(5y7
     id: ID!
-    toHospitalCate: String
+    toHospitalCate: String!
     bookingStatus: String
+    time: String!
+    #流水
+    frontDesk: String
+    frontDeskId: ID
+    assistant: String
+    assistantId: ID
+    doctor: String
+    doctorId: ID
   ): BookingRecord
   deleteBookingRecord(id: ID!): BookingRecord
 
@@ -414,21 +415,20 @@ type BookingRecord {
   toHospitalCate: String!
   bookingStatus: String
   time: String!
-  createdAt: DateTime!
-  creatorId: ID
-  creator: String
-  editorId: ID
-  editor: String
-  editedAt: String
   #流水
-  consultant: String
-  consultantID: ID
   frontDesk: String
   frontDeskId: ID
   assistant: String
   assistantId: ID
   doctor: String
   doctorId: ID
+
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editorId: ID
+  editor: String
+  editedAt: String
 }
 #字典
 type Dictionary {

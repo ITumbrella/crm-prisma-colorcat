@@ -103,17 +103,15 @@ const Mutation = {
     return br;
   },
   updateBookingRecord: async (parent, args, context) => {
-    const newR = await prisma.updateBookingRecord({
-      data: {
-        toHospitalCate: args.toHospitalCate,
-        bookingStatus: args.bookingStatus
-      },
+    const payload = await Certify(context, args, Identity.Editor);
+    const record = await prisma.updateBookingRecord({
+      data: payload,
       where: {
         id: args.id
       }
     });
-    console.log(`${new Date()} updateBookingRecord`);
-    return newR;
+    console.log(`${new Date()} updateBookingRecord by ${payload.editor}`);
+    return record;
   },
   deleteBookingRecord: async (parent, args, context) => {
     return await prisma.deleteBookingRecord({ id: args.id });
