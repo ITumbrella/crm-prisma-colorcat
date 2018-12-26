@@ -95,7 +95,7 @@ const Mutation = {
     const record = await prisma.updateBookingRecord({
       data: payload,
       where: {
-        id: args.id
+        id: args.user.id
       }
     });
     console.log(`${new Date()} updateBookingRecord by ${payload.editor}`);
