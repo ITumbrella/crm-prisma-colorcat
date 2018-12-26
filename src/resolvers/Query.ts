@@ -33,13 +33,23 @@ const Query = {
         .billsConnection({ where: { user: { id: user.id } } })
         .aggregate()
         .count();
+      const hasBeenHospitalCount = await prisma
+        .bookingRecordsConnection({
+          where: {
+            user: { id: user.id },
+            bookingStatus_not_contains: "已预约"
+          }
+        })
+        .aggregate()
+        .count();
       ret.push({
         ...user,
         firstAdvisoryWay:
           consultations.length !== 0 ? consultations[0].advisoryWay : "",
         consultationCount,
         bookingCount,
-        billsCount
+        billsCount,
+        hasBeenHospitalCount
       });
     }
     return ret;
