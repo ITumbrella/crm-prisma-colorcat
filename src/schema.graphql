@@ -1,6 +1,8 @@
 # Common
 scalar DateTime
 scalar CustomReturn
+scalar CustomBillDetail
+
 type AuthPayload {
   token: String!
   name: String!
@@ -225,11 +227,6 @@ type Mutation {
   ): Department!
   deleteDepartment(id: String!): Department!
 
-  #消费单
-  addBill(billId: String!, userId: ID!): Bill!
-  deleteBill(id: String!): Bill!
-  updateBill(id: String!): Bill!
-
   #机构
   addAgency(
     agencyName: String
@@ -327,6 +324,18 @@ type Mutation {
     returnVisitorId: String #回访人id
   ): ReturnVisitRecord!
   deleteReturnVisitRecord(id: ID!): ReturnVisitRecord!
+
+  #消费单
+  addBill(
+    userId: ID!
+    totalPrice: Int
+    billDetail: CustomBillDetail
+    paid: Int
+    paymentType: String
+    discount: Float
+  ): Bill!
+  deleteBill(id: String!): Bill!
+  updateBill(id: String!): Bill!
 }
 
 type Query {
@@ -341,10 +350,11 @@ type Query {
   admins: [Admin!]!
   departments: [Department!]!
   usersDetailWDView: CustomReturn
-  bills: [Bill!]!
   agencies: [Agency!]!
   returnVisitRecords: [ReturnVisitRecord!]!
   returnVisitTasks: [ReturnVisitTask!]!
+  bills: [Bill!]!
+  billsDetails: [BillDetail!]!
 }
 
 #实体 datamodel
@@ -522,20 +532,30 @@ type ConsultationWork {
 }
 #消费单
 type Bill {
-  id: ID
-  billId: String
-  user: UserBasic
-  billPrice: Int
-  pay: Int
+  id: ID!
+  createdAt: DateTime!
+  user: UserBasic!
+  idCode: String #订单号
+  totalPrice: Int
+  billDetail: [String!]!
+  paid: Int
+  paymentType: String
+  discount: Float
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#消费单辅表
+type BillDetail {
+  id: ID!
+  createdAt: DateTime!
+  billId: String!
   project: String
-  payStatus: String
-  payType: String
-  doctorName: String
-  frontDesk: String
-  from: String
-  where: String
-  consultant: String
-  createdAt: DateTime
+  unitPrice: Int
+  quantifier: String #量词
+  amount: Int
   creatorId: ID
   creator: String
   editor: String

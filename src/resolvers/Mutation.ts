@@ -269,31 +269,6 @@ const Mutation = {
     return await prisma.deleteDepartment({ id: args.id });
   },
 
-  //消费单
-  deleteBill: async (parent, args, context) => {
-    return await prisma.deleteBill({ id: args.id });
-  },
-  updateBill: async (parent, args, context) => {
-    return await prisma.updateBill({
-      data: {},
-      where: {
-        id: args.id
-      }
-    });
-  },
-  addBill: async (parent, args, context) => {
-    const payload = await Certify(context, args, Identity.Creator);
-    const bill = await prisma.createBill({
-      creator: payload.creator,
-      creatorId: payload.creatorId,
-      user: { connect: { id: payload.userId } },
-      billId: new Date().toString()
-    });
-    console.log(`${new Date()} addBill`);
-
-    return bill;
-  },
-
   //机构
   addAgency: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
@@ -355,6 +330,43 @@ const Mutation = {
     });
   },
   deleteReturnVisitRecord: async (parent, args, context) =>
-    await prisma.deleteReturnVisitRecord({ id: args.id })
+    await prisma.deleteReturnVisitRecord({ id: args.id }),
+
+  //消费单
+  // deleteBill: async (parent, args, context) => {
+  //   return await prisma.deleteBill({ id: args.id });
+  // },
+  // updateBill: async (parent, args, context) => {
+  //   return await prisma.updateBill({
+  //     data: {},
+  //     where: {
+  //       id: args.id
+  //     }
+  //   });
+  // },
+  addBill: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    delete payload["userId"];
+    const billDetail = [];
+    for (const detail of payload.billDetail) billDetail.push(detail.project);
+    const bill = await prisma.createBill({
+      ...payload,
+      user: { connect: { id: args.userId } },
+      idCode: new Date().toString(),
+      billDetail: { set: billDetail }
+    });
+    for (const detail of payload.billDetail) {
+      console.log(detail);
+
+      await prisma.createBillDetail({
+        billId: bill.id,
+        creator: payload.creator,
+        creatorId: payload.creatorId,
+        ...detail
+      });
+    }
+    console.log(`${new Date()} addBill and details`);
+    return bill;
+  }
 };
 export default Mutation;
