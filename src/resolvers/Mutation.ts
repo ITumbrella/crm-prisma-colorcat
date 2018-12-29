@@ -348,7 +348,6 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     delete payload["userId"];
     const billDetail = [];
-    console.log(payload);
 
     for (const detail of payload.billDetail) billDetail.push(detail.project);
 

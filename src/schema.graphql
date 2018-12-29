@@ -355,7 +355,7 @@ type Query {
   returnVisitTasks: [ReturnVisitTask!]!
   bills: [Bill!]!
   billsDetails: [BillDetail!]!
-  billsDetaildsById: [BillDetail!]!
+  billsDetaildsByBillId(id: ID!): [BillDetail!]!
 }
 
 #实体 datamodel

@@ -34,6 +34,7 @@ type UserBasic {
   toBeDevelopedProject: String
   haveDoneInThisHospital: String
   haveDoneInAnotherHospital: String
+  balance: Int @default(value: 0)
   tag: String
   createdAt: DateTime!
   creatorId: ID
@@ -168,38 +169,6 @@ type ConsultationWork {
   editorId: ID
   editedAt: String
 }
-#消费单
-type Bill {
-  id: ID! @unique
-  createdAt: DateTime!
-  user: UserBasic!
-  idCode: String @unique #订单号
-  totalPrice: Int
-  billDetail: [String!]!
-  paid: Int
-  paymentType: String
-  discount: Float
-  creatorId: ID
-  creator: String
-  editor: String
-  editorId: ID
-  editedAt: String
-}
-#消费单辅表
-type BillDetail {
-  id: ID! @unique
-  createdAt: DateTime!
-  billId: String
-  project: String
-  unitPrice: Int
-  quantifier: String #量词
-  amount: Int
-  creatorId: ID
-  creator: String
-  editor: String
-  editorId: ID
-  editedAt: String
-}
 #机构
 type Agency {
   id: ID! @unique
@@ -268,3 +237,36 @@ type ReturnVisitRecord {
   editorId: ID
   editedAt: String
 }
+#消费单
+type Bill {
+  id: ID! @unique
+  createdAt: DateTime!
+  user: UserBasic!
+  idCode: String @unique #订单号
+  totalPrice: Int
+  billDetail: [String!]!
+  paid: Int
+  paymentType: String
+  discount: Float
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#消费单辅表
+type BillDetail {
+  id: ID! @unique
+  createdAt: DateTime!
+  billId: String
+  project: String
+  unitPrice: Int
+  quantifier: String #量词
+  amount: Int
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+#付款单主表
