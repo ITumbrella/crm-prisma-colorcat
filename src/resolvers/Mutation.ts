@@ -359,8 +359,6 @@ const Mutation = {
       billDetail: { set: billDetail }
     });
     for (const detail of payload.billDetail) {
-      console.log(detail);
-
       await prisma.createBillDetail({
         billId: bill.id,
         creator: payload.creator,
