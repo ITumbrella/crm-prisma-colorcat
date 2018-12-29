@@ -365,7 +365,10 @@ const Mutation = {
         billId: bill.id,
         creator: payload.creator,
         creatorId: payload.creatorId,
-        ...detail
+        project: detail.project,
+        amount: detail.amount,
+        quantifier: detail.quantifier,
+        unitPrice: detail.unitPrice
       });
     }
     console.log(`${new Date()} addBill and details`);
