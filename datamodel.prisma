@@ -248,6 +248,7 @@ type Bill {
   paid: Int
   paymentType: String
   firstShouldPay: Int
+  hasfirstPaid: Boolean @default(value: false)
   paymentStatus: String
   discount: Float
   creatorId: ID
