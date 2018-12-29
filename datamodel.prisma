@@ -248,7 +248,7 @@ type Bill {
   paid: Int
   paymentType: String
   firstShouldPay: Int
-  hasfirstPaid: Boolean @default(value: false)
+  hasfirstPaid: Boolean
   paymentStatus: String
   discount: Float
   creatorId: ID
@@ -273,3 +273,17 @@ type BillDetail {
   editedAt: String
 }
 #付款单主表
+type Payment {
+  id: ID! @unique
+  createdAt: DateTime!
+  billId: String
+  project: String
+  unitPrice: Int
+  quantifier: String #量词
+  amount: Int
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}

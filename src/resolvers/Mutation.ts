@@ -356,7 +356,9 @@ const Mutation = {
       user: { connect: { id: args.userId } },
       idCode: new Date().toString(),
       billDetail: { set: billDetail },
-      hasfirstPaid: false
+      hasfirstPaid: false,
+      paid: 0,
+      paymentStatus: "未收费"
     });
     for (const detail of payload.billDetail) {
       await prisma.createBillDetail({
