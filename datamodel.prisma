@@ -247,6 +247,8 @@ type Bill {
   billDetail: [String!]!
   paid: Int
   paymentType: String
+  firstShouldPay: Int
+  paymentStatus: String
   discount: Float
   creatorId: ID
   creator: String

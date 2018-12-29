@@ -88,6 +88,7 @@ type Mutation {
     haveDoneInThisHospital: String #本院已做项目
     haveDoneInAnotherHospital: String #他院已做项目
     tag: String #客户标签
+    blance: Int #余额
   ): UserBasic!
   deleteUser(id: ID!): MutationResult!
 
@@ -331,6 +332,7 @@ type Mutation {
     totalPrice: Int
     billDetail: CustomBillDetail
     paid: Int
+    firstShouldPay: Int
     paymentType: String
     discount: Float
   ): Bill!
@@ -396,6 +398,7 @@ type UserBasic {
   toBeDevelopedProject: String
   haveDoneInThisHospital: String
   haveDoneInAnotherHospital: String
+  balance: Int
   tag: String
   createdAt: DateTime!
   creatorId: ID
