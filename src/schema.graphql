@@ -545,7 +545,7 @@ type Bill {
   paid: Int
   paymentType: String
   firstShouldPay: Int
-  firstPayment: Boolean
+  hasfirstPaid: Boolean
   paymentStatus: String
   discount: Float
   creatorId: ID
