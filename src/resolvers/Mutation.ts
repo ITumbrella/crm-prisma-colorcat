@@ -109,7 +109,7 @@ const Mutation = {
   //用户操作
   rechargeBalance: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Editor);
-    const balance = await prisma.userBasic({ id: payload.id }).balance;
+    const balance = await prisma.userBasic({ id: payload.id }).balance();
     return await prisma.updateUserBasic({
       data: { balance: balance + args.balance },
       where: { id: args.id }
