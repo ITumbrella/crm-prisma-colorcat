@@ -16,6 +16,7 @@ type MutationResult {
 }
 type Mutation {
   #用户
+  rechargeBalance(id: ID!, balance: Int): UserBasic!
   addUser(
     name: String! #姓名
     sex: String! #性别

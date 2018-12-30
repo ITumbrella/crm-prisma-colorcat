@@ -106,6 +106,13 @@ const Mutation = {
     return await prisma.deleteBookingRecord({ id: args.id });
   },
 
+  //用户操作
+  rechargeBalance: async (parent, args, context) => {
+    return await prisma.updateUserBasic({
+      data: { balance: args.balance },
+      where: { id: args.id }
+    });
+  },
   addUser: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     const user = await prisma.createUserBasic(payload);
