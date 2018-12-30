@@ -345,14 +345,27 @@ const Mutation = {
   // deleteBill: async (parent, args, context) => {
   //   return await prisma.deleteBill({ id: args.id });
   // },
-  // updateBill: async (parent, args, context) => {
-  //   return await prisma.updateBill({
-  //     data: {},
-  //     where: {
-  //       id: args.id
-  //     }
-  //   });
-  // },
+  updateBill: async (parent, args, context) => {
+    const bill = await prisma.bill({ id: args.id });
+    const user = await prisma.bill({ id: args.id }).user();
+    if (user.balance < bill.totalPrice) throw "balance not enough";
+    const editor = await Certify(context, {}, Identity.Editor);
+    const retBill = await prisma.updateBill({
+      data: {
+        ...editor,
+        paid: bill.totalPrice,
+        paymentStatus: "已完成"
+      },
+      where: {
+        id: args.id
+      }
+    });
+    await prisma.updateUserBasic({
+      data: { balance: user.balance - bill.totalPrice },
+      where: { id: user.id }
+    });
+    return retBill;
+  },
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     delete payload["userId"];
