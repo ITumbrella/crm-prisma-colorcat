@@ -348,7 +348,6 @@ const Mutation = {
   updateBill: async (parent, args, context) => {
     const bill = await prisma.bill({ id: args.id });
     const user = await prisma.bill({ id: args.id }).user();
-    console.log(user);
 
     if (user.balance < bill.totalPrice) throw "balance not enough";
     const editor = await Certify(context, {}, Identity.Editor);
