@@ -4,4 +4,4 @@ const Payment = {
   bill: (parent, args, ctx) => prisma.payment({ id: parent.id }).bill()
 };
 
-export default Bill;
+export default Payment;
