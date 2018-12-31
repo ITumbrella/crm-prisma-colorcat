@@ -643,16 +643,18 @@ type ReturnVisitRecord {
 
 #付款记录主表
 type Payment {
-  id: ID!
+  id: ID! @unique
   billId: ID
-  createdAt: DateTime!
-  discount: Float
   paymentType: String
+  shouldPay: Int
+  paymentWay: Int # 0为现金、1为刷卡、2为其它
+  confirmed: Boolean #确认收费
+  balance: Int #抵扣余额
+  paymentPS: String #备注
+  createdAt: DateTime!
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
-  paymentWay: Int # 0为现金、1为刷卡、2为其它
-  confirmed: Boolean #确认收费
 }
