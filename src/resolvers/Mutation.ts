@@ -348,8 +348,10 @@ const Mutation = {
   //   return await prisma.deleteBill({ id: args.id });
   // },
   pay: async (parent, args, context) => {
-    const bill = await prisma.payment({ id: args.id }).bill();
     const payment = await prisma.payment({ id: args.id });
+    if (payment.confirmed)
+      throw { errors: "This payment has been paid.", code: 202 };
+    const bill = await prisma.payment({ id: args.id }).bill();
     const user = await prisma
       .payment({ id: args.id })
       .bill()
@@ -362,6 +364,15 @@ const Mutation = {
         data: {
           freezingBalance: 0,
           flowBalance: user.flowBalance - (usedBalance - user.freezingBalance)
+        },
+        where: { id: user.id }
+      });
+      console.log("冻结余额不足，活动余额抵扣 Pay()");
+    } else {
+      console.log("冻结余额抵扣 Pay()");
+      await prisma.updateUserBasic({
+        data: {
+          freezingBalance: user.freezingBalance - usedBalance
         },
         where: { id: user.id }
       });
@@ -394,7 +405,7 @@ const Mutation = {
       },
       where: { id: bill.id }
     });
-    console.log(`${new Date().toString()} pay success`);
+    console.log(`${new Date().toString()} updateBillStatus Pay()`);
     return newPayment;
   },
   addBill: async (parent, args, context) => {
