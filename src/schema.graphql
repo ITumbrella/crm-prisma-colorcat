@@ -400,7 +400,8 @@ type UserBasic {
   toBeDevelopedProject: String
   haveDoneInThisHospital: String
   haveDoneInAnotherHospital: String
-  balance: Int
+  flowBalance: Int
+  freezingBalance: Int
   tag: String
   createdAt: DateTime!
   creatorId: ID
