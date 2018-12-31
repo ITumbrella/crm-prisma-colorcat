@@ -396,6 +396,8 @@ const Mutation = {
     }
     console.log(`${new Date()} addBill and details`);
     await prisma.createPayment({
+      creator: payload.creator,
+      creatorId: payload.creatorId,
       billId: bill.id,
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay
