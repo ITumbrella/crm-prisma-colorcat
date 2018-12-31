@@ -338,7 +338,7 @@ type Mutation {
     isOnlyDepositBill: Boolean #仅付订金的单子为true
   ): Bill!
   deleteBill(id: String!): Bill!
-  pay(id: ID!, userId: iD!): Bill!
+  pay(id: ID!, userId: ID!): Bill!
 }
 
 type Query {
