@@ -643,7 +643,7 @@ type ReturnVisitRecord {
 
 #付款记录主表
 type Payment {
-  id: ID! @unique
+  id: ID!
   billId: ID
   paymentType: String
   shouldPay: Int
