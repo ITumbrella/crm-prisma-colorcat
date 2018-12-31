@@ -335,6 +335,8 @@ type Mutation {
     billDetail: CustomBillDetail
     paymentType: String
     shouldPay: Int
+    usedBalance: Int
+    depositReadyIn: Int
     isOnlyDepositBill: Boolean #仅付订金的单子为true
   ): Bill!
   deleteBill(id: String!): Bill!

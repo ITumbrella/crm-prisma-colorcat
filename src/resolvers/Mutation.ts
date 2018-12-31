@@ -422,6 +422,7 @@ const Mutation = {
       billDetail: { set: billDetail },
       paymentStatus: "未收费",
       discount: payload.discount,
+      deposit: payload.deposit,
       isOnlyDepositBill: payload.isOnlyDepositBill
     });
     for (const detail of payload.billDetail) {
@@ -441,6 +442,7 @@ const Mutation = {
       creator: payload.creator,
       creatorId: payload.creatorId,
       bill: { connect: { id: bill.id } },
+      balance: payload.balance,
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay
     });
