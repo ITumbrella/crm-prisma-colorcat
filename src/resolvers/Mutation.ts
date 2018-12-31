@@ -375,6 +375,7 @@ const Mutation = {
     const bill = await prisma.createBill({
       creator: payload.creator,
       creatorId: payload.creatorId,
+      totalPrice: payload.totalPrice,
       user: { connect: { id: args.userId } },
       idCode: new Date().toString(),
       billDetail: { set: billDetail },
@@ -393,12 +394,13 @@ const Mutation = {
         unitPrice: detail.unitPrice
       });
     }
+    console.log(`${new Date()} addBill and details`);
     await prisma.createPayment({
       billId: bill.id,
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay
     });
-    console.log(`${new Date()} addBill and details`);
+    console.log(`${new Date()} add payment`);
     return bill;
   }
 };
