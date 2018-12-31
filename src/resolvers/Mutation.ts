@@ -109,9 +109,11 @@ const Mutation = {
   //用户操作
   rechargeBalance: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Editor);
-    const balance = await prisma.userBasic({ id: payload.id }).balance();
+    const flowBalance = await prisma
+      .userBasic({ id: payload.id })
+      .flowBalance();
     return await prisma.updateUserBasic({
-      data: { balance: balance + args.balance },
+      data: { flowBalance: flowBalance + args.balance },
       where: { id: args.id }
     });
   },
@@ -345,27 +347,46 @@ const Mutation = {
   // deleteBill: async (parent, args, context) => {
   //   return await prisma.deleteBill({ id: args.id });
   // },
-  updateBill: async (parent, args, context) => {
+  pay: async (parent, args, context) => {
     const bill = await prisma.bill({ id: args.id });
-    const user = await prisma.bill({ id: args.id }).user();
-
-    if (user.balance < bill.totalPrice) throw "balance not enough";
-    const editor = await Certify(context, {}, Identity.Editor);
-    const retBill = await prisma.updateBill({
+    const user = await prisma.bill({ id: args.billId }).user();
+    const payment = await prisma.payment({ id: args.id });
+    const usedBalance = payment.balance;
+    if (usedBalance > user.flowBalance + user.freezingBalance)
+      throw { errors: "balance not enough", code: 202 };
+    if (user.freezingBalance < usedBalance) {
+      await prisma.updateUserBasic({
+        data: {
+          freezingBalance: 0,
+          flowBalance: user.flowBalance - (usedBalance - user.freezingBalance)
+        },
+        where: { id: user.id }
+      });
+    }
+    await prisma.updatePayment({
+      data: { confirmed: true },
+      where: { id: args.id }
+    });
+    let newPaymentStatus;
+    switch (payment.paymentType) {
+      case "付订金":
+        newPaymentStatus = "已付订金";
+        break;
+      case "付部分款":
+        newPaymentStatus = "已付部分款";
+        break;
+      case "付全款":
+        newPaymentStatus = "已付全款";
+      default:
+        break;
+    }
+    return await prisma.updateBill({
       data: {
-        ...editor,
-        paid: bill.totalPrice,
-        paymentStatus: "已完成"
+        paymentStatus: newPaymentStatus,
+        paid: bill.paid + payment.shouldPay
       },
-      where: {
-        id: args.id
-      }
+      where: { id: args.billId }
     });
-    await prisma.updateUserBasic({
-      data: { balance: user.balance - bill.totalPrice },
-      where: { id: user.id }
-    });
-    return retBill;
   },
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
