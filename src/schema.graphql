@@ -330,12 +330,12 @@ type Mutation {
   #消费单
   addBill(
     userId: ID!
+    discount: Float
     totalPrice: Int
     billDetail: CustomBillDetail
-    paid: Int
-    firstShouldPay: Int
     paymentType: String
-    discount: Float
+    shouldPay: Int
+    isOnlyDepositBill: Boolean #仅付订金的单子为true
   ): Bill!
   deleteBill(id: String!): Bill!
   updateBill(id: ID!): Bill!
@@ -544,11 +544,10 @@ type Bill {
   totalPrice: Int
   billDetail: [String!]!
   paid: Int
-  paymentType: String
-  firstShouldPay: Int
-  hasfirstPaid: Boolean
   paymentStatus: String
   discount: Float
+  deposit: Int #订金
+  isOnlyDepositBill: Boolean #仅付订金的单子为true
   creatorId: ID
   creator: String
   editor: String
@@ -638,4 +637,20 @@ type ReturnVisitRecord {
   editorId: ID
   editedAt: String
   createdAt: DateTime!
+}
+
+#付款记录主表
+type Payment {
+  id: ID!
+  billId: ID
+  createdAt: DateTime!
+  discount: Float
+  paymentType: String
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+  paymentWay: Int # 0为现金、1为刷卡、2为其它
+  confirmed: Boolean #确认收费
 }

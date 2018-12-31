@@ -369,19 +369,18 @@ const Mutation = {
   },
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
-    delete payload["userId"];
     const billDetail = [];
-
     for (const detail of payload.billDetail) billDetail.push(detail.project);
 
     const bill = await prisma.createBill({
-      ...payload,
+      creator: payload.creator,
+      creatorId: payload.creatorId,
       user: { connect: { id: args.userId } },
       idCode: new Date().toString(),
       billDetail: { set: billDetail },
-      hasfirstPaid: false,
-      paid: 0,
-      paymentStatus: "未收费"
+      paymentStatus: "未收费",
+      discount: payload.discount,
+      isOnlyDepositBill: payload.isOnlyDepositBill
     });
     for (const detail of payload.billDetail) {
       await prisma.createBillDetail({
@@ -394,6 +393,11 @@ const Mutation = {
         unitPrice: detail.unitPrice
       });
     }
+    await prisma.createPayment({
+      billId: bill.id,
+      paymentType: payload.paymentType,
+      shouldPay: payload.shouldPay
+    });
     console.log(`${new Date()} addBill and details`);
     return bill;
   }

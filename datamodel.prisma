@@ -245,35 +245,35 @@ type Bill {
   idCode: String @unique #订单号
   totalPrice: Int
   billDetail: [String!]!
-  paid: Int
-  paymentType: String
-  firstShouldPay: Int
-  hasfirstPaid: Boolean
+  paid: Int @default(value: 0)
   paymentStatus: String
   discount: Float
+  deposit: Int @default(value: 0) #订金
+  isOnlyDepositBill: Boolean #仅付订金的单子为true
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
 }
+#付款记录主表
+type Payment {
+  id: ID! @unique
+  billId: ID
+  paymentType: String
+  shouldPay: Int
+  paymentWay: Int @default(value: 0) # 0为现金、1为刷卡、2为其它
+  confirmed: Boolean @default(value: false) #确认收费
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+
 #消费单辅表
 type BillDetail {
-  id: ID! @unique
-  createdAt: DateTime!
-  billId: String
-  project: String
-  unitPrice: Int
-  quantifier: String #量词
-  amount: Int
-  creatorId: ID
-  creator: String
-  editor: String
-  editorId: ID
-  editedAt: String
-}
-#付款单主表
-type Payment {
   id: ID! @unique
   createdAt: DateTime!
   billId: String
