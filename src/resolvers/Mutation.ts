@@ -364,7 +364,11 @@ const Mutation = {
       });
     }
     await prisma.updatePayment({
-      data: { confirmed: true },
+      data: {
+        confirmed: true,
+        paymentWay: args.paymentWay,
+        paymentPS: args.paymentPS
+      },
       where: { id: args.id }
     });
     let newPaymentStatus;
