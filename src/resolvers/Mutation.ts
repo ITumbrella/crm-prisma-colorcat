@@ -420,9 +420,11 @@ const Mutation = {
       });
     }
     console.log(`${new Date()} addBill and details`);
+    const userName = (await prisma.bill({ id: bill.id }).user()).name;
     await prisma.createPayment({
       creator: payload.creator,
       creatorId: payload.creatorId,
+      userName,
       billId: bill.id,
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay

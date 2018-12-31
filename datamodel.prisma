@@ -261,9 +261,10 @@ type Bill {
 type Payment {
   id: ID! @unique
   billId: ID
+  userName: String
   paymentType: String
   shouldPay: Int
-  paymentWay: Int @default(value: 0) # 0为现金、1为刷卡、2为其它
+  paymentWay: Int @default(value: -1) # 0为现金、1为刷卡、2为其它
   confirmed: Boolean @default(value: false) #确认收费
   balance: Int @default(value: 0) #抵扣余额
   paymentPS: String #备注
