@@ -2,6 +2,7 @@ import Bill from './Bill';
 import BookingRecord from './BookingRecord';
 import ConsultingRecord from './ConsultingRecord';
 import Mutation from './Mutation';
+import Payment from './Payment';
 import Query from './Query';
 
 const resolvers = {
@@ -9,7 +10,8 @@ const resolvers = {
   Mutation,
   ConsultingRecord,
   BookingRecord,
-  Bill
+  Bill,
+  Payment
 };
 
 export default resolvers;

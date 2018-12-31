@@ -260,8 +260,7 @@ type Bill {
 #付款记录主表
 type Payment {
   id: ID! @unique
-  billId: ID
-  userName: String
+  bill: Bill
   paymentType: String
   shouldPay: Int
   paymentWay: Int @default(value: -1) # 0为现金、1为刷卡、2为其它

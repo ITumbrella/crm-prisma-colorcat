@@ -348,9 +348,12 @@ const Mutation = {
   //   return await prisma.deleteBill({ id: args.id });
   // },
   pay: async (parent, args, context) => {
-    const bill = await prisma.bill({ id: args.id });
-    const user = await prisma.bill({ id: args.billId }).user();
+    const bill = await prisma.payment({ id: args.id }).bill();
     const payment = await prisma.payment({ id: args.id });
+    const user = await prisma
+      .payment({ id: args.id })
+      .bill()
+      .user();
     const usedBalance = payment.balance;
     if (usedBalance > user.flowBalance + user.freezingBalance)
       throw { errors: "balance not enough", code: 202 };
@@ -371,7 +374,7 @@ const Mutation = {
       },
       where: { id: args.id }
     });
-    let newPaymentStatus;
+    let newPaymentStatus: string;
     switch (payment.paymentType) {
       case "付订金":
         newPaymentStatus = "已付订金";
@@ -424,8 +427,7 @@ const Mutation = {
     await prisma.createPayment({
       creator: payload.creator,
       creatorId: payload.creatorId,
-      userName,
-      billId: bill.id,
+      bill: { connect: { id: bill.id } },
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay
     });

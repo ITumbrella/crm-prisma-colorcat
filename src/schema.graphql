@@ -338,7 +338,7 @@ type Mutation {
     isOnlyDepositBill: Boolean #仅付订金的单子为true
   ): Bill!
   deleteBill(id: String!): Bill!
-  pay(id: ID!, userId: ID!, paymentWay: String!, paymentPS: String!): Bill!
+  pay(id: ID!, paymentWay: String!, paymentPS: String!): Bill!
 }
 
 type Query {
@@ -644,10 +644,9 @@ type ReturnVisitRecord {
 #付款记录主表
 type Payment {
   id: ID!
-  billId: ID
+  bill: Bill
   paymentType: String
   shouldPay: Int
-  userName: String
   paymentWay: Int # 0为现金、1为刷卡、2为其它
   confirmed: Boolean #确认收费
   balance: Int #抵扣余额
