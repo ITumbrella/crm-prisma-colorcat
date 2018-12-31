@@ -392,7 +392,7 @@ const Mutation = {
         paymentStatus: newBillStatus,
         paid: bill.paid + payment.shouldPay
       },
-      where: { id: args.billId }
+      where: { id: bill.id }
     });
     console.log(`${new Date().toString()} pay success`);
     return newPayment;
