@@ -366,7 +366,7 @@ const Mutation = {
         where: { id: user.id }
       });
     }
-    await prisma.updatePayment({
+    const newPayment = await prisma.updatePayment({
       data: {
         confirmed: true,
         paymentWay: args.paymentWay,
@@ -374,26 +374,28 @@ const Mutation = {
       },
       where: { id: args.id }
     });
-    let newPaymentStatus: string;
+    let newBillStatus: string;
     switch (payment.paymentType) {
       case "付订金":
-        newPaymentStatus = "已付订金";
+        newBillStatus = "已付订金";
         break;
       case "付部分款":
-        newPaymentStatus = "已付部分款";
+        newBillStatus = "已付部分款";
         break;
       case "付全款":
-        newPaymentStatus = "已付全款";
+        newBillStatus = "已付全款";
       default:
         break;
     }
-    return await prisma.updateBill({
+    await prisma.updateBill({
       data: {
-        paymentStatus: newPaymentStatus,
+        paymentStatus: newBillStatus,
         paid: bill.paid + payment.shouldPay
       },
       where: { id: args.billId }
     });
+    console.log(`${new Date().toString()} pay success`);
+    return newPayment;
   },
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
