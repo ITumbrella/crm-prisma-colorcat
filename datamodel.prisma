@@ -264,6 +264,8 @@ type Payment {
   shouldPay: Int
   paymentWay: Int @default(value: 0) # 0为现金、1为刷卡、2为其它
   confirmed: Boolean @default(value: false) #确认收费
+  balance: Int @default(value: 0)
+  deposit: Int @default(value: 0)
   createdAt: DateTime!
   creatorId: ID
   creator: String
