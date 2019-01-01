@@ -401,7 +401,8 @@ const Mutation = {
     await prisma.updateBill({
       data: {
         paymentStatus: newBillStatus,
-        paid: bill.paid + payment.shouldPay
+        paid: bill.paid + payment.shouldPay,
+        isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true
       },
       where: { id: bill.id }
     });
@@ -422,7 +423,7 @@ const Mutation = {
       billDetail: { set: billDetail },
       paymentStatus: "未收费",
       discount: payload.discount,
-      deposit: payload.deposit,
+      deposit: payload.depositReadyIn,
       isOnlyDepositBill: payload.isOnlyDepositBill
     });
     for (const detail of payload.billDetail) {
@@ -442,7 +443,7 @@ const Mutation = {
       creator: payload.creator,
       creatorId: payload.creatorId,
       bill: { connect: { id: bill.id } },
-      balance: payload.balance,
+      balance: payload.usedBalance,
       paymentType: payload.paymentType,
       shouldPay: payload.shouldPay
     });
