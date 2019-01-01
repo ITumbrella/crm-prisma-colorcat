@@ -401,7 +401,7 @@ const Mutation = {
     await prisma.updateBill({
       data: {
         paymentStatus: newBillStatus,
-        paid: bill.paid + payment.shouldPay,
+        paid: bill.paid + payment.shouldPay + payment.balance,
         isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true
       },
       where: { id: bill.id }
