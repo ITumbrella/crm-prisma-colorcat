@@ -394,6 +394,8 @@ const Mutation = {
         newBillStatus = "已付部分款";
         break;
       case "付全款":
+      case "补欠款":
+      case "补订金余款":
         newBillStatus = "已付全款";
       default:
         break;

@@ -341,6 +341,15 @@ type Mutation {
   ): Bill!
   deleteBill(id: String!): Bill!
   pay(id: ID!, paymentWay: Int!, paymentPS: String!): Payment!
+
+  #消费记录添加
+  addPayment(
+    billId: ID!
+    balance: Int!
+    paymentType: String
+    shouldPay: Int
+    paymentPS: String!
+  ): Payment
 }
 
 type Query {
