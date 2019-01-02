@@ -83,9 +83,11 @@ const Mutation = {
   //预约记录
   addBookingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
+    delete payload.userId;
+
     const br = await prisma.createBookingRecord({
       ...payload,
-      user: { connect: { id: payload.userId } }
+      user: { connect: { id: args.userId } }
     });
     console.log(`${new Date()} addBookingRecord`);
     return br;
@@ -348,7 +350,6 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     const billId = payload.billId;
     delete payload.billId;
-    console.log(payload);
 
     return await prisma.createPayment({
       bill: { connect: { id: billId } },
