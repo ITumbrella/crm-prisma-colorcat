@@ -559,6 +559,8 @@ type Bill {
   paid: Int
   paymentStatus: String
   discount: Float
+  flowBalance: Int #使用过的活动余额
+  freezingBalance: Int #使用过的冻结余额
   deposit: Int #订金
   isOnlyDepositBill: Boolean #仅付订金的单子为true
   creatorId: ID

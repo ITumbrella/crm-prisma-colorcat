@@ -373,7 +373,11 @@ const Mutation = {
     const usedBalance = payment.balance;
     if (usedBalance > user.flowBalance + user.freezingBalance)
       throw { errors: "balance not enough", code: 202 };
+    let usedFreezingBalance = -1;
+    let usedFlowBalance = -1;
     if (user.freezingBalance < usedBalance) {
+      usedFreezingBalance = user.freezingBalance;
+      usedFlowBalance = usedBalance - usedFreezingBalance;
       await prisma.updateUserBasic({
         data: {
           freezingBalance: 0,
@@ -381,15 +385,17 @@ const Mutation = {
         },
         where: { id: user.id }
       });
-      console.log("冻结余额不足，活动余额抵扣 Pay()");
+      console.log("freezingBalance not enough");
     } else {
-      console.log("冻结余额抵扣 Pay()");
+      usedFreezingBalance = 0;
+      usedFlowBalance = 0;
       await prisma.updateUserBasic({
         data: {
           freezingBalance: user.freezingBalance - usedBalance
         },
         where: { id: user.id }
       });
+      console.log("freezingBalance  enough");
     }
     const newPayment = await prisma.updatePayment({
       data: {
@@ -418,6 +424,8 @@ const Mutation = {
       newBillStatus = "已付全款";
     await prisma.updateBill({
       data: {
+        flowBalance: bill.flowBalance += usedFlowBalance,
+        freezingBalance: bill.freezingBalance += usedFreezingBalance,
         paymentStatus: newBillStatus,
         paid: bill.paid + payment.shouldPay + payment.balance,
         isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true
