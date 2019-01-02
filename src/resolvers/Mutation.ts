@@ -347,11 +347,11 @@ const Mutation = {
   addPayment: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     const billId = payload.billId;
-    delete payload[billId];
+    delete payload.billId;
     console.log(payload);
 
     return await prisma.createPayment({
-      bill: { connect: { id: args.billId } },
+      bill: { connect: { id: billId } },
       ...payload,
       paymentWay: -1,
       confirmed: false
