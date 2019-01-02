@@ -414,6 +414,8 @@ const Mutation = {
       default:
         break;
     }
+    if (bill.paid + payment.shouldPay + payment.balance >= bill.totalPrice)
+      newBillStatus = "已付全款";
     await prisma.updateBill({
       data: {
         paymentStatus: newBillStatus,
