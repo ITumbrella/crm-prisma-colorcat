@@ -348,6 +348,8 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     const billId = payload.billId;
     delete payload[billId];
+    console.log(payload);
+
     return await prisma.createPayment({
       bill: { connect: { id: args.billId } },
       ...payload,

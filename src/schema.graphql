@@ -345,10 +345,10 @@ type Mutation {
   #消费记录添加
   addPayment(
     billId: ID!
-    balance: Int!
-    paymentType: String
+    balance: Int
     shouldPay: Int
-    paymentPS: String!
+    paymentType: String
+    paymentPS: String
   ): Payment
 }
 
