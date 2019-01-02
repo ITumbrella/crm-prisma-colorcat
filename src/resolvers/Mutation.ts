@@ -343,10 +343,21 @@ const Mutation = {
   deleteReturnVisitRecord: async (parent, args, context) =>
     await prisma.deleteReturnVisitRecord({ id: args.id }),
 
-  //消费单
-  // deleteBill: async (parent, args, context) => {
-  //   return await prisma.deleteBill({ id: args.id });
-  // },
+  // 消费记录添加
+  addPayment: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    const billId = payload.billId;
+    delete payload[billId];
+    return await prisma.createPayment({
+      bill: { connect: { id: args.billId } },
+      ...payload,
+      paymentWay: -1,
+      confirmed: false
+    });
+  },
+  deleteBill: async (parent, args, context) => {
+    return await prisma.deleteBill({ id: args.id });
+  },
   pay: async (parent, args, context) => {
     const payment = await prisma.payment({ id: args.id });
     if (payment.confirmed)
@@ -411,6 +422,7 @@ const Mutation = {
     console.log(`${new Date().toString()} updateBillStatus Pay()`);
     return newPayment;
   },
+  //添加消费单
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     const billDetail = [];
