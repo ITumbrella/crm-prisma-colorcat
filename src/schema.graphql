@@ -340,7 +340,7 @@ type Mutation {
     isOnlyDepositBill: Boolean #仅付订金的单子为true
   ): Bill!
   deleteBill(id: String!): Bill!
-  pay(id: ID!, paymentWay: Int!, paymentPS: String!): Payment!
+  pay(id: ID!, paymentWay: Int!): Payment!
 
   #消费记录添加
   addPayment(
@@ -352,7 +352,7 @@ type Mutation {
   ): Payment
 
   #退款
-  payback(billId: ID, money: Int): Bill
+  payback(id: ID): Payment!
 }
 
 type Query {

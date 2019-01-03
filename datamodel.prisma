@@ -252,6 +252,7 @@ type Bill {
   flowBalance: Int @default(value: 0) #使用过的活动余额
   freezingBalance: Int @default(value: 0) #使用过的冻结余额
   deposit: Int @default(value: 0) #订金
+  payback: Int @default(value: 0) #退费（正确情况下只更新一次）
   isOnlyDepositBill: Boolean #仅付订金的单子为true
   isCompleted: Int #0未完成，1已完成，2退款
   creatorId: ID

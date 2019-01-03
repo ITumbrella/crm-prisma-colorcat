@@ -361,11 +361,53 @@ const Mutation = {
   deleteBill: async (parent, args, context) => {
     return await prisma.deleteBill({ id: args.id });
   },
-  pay: async (parent, args, context) => {
+  //退费逻辑
+  payback: async (parent, args, context) => {
     const payment = await prisma.payment({ id: args.id });
     if (payment.confirmed)
-      throw { errors: "This payment has been paid.", code: 202 };
+      throw { errors: " payment paid back yet", code: 202 };
     const bill = await prisma.payment({ id: args.id }).bill();
+    if (bill.isCompleted === 2)
+      throw { errors: "bill finished yet", code: 203 };
+    const user = await prisma
+      .payment({ id: args.id })
+      .bill()
+      .user();
+    await prisma.updateUserBasic({
+      data: {
+        flowBalance: user.flowBalance + payment.balance
+      },
+      where: { id: user.id }
+    });
+    let newBillStatus = "ExceptionBill";
+    switch (payment.paymentType) {
+      case "全额退款":
+        newBillStatus = "已全额退款";
+        break;
+      case "部分退款":
+        newBillStatus = "已部分退款";
+        break;
+    }
+    await prisma.updateBill({
+      data: {
+        paymentStatus: newBillStatus,
+        payback: payment.balance + payment.shouldPay,
+        isCompleted: 2
+      },
+      where: { id: bill.id }
+    });
+    return await prisma.updatePayment({
+      data: { confirmed: true, paymentWay: 2 },
+      where: { id: payment.id }
+    });
+  },
+
+  //确认收费逻辑
+  pay: async (parent, args, context) => {
+    const payment = await prisma.payment({ id: args.id });
+    if (payment.confirmed) throw { errors: "payment paid yet", code: 202 };
+    const bill = await prisma.payment({ id: args.id }).bill();
+    if (bill.isCompleted > 0) throw { errors: "bill finished yet", code: 203 };
     const user = await prisma
       .payment({ id: args.id })
       .bill()
@@ -400,12 +442,11 @@ const Mutation = {
     const newPayment = await prisma.updatePayment({
       data: {
         confirmed: true,
-        paymentWay: args.paymentWay,
-        paymentPS: args.paymentPS
+        paymentWay: args.paymentWay
       },
       where: { id: args.id }
     });
-    let newBillStatus: string;
+    let newBillStatus = "ExceptionBill";
     let isCompleted = bill.isCompleted;
     switch (payment.paymentType) {
       case "付订金":
@@ -414,20 +455,10 @@ const Mutation = {
       case "付部分款":
         newBillStatus = "已付部分款";
         break;
-      case "全额退款":
-        newBillStatus = "已全额退款";
-        isCompleted = 2;
-        break;
-      case "退款":
-        newBillStatus = "已部分退款";
-        isCompleted = 2;
-        break;
       case "付全款":
       case "补欠款":
       case "补订金余款":
         newBillStatus = "已付全款";
-        break;
-      default:
         break;
     }
 
@@ -453,6 +484,7 @@ const Mutation = {
     console.log(`${new Date().toString()} updateBillStatus Pay()`);
     return newPayment;
   },
+
   //添加消费单
   addBill: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
