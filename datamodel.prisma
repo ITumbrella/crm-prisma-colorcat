@@ -253,6 +253,7 @@ type Bill {
   freezingBalance: Int @default(value: 0) #使用过的冻结余额
   deposit: Int @default(value: 0) #订金
   isOnlyDepositBill: Boolean #仅付订金的单子为true
+  isCompleted: Int #0未完成，1已完成，2退款
   creatorId: ID
   creator: String
   editor: String

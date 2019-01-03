@@ -406,6 +406,7 @@ const Mutation = {
       where: { id: args.id }
     });
     let newBillStatus: string;
+    let isCompleted = bill.isCompleted;
     switch (payment.paymentType) {
       case "付订金":
         newBillStatus = "已付订金";
@@ -413,22 +414,39 @@ const Mutation = {
       case "付部分款":
         newBillStatus = "已付部分款";
         break;
+      case "全额退款":
+        newBillStatus = "已全额退款";
+        isCompleted = 2;
+        break;
+      case "退款":
+        newBillStatus = "已部分退款";
+        isCompleted = 2;
+        break;
       case "付全款":
       case "补欠款":
       case "补订金余款":
         newBillStatus = "已付全款";
+        break;
       default:
         break;
     }
-    if (bill.paid + payment.shouldPay + payment.balance >= bill.totalPrice)
+
+    if (
+      bill.paid + payment.shouldPay + payment.balance >= bill.totalPrice &&
+      payment.paymentType !== "全额退款" &&
+      payment.paymentType !== "部分退款"
+    ) {
       newBillStatus = "已付全款";
+      isCompleted = 1;
+    }
     await prisma.updateBill({
       data: {
         flowBalance: bill.flowBalance += usedFlowBalance,
         freezingBalance: bill.freezingBalance += usedFreezingBalance,
         paymentStatus: newBillStatus,
         paid: bill.paid + payment.shouldPay + payment.balance,
-        isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true
+        isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true,
+        isCompleted
       },
       where: { id: bill.id }
     });
@@ -451,7 +469,8 @@ const Mutation = {
       paymentStatus: "未收费",
       discount: payload.discount,
       deposit: payload.depositReadyIn,
-      isOnlyDepositBill: payload.isOnlyDepositBill
+      isOnlyDepositBill: payload.isOnlyDepositBill,
+      isCompleted: 0
     });
     for (const detail of payload.billDetail) {
       await prisma.createBillDetail({

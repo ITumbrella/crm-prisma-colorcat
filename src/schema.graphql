@@ -350,6 +350,9 @@ type Mutation {
     paymentType: String
     paymentPS: String
   ): Payment
+
+  #退款
+  payback(billId: ID, money: Int): Bill
 }
 
 type Query {
@@ -563,6 +566,7 @@ type Bill {
   freezingBalance: Int #使用过的冻结余额
   deposit: Int #订金
   isOnlyDepositBill: Boolean #仅付订金的单子为true
+  isCompleted: Int #消费单完成状态：0未完成，1已完成，2退款
   creatorId: ID
   creator: String
   editor: String
