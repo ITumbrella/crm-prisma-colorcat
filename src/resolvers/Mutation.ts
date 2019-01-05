@@ -532,6 +532,35 @@ const Mutation = {
     });
     console.log(`${new Date()} add payment`);
     return bill;
+  },
+  // 手术安排
+  addSurgery: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createSurgery({
+      creator: payload.creator,
+      creatorId: payload.creatorId,
+      bill: { connect: { id: args.billId } },
+      doctor: payload.doctor,
+      reservationTime: payload.reservationTime,
+      surgeryName: payload.surgeryName,
+      surgeryPS: payload.surgeryPS,
+      surgeryStatus: 0
+    });
+  },
+  // 疗程安排
+  addTreatment: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createTreatment({
+      creator: payload.creator,
+      creatorId: payload.creatorId,
+      bill: { connect: { id: args.billId } },
+      doctor: payload.doctor,
+      treatmentStatus: 0,
+      treatmentName: payload.treatmentName,
+      currentTreatmentTimes: 0,
+      treatmentTimes: payload.treatmentTimes,
+      treatmentPS: payload.treatmentPS
+    });
   }
 };
 export default Mutation;

@@ -354,6 +354,23 @@ type Mutation {
 
   #退款
   payback(id: ID): Payment!
+
+  #添加手术
+  addSurgery(
+    billId: ID
+    doctor: String
+    reservationTime: String
+    surgeryName: String
+    surgeryPS: String
+  ): Surgery!
+  #添加手术
+  addTreatment(
+    billId: ID
+    doctor: String
+    treatmentName: String
+    treatmentTimes: Int
+    treatmentPS: String
+  ): Treatment!
 }
 
 type Query {
@@ -682,6 +699,28 @@ type Payment {
 type Surgery {
   id: ID!
   bill: Bill!
+  surgeryStatus: Int #0待手术 1已完成 2已取消
+  doctor: String
+  reservationTime: String
+  surgeryName: String
+  surgeryPS: String
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+# 疗程安排
+type Treatment {
+  id: ID!
+  bill: Bill!
+  treatmentStatus: Int #0待治疗 1治疗中 2治疗完成 3治疗异常结束
+  doctor: String
+  treatmentName: String
+  currentTreatmentTimes: Int
+  treatmentTimes: Int
+  treatmentPS: String
   createdAt: DateTime!
   creatorId: ID
   creator: String
