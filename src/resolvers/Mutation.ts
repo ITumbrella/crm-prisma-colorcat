@@ -499,6 +499,7 @@ const Mutation = {
       creatorId: payload.creatorId,
       totalPrice: payload.totalPrice,
       user: { connect: { id: args.userId } },
+      bookingRecord: { connect: { id: args.bookingRecordId } },
       idCode: new Date().toString(),
       billDetail: { set: billDetail },
       paymentStatus: "未收费",
