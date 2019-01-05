@@ -243,6 +243,7 @@ type Bill {
   id: ID! @unique
   createdAt: DateTime!
   user: UserBasic!
+  bookingRecord: BookingRecord!
   idCode: String @unique #订单号
   totalPrice: Int
   billDetail: [String!]!
@@ -288,6 +289,18 @@ type BillDetail {
   unitPrice: Int
   quantifier: String #量词
   amount: Int
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+}
+
+# 手术安排
+type Surgery {
+  id: ID! @unique
+  bill: Bill!
+  createdAt: DateTime!
   creatorId: ID
   creator: String
   editor: String

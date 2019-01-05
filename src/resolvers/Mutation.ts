@@ -380,6 +380,8 @@ const Mutation = {
       where: { id: user.id }
     });
     let newBillStatus = "ExceptionBill";
+    console.log(payment.paymentType);
+
     switch (payment.paymentType) {
       case "全额退款":
         newBillStatus = "已全额退款";
@@ -396,6 +398,7 @@ const Mutation = {
       },
       where: { id: bill.id }
     });
+    console.log(`${new Date().toString()} payback()`);
     return await prisma.updatePayment({
       data: { confirmed: true, paymentWay: 2 },
       where: { id: payment.id }
