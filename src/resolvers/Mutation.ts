@@ -493,6 +493,7 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     const billDetail = [];
     for (const detail of payload.billDetail) billDetail.push(detail.project);
+    console.log(await prisma.bookingRecord({ id: args.bookingRecordId }));
 
     const bill = await prisma.createBill({
       creator: payload.creator,
