@@ -558,7 +558,7 @@ type Bill {
   createdAt: DateTime!
   user: UserBasic!
   bookingRecord: BookingRecord!
-  idCode: String @unique #订单号
+  idCode: String
   totalPrice: Int
   billDetail: [String!]!
   paid: Int
