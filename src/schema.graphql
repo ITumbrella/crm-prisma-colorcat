@@ -392,6 +392,8 @@ type Query {
   billsDetails: [BillDetail!]!
   billsDetaildsByBillId(id: ID!): [BillDetail!]!
   payments: [Payment!]!
+  surgeries: [Surgery!]!
+  treatments: [Treatment!]!
 }
 
 #实体 datamodel

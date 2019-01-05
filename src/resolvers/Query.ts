@@ -74,7 +74,9 @@ const Query = {
   agencies: async () => await prisma.agencies(),
   returnVisitTasks: async () => await prisma.returnVisitTasks(),
   returnVisitRecords: async () => await prisma.returnVisitRecords(),
-  payments: async () => await prisma.payments()
+  payments: async () => await prisma.payments(),
+  surgeries: async () => await prisma.surgeries(),
+  treatments: async () => await prisma.treatments()
 };
 
 export default Query;
