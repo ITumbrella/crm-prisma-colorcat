@@ -371,6 +371,25 @@ type Mutation {
     treatmentTimes: Int
     treatmentPS: String
   ): Treatment!
+  #修改手术
+  editSurgery(
+    id: ID!
+    surgeryStatus: Int #0待手术 1已完成 2已取消
+    doctor: String
+    reservationTime: String
+    surgeryPS: String
+    surgeryName: String
+  ): Surgery!
+  #修改疗程
+  editTreatment(
+    id: ID!
+    treatmentStatus: Int #0待治疗 1治疗中 2治疗完成 3治疗异常结束
+    doctor: String
+    treatmentName: String
+    currentTreatmentTimes: Int
+    treatmentTimes: Int
+    treatmentPS: String
+  ): Treatment!
 }
 
 type Query {

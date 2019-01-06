@@ -561,6 +561,22 @@ const Mutation = {
       treatmentTimes: payload.treatmentTimes,
       treatmentPS: payload.treatmentPS
     });
+  },
+  editSurgery: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+    delete payload.id;
+    return await prisma.updateSurgery({
+      data: { ...payload },
+      where: { id: args.id }
+    });
+  },
+  editTreatment: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+    delete payload.id;
+    return await prisma.updateTreatment({
+      data: { ...payload },
+      where: { id: args.id }
+    });
   }
 };
 export default Mutation;
