@@ -390,6 +390,8 @@ type Mutation {
     treatmentTimes: Int
     treatmentPS: String
   ): Treatment!
+  #执行疗程
+  opTreatment(id: ID!): Treatment!
 }
 
 type Query {

@@ -577,6 +577,22 @@ const Mutation = {
       data: { ...payload },
       where: { id: args.id }
     });
+  },
+  opTreatment: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+    delete payload.id;
+    const t = await prisma.treatment({ id: args.id });
+    if (t.currentTreatmentTimes + 1 === t.treatmentTimes) t.treatmentStatus = 2;
+    else if (t.currentTreatmentTimes + 1 > t.treatmentTimes)
+      throw { errors: "治疗已结束", code: 202 };
+    else t.treatmentStatus = 1;
+    return await prisma.updateTreatment({
+      data: {
+        currentTreatmentTimes: t.currentTreatmentTimes + 1,
+        treatmentStatus: t.treatmentStatus
+      },
+      where: { id: args.id }
+    });
   }
 };
 export default Mutation;
