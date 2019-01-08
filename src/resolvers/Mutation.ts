@@ -181,7 +181,9 @@ const Mutation = {
     return item;
   },
   deleteDictionaryItem: async (parent, args, context) => {
-    return prisma.deleteDictionary({ id: args.id });
+    await prisma.deleteManyDictionaries({ itemParentId: args.id });
+
+    return await prisma.deleteDictionary({ id: args.id });
   },
 
   //系统用户权限
