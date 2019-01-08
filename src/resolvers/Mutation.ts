@@ -144,20 +144,18 @@ const Mutation = {
 
   //广告消费记录 mutations
   addAdConsumptionRec: async (parent, args, context) => {
-    return await prisma.createAdConsumptionRec(args);
+    const payload = await Certify(context, args, Identity.Creator);
+    return await prisma.createAdConsumptionRec(payload);
   },
   deleteAdConsumptionRec: async (parent, args, context) => {
     return await prisma.deleteAdConsumptionRec({ id: args.id });
   },
   updateAdConsumptionRec: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Editor);
+    delete payload["id"];
     return await prisma.updateAdConsumptionRec({
       data: {
-        typeName: args.typeName,
-        plan: args.plan,
-        displayAmount: args.displayAmount,
-        clickAmount: args.clickAmount,
-        consumption: args.consumption,
-        time: args.time
+        ...payload
       },
       where: {
         id: args.id
