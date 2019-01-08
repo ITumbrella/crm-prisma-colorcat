@@ -87,7 +87,7 @@ type Dictionary {
   itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int
-  sortIndex: Int
+  sortIndex: Int @default(value: 0)
   ps: String
   createdAt: DateTime!
   creator: String
