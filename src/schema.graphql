@@ -488,9 +488,16 @@ type ConsultingRecord {
 type BookingRecord {
   id: ID!
   user: UserBasic!
+  consultationRecord: ConsultingRecord
   toHospitalCate: String!
   bookingStatus: String
   time: String!
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editorId: ID
+  editor: String
+  editedAt: String
   #流水
   frontDesk: String
   frontDeskId: ID
@@ -498,13 +505,6 @@ type BookingRecord {
   assistantId: ID
   doctor: String
   doctorId: ID
-
-  createdAt: DateTime!
-  creatorId: ID
-  creator: String
-  editorId: ID
-  editor: String
-  editedAt: String
 }
 #字典
 type Dictionary {
