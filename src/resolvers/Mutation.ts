@@ -123,6 +123,8 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     const user = await prisma.createUserBasic(payload);
     console.log(`${new Date().toString()} addUserBasic`);
+    console.log(payload);
+
     return { success: true, userId: user.id };
   },
   updateUserBasic: async (parent, args, context) => {
