@@ -93,7 +93,7 @@ type Mutation {
     blance: Int #余额
   ): UserBasic!
   deleteUser(id: ID!): MutationResult!
-  acceptAdvancedForm(formData: FormData!): CumstomReturn!
+  acceptAdvancedForm(formData: FormData!): CustomReturn!
 
   addConsultingRecord(
     userId: ID!
