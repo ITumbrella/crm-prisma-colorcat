@@ -490,7 +490,7 @@ type BookingRecord {
   user: UserBasic!
   consultationRecord: ConsultingRecord
   toHospitalCate: String!
-  bookingStatus: String
+  bookingStatus: Int
   time: String!
   createdAt: DateTime!
   creatorId: ID

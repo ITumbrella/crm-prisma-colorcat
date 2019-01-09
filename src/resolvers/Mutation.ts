@@ -55,20 +55,22 @@ const Mutation = {
     if (payload.formData.consultationRecord) {
       payload.formData.consultationRecord.creator = payload.creator;
       payload.formData.consultationRecord.creatorId = payload.creatorId;
-      await prisma.createConsultingRecord({
+      const cr = await prisma.createConsultingRecord({
         ...payload.formData.consultationRecord,
         user: { connect: { id: user.id } }
       });
+      if (payload.formData.bookingRecord) {
+        payload.formData.bookingRecord.creator = payload.creator;
+        payload.formData.bookingRecord.creatorId = payload.creatorId;
+        await prisma.createBookingRecord({
+          ...payload.formData.bookingRecord,
+          user: { connect: { id: user.id } },
+          consultationRecord: { connect: { id: cr.id } }
+        });
+      }
     }
-    if (payload.formData.bookingRecord) {
-      payload.formData.bookingRecord.creator = payload.creator;
-      payload.formData.bookingRecord.creatorId = payload.creatorId;
-      await prisma.createBookingRecord({
-        ...payload.formData.bookingRecord,
-        user: { connect: { id: user.id } }
-      });
-    }
-    return payload;
+    console.log(`${new Date()} acceptAdvancedForm`);
+    return { success: true };
   },
 
   addConsultingRecord: async (parent, args, context) => {
@@ -108,7 +110,6 @@ const Mutation = {
   //新添加预约接口
   addBookingRecordWithConsultation: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
-    console.log(payload);
     payload.customParams.bookingRecord.creator = payload.creator;
     payload.customParams.bookingRecord.creatorId = payload.creatorId;
     payload.customParams.consultationRecord.creator = payload.creator;

@@ -65,7 +65,7 @@ type BookingRecord {
   user: UserBasic!
   consultationRecord: ConsultingRecord
   toHospitalCate: String!
-  bookingStatus: String
+  bookingStatus: Int
   time: String!
   createdAt: DateTime!
   creatorId: ID
@@ -177,7 +177,7 @@ type Agency {
   agencyName: String
   agencyType: String
   agencyLevel: String
-  coStatus: String
+  coStatus: Int
   availiable: Boolean
   agencyHead: String
   headTel: String
@@ -249,7 +249,7 @@ type Bill {
   totalPrice: Int
   billDetail: [String!]!
   paid: Int @default(value: 0)
-  paymentStatus: String
+  paymentStatus: Int
   discount: Float
   flowBalance: Int @default(value: 0) #使用过的活动余额
   freezingBalance: Int @default(value: 0) #使用过的冻结余额
