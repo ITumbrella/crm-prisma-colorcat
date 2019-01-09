@@ -109,8 +109,18 @@ const Mutation = {
   addBookingRecordWithConsultation: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     console.log(payload);
+    payload.customParams.bookingRecord.creator = payload.creator;
+    payload.customParams.bookingRecord.creatorId = payload.creatorId;
+    payload.customParams.consultationRecord.creator = payload.creator;
+    payload.customParams.consultationRecord.creatorId = payload.creatorId;
+    const cr = await prisma.createConsultingRecord(
+      payload.customParams.consultationRecord
+    );
 
-    return payload;
+    return await prisma.createBookingRecord({
+      ...payload.customParams.bookingRecord,
+      consultationRecord: { connect: { id: cr.id } }
+    });
   },
   //预约记录
   addBookingRecord: async (parent, args, context) => {
