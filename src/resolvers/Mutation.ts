@@ -46,6 +46,10 @@ const Mutation = {
       departmentId: user.departmentId
     };
   },
+  acceptAdvancedForm: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    console.log(payload);
+  },
   addConsultingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     await prisma.createConsultingRecord({

@@ -2,6 +2,7 @@
 scalar DateTime
 scalar CustomReturn
 scalar CustomBillDetail
+scalar FormData
 
 type AuthPayload {
   token: String!
@@ -15,7 +16,7 @@ type MutationResult {
   success: Boolean!
 }
 type Mutation {
-  #用户
+  # 用户
   rechargeBalance(id: ID!, balance: Int): UserBasic!
   addUser(
     name: String! #姓名
@@ -92,6 +93,7 @@ type Mutation {
     blance: Int #余额
   ): UserBasic!
   deleteUser(id: ID!): MutationResult!
+  acceptAdvancedForm(formData: FormData!): CumstomReturn!
 
   addConsultingRecord(
     userId: ID!
