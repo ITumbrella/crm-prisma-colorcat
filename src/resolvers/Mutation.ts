@@ -50,20 +50,24 @@ const Mutation = {
   acceptAdvancedForm: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     console.log(payload);
-    if (payload.formData.user) {
-      payload.formData.user.creator = payload.creator;
-      payload.formData.user.creatorId = payload.creatorId;
-      await prisma.createUserBasic(payload.formData.user);
-    }
+    payload.formData.user.creator = payload.creator;
+    payload.formData.user.creatorId = payload.creatorId;
+    const user = await prisma.createUserBasic(payload.formData.user);
     if (payload.formData.consultationRecord) {
       payload.formData.consultationRecord.creator = payload.creator;
       payload.formData.consultationRecord.creatorId = payload.creatorId;
-      await prisma.createConsultingRecord(payload.formData.consultationRecord);
+      await prisma.createConsultingRecord({
+        ...payload.formData.consultationRecord,
+        user: { connect: { id: user.id } }
+      });
     }
     if (payload.formData.bookingRecord) {
       payload.formData.bookingRecord.creator = payload.creator;
       payload.formData.bookingRecord.creatorId = payload.creatorId;
-      await prisma.createBookingRecord(payload.formData.bookingRecord);
+      await prisma.createBookingRecord({
+        ...payload.formData.bookingRecord,
+        user: { connect: { id: user.id } }
+      });
     }
     return payload;
   },
