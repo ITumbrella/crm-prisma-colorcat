@@ -108,6 +108,8 @@ const Mutation = {
   //新添加预约接口
   addBookingRecordWithConsultation: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
+    console.log(payload);
+
     return payload;
   },
   //预约记录
