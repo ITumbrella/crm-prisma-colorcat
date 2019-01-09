@@ -49,6 +49,7 @@ const Mutation = {
   acceptAdvancedForm: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     console.log(payload);
+    return payload;
   },
   addConsultingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
