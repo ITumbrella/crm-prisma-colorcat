@@ -113,13 +113,18 @@ const Mutation = {
     payload.customParams.bookingRecord.creatorId = payload.creatorId;
     payload.customParams.consultationRecord.creator = payload.creator;
     payload.customParams.consultationRecord.creatorId = payload.creatorId;
-    const cr = await prisma.createConsultingRecord(
-      payload.customParams.consultationRecord
-    );
+    const id = payload.customParams.consultationRecord.userId;
+    delete payload.customParams.consultationRecord.userId;
+    delete payload.customParams.bookingRecord.userId;
+    const cr = await prisma.createConsultingRecord({
+      ...payload.customParams.consultationRecord,
+      user: { connect: { id } }
+    });
 
     return await prisma.createBookingRecord({
       ...payload.customParams.bookingRecord,
-      consultationRecord: { connect: { id: cr.id } }
+      consultationRecord: { connect: { id: cr.id } },
+      user: { connect: { id } }
     });
   },
   //预约记录
