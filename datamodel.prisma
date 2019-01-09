@@ -65,7 +65,7 @@ type BookingRecord {
   user: UserBasic!
   consultationRecord: ConsultingRecord
   toHospitalCate: String!
-  bookingStatus: Int
+  bookingStatus: Int #0已预约 1已到院 2已接诊 3已开单
   time: String!
   createdAt: DateTime!
   creatorId: ID
@@ -177,7 +177,7 @@ type Agency {
   agencyName: String
   agencyType: String
   agencyLevel: String
-  coStatus: Int
+  coStatus: String
   availiable: Boolean
   agencyHead: String
   headTel: String
@@ -249,7 +249,7 @@ type Bill {
   totalPrice: Int
   billDetail: [String!]!
   paid: Int @default(value: 0)
-  paymentStatus: Int
+  paymentStatus: Int # 0未收费 1已付订金 2已付部分款 3已付全款 4"已全额退款" 5已部分退款
   discount: Float
   flowBalance: Int @default(value: 0) #使用过的活动余额
   freezingBalance: Int @default(value: 0) #使用过的冻结余额
@@ -267,7 +267,7 @@ type Bill {
 type Payment {
   id: ID! @unique
   bill: Bill
-  paymentType: String
+  paymentType: Int # 0付定金 1付部分款 2付全款 3补欠款 4补订金余款 5全额退款 6部分退款
   shouldPay: Int
   paymentWay: Int @default(value: -1) # 0为现金、1为刷卡、2为其它
   confirmed: Boolean @default(value: false) #确认收费

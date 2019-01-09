@@ -429,15 +429,15 @@ const Mutation = {
       },
       where: { id: user.id }
     });
-    let newBillStatus = "ExceptionBill";
+    let newBillStatus = 9999;
     console.log(payment.paymentType);
 
     switch (payment.paymentType) {
-      case "全额退款":
-        newBillStatus = "已全额退款";
+      case 5:
+        newBillStatus = 4;
         break;
-      case "部分退款":
-        newBillStatus = "已部分退款";
+      case 6:
+        newBillStatus = 5;
         break;
     }
     await prisma.updateBill({
@@ -499,28 +499,28 @@ const Mutation = {
       },
       where: { id: args.id }
     });
-    let newBillStatus = "ExceptionBill";
+    let newBillStatus = 9999;
     let isCompleted = bill.isCompleted;
     switch (payment.paymentType) {
-      case "付订金":
-        newBillStatus = "已付订金";
+      case 0:
+        newBillStatus = 1;
         break;
-      case "付部分款":
-        newBillStatus = "已付部分款";
+      case 1:
+        newBillStatus = 2;
         break;
-      case "付全款":
-      case "补欠款":
-      case "补订金余款":
-        newBillStatus = "已付全款";
+      case 2:
+      case 3:
+      case 4:
+        newBillStatus = 3;
         break;
     }
 
     if (
       bill.paid + payment.shouldPay + payment.balance >= bill.totalPrice &&
-      payment.paymentType !== "全额退款" &&
-      payment.paymentType !== "部分退款"
+      payment.paymentType !== 5 &&
+      payment.paymentType !== 6
     ) {
-      newBillStatus = "已付全款";
+      newBillStatus = 3;
       isCompleted = 1;
     }
     await prisma.updateBill({
@@ -529,7 +529,7 @@ const Mutation = {
         freezingBalance: bill.freezingBalance += usedFreezingBalance,
         paymentStatus: newBillStatus,
         paid: bill.paid + payment.shouldPay + payment.balance,
-        isOnlyDepositBill: payment.paymentType !== "付订金" ? false : true,
+        isOnlyDepositBill: payment.paymentType !== 0 ? false : true,
         isCompleted
       },
       where: { id: bill.id }
@@ -543,7 +543,6 @@ const Mutation = {
     const payload = await Certify(context, args, Identity.Creator);
     const billDetail = [];
     for (const detail of payload.billDetail) billDetail.push(detail.project);
-    console.log(await prisma.bookingRecord({ id: args.bookingRecordId }));
 
     const bill = await prisma.createBill({
       creator: payload.creator,
@@ -553,7 +552,7 @@ const Mutation = {
       bookingRecord: { connect: { id: args.bookingRecordId } },
       idCode: new Date().toString(),
       billDetail: { set: billDetail },
-      paymentStatus: "未收费",
+      paymentStatus: 0,
       discount: payload.discount,
       deposit: payload.depositReadyIn,
       isOnlyDepositBill: payload.isOnlyDepositBill,
@@ -571,7 +570,6 @@ const Mutation = {
       });
     }
     console.log(`${new Date()} addBill and details`);
-    const userName = (await prisma.bill({ id: bill.id }).user()).name;
     await prisma.createPayment({
       creator: payload.creator,
       creatorId: payload.creatorId,

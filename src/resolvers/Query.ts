@@ -37,7 +37,7 @@ const Query = {
         .bookingRecordsConnection({
           where: {
             user: { id: user.id },
-            bookingStatus_not_contains: "已预约"
+            bookingStatus_not: 0
           }
         })
         .aggregate()

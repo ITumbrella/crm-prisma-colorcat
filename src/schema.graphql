@@ -119,7 +119,7 @@ type Mutation {
     userId: ID!
     toHospitalCate: String! #来院类别
     time: String! #预到时间
-    bookingStatus: String!
+    bookingStatus: Int!
     #流水
     frontDesk: String
     frontDeskId: ID
@@ -131,7 +131,7 @@ type Mutation {
   updateBookingRecord(
     id: ID!
     toHospitalCate: String!
-    bookingStatus: String
+    bookingStatus: Int
     time: String!
     #流水
     frontDesk: String
@@ -338,7 +338,7 @@ type Mutation {
     discount: Float
     totalPrice: Int
     billDetail: CustomBillDetail
-    paymentType: String
+    paymentType: Int
     shouldPay: Int
     usedBalance: Int
     depositReadyIn: Int
@@ -352,7 +352,7 @@ type Mutation {
     billId: ID!
     balance: Int
     shouldPay: Int
-    paymentType: String
+    paymentType: Int
     paymentPS: String
   ): Payment
 
@@ -606,7 +606,7 @@ type Bill {
   totalPrice: Int
   billDetail: [String!]!
   paid: Int
-  paymentStatus: String
+  paymentStatus: Int
   discount: Float
   flowBalance: Int #使用过的活动余额
   freezingBalance: Int #使用过的冻结余额
@@ -708,7 +708,7 @@ type ReturnVisitRecord {
 type Payment {
   id: ID!
   bill: Bill
-  paymentType: String
+  paymentType: Int #0为
   shouldPay: Int
   paymentWay: Int # 0为现金、1为刷卡、2为其它
   confirmed: Boolean #确认收费
