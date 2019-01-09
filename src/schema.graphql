@@ -3,6 +3,7 @@ scalar DateTime
 scalar CustomReturn
 scalar CustomBillDetail
 scalar FormData
+scalar CustomParams
 
 type AuthPayload {
   token: String!
@@ -113,6 +114,7 @@ type Mutation {
   autoLogin(token: String!): AuthPayload!
 
   #预约记录
+  addBookingRecordWithConsultation(customParams: CustomParams!): BookingRecord!
   addBookingRecord(
     userId: ID!
     toHospitalCate: String! #来院类别

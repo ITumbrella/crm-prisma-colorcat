@@ -63,6 +63,7 @@ type ConsultingRecord {
 type BookingRecord {
   id: ID! @unique
   user: UserBasic!
+  consultationRecord: ConsultingRecord
   toHospitalCate: String!
   bookingStatus: String
   time: String!

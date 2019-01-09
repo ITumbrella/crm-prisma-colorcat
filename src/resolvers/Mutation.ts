@@ -49,7 +49,6 @@ const Mutation = {
   // 表单客户登记
   acceptAdvancedForm: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
-    console.log(payload);
     payload.formData.user.creator = payload.creator;
     payload.formData.user.creatorId = payload.creatorId;
     const user = await prisma.createUserBasic(payload.formData.user);
@@ -106,6 +105,11 @@ const Mutation = {
     return { success: true };
   },
 
+  //新添加预约接口
+  addBookingRecordWithConsultation: async (parent, args, context) => {
+    const payload = await Certify(context, args, Identity.Creator);
+    return payload;
+  },
   //预约记录
   addBookingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
