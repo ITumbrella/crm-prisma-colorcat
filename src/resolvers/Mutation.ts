@@ -46,11 +46,28 @@ const Mutation = {
       departmentId: user.departmentId
     };
   },
+  // 表单客户登记
   acceptAdvancedForm: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     console.log(payload);
+    if (payload.formData.user) {
+      payload.formData.user.creator = payload.creator;
+      payload.formData.user.creatorId = payload.creatorId;
+      await prisma.createUserBasic(payload.formData.user);
+    }
+    if (payload.formData.consultationRecord) {
+      payload.formData.consultationRecord.creator = payload.creator;
+      payload.formData.consultationRecord.creatorId = payload.creatorId;
+      await prisma.createConsultingRecord(payload.formData.consultationRecord);
+    }
+    if (payload.formData.bookingRecord) {
+      payload.formData.bookingRecord.creator = payload.creator;
+      payload.formData.bookingRecord.creatorId = payload.creatorId;
+      await prisma.createBookingRecord(payload.formData.bookingRecord);
+    }
     return payload;
   },
+
   addConsultingRecord: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
     await prisma.createConsultingRecord({
