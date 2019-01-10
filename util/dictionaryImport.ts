@@ -45,7 +45,7 @@ async function importDictionaryCore() {
   console.log("删除所有字典");
 
   for (let i = 1; i < coreDictionary.length + 1; i += 1) {
-    const core = coreDictionary[i];
+    const core = coreDictionary[i - 1];
     await prisma.createDictionary({
       itemName: core,
       rootIndex: -i,
