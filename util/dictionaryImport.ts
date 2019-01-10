@@ -39,6 +39,8 @@ const tracebackDics = [
   "回访类型",
   "回访方式"
 ];
+/** 手术状态和疗程状态一级 */
+const surgeryDics = ["手术状态", "治疗状态"];
 
 async function importDictionaryCore() {
   await prisma.deleteManyDictionaries();
@@ -57,19 +59,19 @@ async function importDictionaryCore() {
   for (let i = 0; i < personalPropDics.length; i += 1) {
     await prisma.createDictionary({
       itemName: personalPropDics[i],
-      rootIndex: i,
+      rootIndex: i + 100,
       sortIndex: i,
       itemParentId: personalProp.id,
       itemAvailiable: true
     });
   }
-  console.log("回访记录一级添加成功");
+  console.log("个人属性一级添加成功");
   const traceback = coreDics.find(ele => ele.rootIndex === -2);
   for (let i = 0; i < tracebackDics.length; i += 1) {
     await prisma.createDictionary({
       itemName: tracebackDics[i],
-      rootIndex: i + 100,
-      sortIndex: i + 100,
+      rootIndex: i + 200,
+      sortIndex: i,
       itemParentId: traceback.id,
       itemAvailiable: true
     });
@@ -79,12 +81,23 @@ async function importDictionaryCore() {
   for (let i = 0; i < agencyDics.length; i += 1) {
     await prisma.createDictionary({
       itemName: agencyDics[i],
-      rootIndex: i + 200,
-      sortIndex: i + 200,
+      rootIndex: i + 300,
+      sortIndex: i,
       itemParentId: agency.id,
       itemAvailiable: true
     });
   }
   console.log("市场机构一级添加成功");
+  const surgery = coreDics.find(ele => ele.rootIndex === -6);
+  for (let i = 0; i < surgeryDics.length; i += 1) {
+    await prisma.createDictionary({
+      itemName: surgeryDics[i],
+      rootIndex: i + 600,
+      sortIndex: i,
+      itemParentId: surgery.id,
+      itemAvailiable: true
+    });
+  }
+  console.log("手术状态治疗状态一级添加成功");
 }
 importDictionaryCore();
