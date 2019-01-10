@@ -41,6 +41,8 @@ const tracebackDics = [
 ];
 /** 手术状态和疗程状态一级 */
 const surgeryDics = ["手术状态", "治疗状态"];
+/** 收费字典一级 */
+const billDics = ["收费类别", "收入归类", "发票归类"];
 
 async function importDictionaryCore() {
   await prisma.deleteManyDictionaries();
@@ -99,5 +101,16 @@ async function importDictionaryCore() {
     });
   }
   console.log("手术状态治疗状态一级添加成功");
+  const bill = coreDics.find(ele => ele.rootIndex === -4);
+  for (let i = 0; i < billDics.length; i += 1) {
+    await prisma.createDictionary({
+      itemName: billDics[i],
+      rootIndex: i + 400,
+      sortIndex: i,
+      itemParentId: bill.id,
+      itemAvailiable: true
+    });
+  }
+  console.log("收费归类一级添加成功");
 }
 importDictionaryCore();
