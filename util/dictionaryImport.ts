@@ -43,7 +43,6 @@ const tracebackDics = [
 async function importDictionaryCore() {
   await prisma.deleteManyDictionaries();
   console.log("删除所有字典");
-
   for (let i = 1; i < coreDictionary.length + 1; i += 1) {
     const core = coreDictionary[i - 1];
     await prisma.createDictionary({
@@ -52,7 +51,19 @@ async function importDictionaryCore() {
       itemAvailiable: true
     });
   }
+  console.log("核心字典添加成功");
   const coreDics = await prisma.dictionaries();
+  const personalProp = coreDics.find(ele => ele.rootIndex === -1);
+  for (let i = 0; i < personalPropDics.length; i += 1) {
+    await prisma.createDictionary({
+      itemName: personalPropDics[i],
+      rootIndex: i,
+      sortIndex: i,
+      itemParentId: personalProp.id,
+      itemAvailiable: true
+    });
+  }
+  console.log("回访记录一级添加成功");
   const traceback = coreDics.find(ele => ele.rootIndex === -2);
   for (let i = 0; i < tracebackDics.length; i += 1) {
     await prisma.createDictionary({
@@ -63,7 +74,7 @@ async function importDictionaryCore() {
       itemAvailiable: true
     });
   }
-
+  console.log("回访记录一级添加成功");
   const agency = coreDics.find(ele => ele.rootIndex === -3);
   for (let i = 0; i < agencyDics.length; i += 1) {
     await prisma.createDictionary({
@@ -74,5 +85,6 @@ async function importDictionaryCore() {
       itemAvailiable: true
     });
   }
+  console.log("市场机构一级添加成功");
 }
 importDictionaryCore();
