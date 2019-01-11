@@ -44,7 +44,7 @@ const surgeryDics = ["手术状态", "治疗状态"];
 /** 收费字典一级 */
 const billDics = ["收费类别", "收入归类", "发票归类"];
 
-async function importDictionaryCore() {
+export async function importDictionaryCore() {
   await prisma.deleteManyDictionaries();
   console.log("删除所有字典");
   for (let i = 1; i < coreDictionary.length + 1; i += 1) {
@@ -113,4 +113,3 @@ async function importDictionaryCore() {
   }
   console.log("收费归类一级添加成功");
 }
-importDictionaryCore();
