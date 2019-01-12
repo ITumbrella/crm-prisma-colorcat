@@ -133,6 +133,9 @@ type Mutation {
     toHospitalCate: String!
     bookingStatus: Int
     time: String!
+    diagnosisResult: String #接诊结果
+    diagnosisSummary: String #接诊小结
+    diagnosisDetail: String #接诊详情
     #流水
     frontDesk: String
     frontDeskId: ID
@@ -492,6 +495,9 @@ type BookingRecord {
   toHospitalCate: String!
   bookingStatus: Int
   time: String!
+  diagnosisResult: String #接诊结果
+  diagnosisSummary: String #接诊小结
+  diagnosisDetail: String #接诊详情
   createdAt: DateTime!
   creatorId: ID
   creator: String
