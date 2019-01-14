@@ -16,15 +16,6 @@ services:
             host: mysql
             port: 3306
             user: root
-            password: prisma
+            password: avtvyv123
             migrations: true
             rawAccess: true
-  mysql:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: prisma
-    volumes:
-      - mysql:/var/lib/mysql
-volumes:
-  mysql:
