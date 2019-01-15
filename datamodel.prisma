@@ -88,6 +88,7 @@ type BookingRecord {
 type Dictionary {
   id: ID! @unique
   itemName: String!
+  itemSecondName: String @default(value: "默认") #双语
   itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int

@@ -157,6 +157,7 @@ type Mutation {
   ): Dictionary
   addDictionaryItem(
     itemName: String!
+    itemSecondName: String
     itemParentId: String
     itemAvailiable: Boolean!
     sortIndex: Int
@@ -516,6 +517,7 @@ type BookingRecord {
 type Dictionary {
   id: ID!
   itemName: String!
+  itemSecondName: String #双语
   itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int

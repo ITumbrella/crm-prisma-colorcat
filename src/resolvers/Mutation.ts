@@ -224,7 +224,8 @@ const Mutation = {
         itemAvailiable: args.itemAvailiable,
         sortIndex: args.sortIndex,
         rootIndex: args.rootIndex,
-        ps: args.ps
+        ps: args.ps,
+        itemSecondName: args.itemSecondName
       },
       where: { id: args.id }
     });
