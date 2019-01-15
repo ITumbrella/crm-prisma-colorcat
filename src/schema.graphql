@@ -150,6 +150,7 @@ type Mutation {
   updateDictionaryItem(
     id: String!
     itemName: String
+    itemSecondName: String
     itemAvailiable: Boolean
     sortIndex: Int
     rootIndex: Int
