@@ -11,6 +11,9 @@ exec(`pm2 install typescript`);
 exec("npm install yarn -g");
 exec("yarn");
 exec("yarn global add prisma@1.22.1");
+try {
+  exec(`pm2 delete all`);
+} catch (error) {}
 exec(`pm2 start src/index.ts --name='crm-backend'`);
 exec("prisma generate");
 exec("prisma deploy --force");
