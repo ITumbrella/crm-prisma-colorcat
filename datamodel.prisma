@@ -43,7 +43,7 @@ type UserBasic {
   editorId: ID
   editor: String
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #咨询记录
 type ConsultingRecord {
@@ -59,7 +59,7 @@ type ConsultingRecord {
   editorId: ID
   editor: String
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #预约
 type BookingRecord {
@@ -85,7 +85,7 @@ type BookingRecord {
   assistantId: ID
   doctor: String
   doctorId: ID
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #字典
 type Dictionary {
@@ -103,7 +103,7 @@ type Dictionary {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #管理员
 type Admin {
@@ -121,7 +121,7 @@ type Admin {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #权限组
 type Department {
@@ -135,7 +135,7 @@ type Department {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #广告类别
 type Ad {
@@ -149,7 +149,7 @@ type Ad {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #广告消费记录
 type AdConsumptionRec {
@@ -166,7 +166,7 @@ type AdConsumptionRec {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #咨询工作
 type ConsultationWork {
@@ -182,7 +182,7 @@ type ConsultationWork {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #机构
 type Agency {
@@ -210,7 +210,7 @@ type Agency {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 # 回访任务
 type ReturnVisitTask {
@@ -230,7 +230,7 @@ type ReturnVisitTask {
   editorId: ID
   editedAt: String
   createdAt: DateTime!
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 
 # 回访记录
@@ -253,7 +253,7 @@ type ReturnVisitRecord {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #消费单
 type Bill {
@@ -278,7 +278,7 @@ type Bill {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 #付款记录主表
 type Payment {
@@ -296,7 +296,7 @@ type Payment {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 
 #消费单辅表
@@ -313,7 +313,7 @@ type BillDetail {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 
 # 手术安排
@@ -331,7 +331,7 @@ type Surgery {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
 
 # 疗程安排
@@ -350,5 +350,5 @@ type Treatment {
   editor: String
   editorId: ID
   editedAt: String
-  updatedAt: DataTime!
+  updatedAt: DateTime!
 }
