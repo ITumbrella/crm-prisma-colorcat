@@ -40,12 +40,12 @@ type Mutation {
     email: String
     secondPhoneNum: String #第二联系电话
     introducer: String #介绍人
+    education: String
     career: String #职业
     marriage: String #婚姻状况
     phoneModel: String #手机型号
     carModel: String #汽车型号
-    addressDetail: String #二级联动详细地址
-    addressSpecific: String #具体地址
+    addressDetail: String #
     medicalHistory: String #病史
     reMark: String #备注
     mainProject: String #主项目
@@ -76,13 +76,13 @@ type Mutation {
     idCard: String #身份证号
     email: String
     secondPhoneNum: String #第二联系电话
+    education: String
     introducer: String #介绍人
     career: String #职业
     marriage: String #婚姻状况
     phoneModel: String #手机型号
     carModel: String #汽车型号
-    addressDetail: String #二级联动详细地址
-    addressSpecific: String #具体地址
+    addressDetail: String #具体地址
     medicalHistory: String #病史
     reMark: String #备注
     mainProject: String #主项目
@@ -450,13 +450,13 @@ type UserBasic {
   idCard: String #身份证号
   email: String
   secondPhoneNum: String #第二联系电话
+  education: String #学历
   introducer: String #介绍人
   career: String #职业
   marriage: String #婚姻状况
   phoneModel: String #手机型号
   carModel: String #汽车型号
-  addressDetail: String #二级联动详细地址
-  addressSpecific: String #具体地址
+  addressDetail: String #具体地址
   medicalHistory: String #病史
   reMark: String #备注
   mainProject: String
