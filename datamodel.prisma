@@ -215,7 +215,7 @@ type Agency {
 # 回访任务
 type ReturnVisitTask {
   id: ID! @unique
-  isCompleted:Boolean @default(value:false) #任务完成状态
+  isCompleted: Boolean @default(value: false) #任务完成状态
   name: String #客户名称
   userId: ID #客户Id
   tel: String #客户电话
@@ -239,7 +239,7 @@ type ReturnVisitRecord {
   id: ID! @unique
   name: String #客户名称
   userId: ID #客户Id
-  taskId: #回访任务id  ***
+  taskId: ID #回访任务id  ***
   type: String #回访类型
   topic: String #回访主题
   result: String #回访结果
