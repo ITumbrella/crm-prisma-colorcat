@@ -307,14 +307,14 @@ type Mutation {
   deleteReturnVisitTask(id: ID!): ReturnVisitTask!
   #回访记录
   addReturnVisitRecord(
+    taskId: ID #回访任务id  ***
+    recordDetail: String #回访详情
     name: String #客户名称
     userId: ID #客户Id
-    taskId: ID #回访任务id  ***
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
     way: String #回访方式
-    recordDetail: String #回访详情
     flow: String #客户流向
   ): ReturnVisitRecord!
   updateReturnVisitRecord(
