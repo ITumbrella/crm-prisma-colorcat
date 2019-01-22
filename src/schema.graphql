@@ -300,9 +300,9 @@ type Mutation {
     type: String #回访类型
     topic: String #回访主题
     status: String #回访状态
-    returnVisitDate: String #待回访日期
-    returnVisitor: String #回访人id
-    returnVisitorId: String #回访人
+    returnVisitDate: String #回访日期
+    returnVisitor: String #回访人
+    returnVisitorId: String #回访人id
   ): ReturnVisitTask!
   deleteReturnVisitTask(id: ID!): ReturnVisitTask!
   #回访记录
@@ -321,15 +321,13 @@ type Mutation {
     id: ID!
     name: String #客户名称
     userId: ID #客户Id
-    tel: String #客户电话
+    taskId: #回访任务id  ***
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
     way: String #回访方式
+    recordDetail: String #回访详情
     flow: String #客户流向
-    returnVisitDate: String #回访日期
-    returnVisitor: String #回访人
-    returnVisitorId: String #回访人id
   ): ReturnVisitRecord!
   deleteReturnVisitRecord(id: ID!): ReturnVisitRecord!
 
@@ -695,7 +693,7 @@ type ReturnVisitRecord {
   id: ID!
   name: String #客户名称
   userId: ID #客户Id
-  taskId: #回访任务id  ***
+  taskId: ID #回访任务id  ***
   type: String #回访类型
   topic: String #回访主题
   result: String #回访结果
