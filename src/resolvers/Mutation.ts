@@ -357,7 +357,10 @@ const Mutation = {
   // 回访任务
   addReturnVisitTask: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Creator);
-    return await prisma.createReturnVisitTask(payload);
+    return await prisma.createReturnVisitTask({
+      ...payload,
+      isCompleted: false
+    });
   },
   updateReturnVisitTask: async (parent, args, context) => {
     const payload = await Certify(context, args, Identity.Editor);
