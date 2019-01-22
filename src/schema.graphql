@@ -309,7 +309,7 @@ type Mutation {
   addReturnVisitRecord(
     name: String #客户名称
     userId: ID #客户Id
-    taskId: #回访任务id  ***
+    taskId: ID #回访任务id  ***
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
@@ -321,7 +321,7 @@ type Mutation {
     id: ID!
     name: String #客户名称
     userId: ID #客户Id
-    taskId: #回访任务id  ***
+    taskId: ID #回访任务id  ***
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
@@ -669,7 +669,7 @@ type Agency {
 # 回访任务
 type ReturnVisitTask {
   id: ID!
-  isCompleted:Boolean #任务完成状态
+  isCompleted: Boolean #任务完成状态
   name: String #客户名称
   userId: ID #客户Id
   tel: String #客户电话
