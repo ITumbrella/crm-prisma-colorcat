@@ -21,12 +21,12 @@ type UserBasic {
   email: String
   secondPhoneNum: String #第二联系电话
   introducer: String #介绍人
+  education: String #学历
   career: String #职业
   marriage: String #婚姻状况
   phoneModel: String #手机型号
   carModel: String #汽车型号
-  addressDetail: String #二级联动详细地址
-  addressSpecific: String #具体地址
+  addressDetail: String #具体地址
   medicalHistory: String #病史
   reMark: String #备注
   mainProject: String
@@ -43,6 +43,7 @@ type UserBasic {
   editorId: ID
   editor: String
   editedAt: String
+  updatedAt: DateTime!
 }
 #咨询记录
 type ConsultingRecord {
@@ -58,6 +59,7 @@ type ConsultingRecord {
   editorId: ID
   editor: String
   editedAt: String
+  updatedAt: DateTime!
 }
 #预约
 type BookingRecord {
@@ -83,11 +85,13 @@ type BookingRecord {
   assistantId: ID
   doctor: String
   doctorId: ID
+  updatedAt: DateTime!
 }
 #字典
 type Dictionary {
   id: ID! @unique
   itemName: String!
+  itemSecondName: String @default(value: "默认") #双语
   itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int
@@ -99,6 +103,7 @@ type Dictionary {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #管理员
 type Admin {
@@ -116,6 +121,7 @@ type Admin {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #权限组
 type Department {
@@ -129,6 +135,7 @@ type Department {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #广告类别
 type Ad {
@@ -142,6 +149,7 @@ type Ad {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #广告消费记录
 type AdConsumptionRec {
@@ -158,6 +166,7 @@ type AdConsumptionRec {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #咨询工作
 type ConsultationWork {
@@ -173,6 +182,7 @@ type ConsultationWork {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #机构
 type Agency {
@@ -200,25 +210,28 @@ type Agency {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 # 回访任务
 type ReturnVisitTask {
   id: ID! @unique
+  isCompleted: Boolean @default(value: false) #任务完成状态
   name: String #客户名称
   userId: ID #客户Id
   tel: String #客户电话
   type: String #回访类型
   topic: String #回访主题
   status: String #回访状态
-  date: String #待回访日期
-  visitorId: String #回访人id
-  visitor: String #回访人
+  returnVisitDate: String #回访日期
+  returnVisitor: String #回访人
+  returnVisitorId: String #回访人id
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
   createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 # 回访记录
@@ -226,21 +239,20 @@ type ReturnVisitRecord {
   id: ID! @unique
   name: String #客户名称
   userId: ID #客户Id
-  tel: String #客户电话
+  taskId: ID #回访任务id  ***
   type: String #回访类型
   topic: String #回访主题
   result: String #回访结果
   way: String #回访方式
+  recordDetail: String #回访详情
   flow: String #客户流向
-  returnVisitDate: String #回访日期
-  returnVisitor: String #回访人
-  returnVisitorId: String #回访人id
   createdAt: DateTime!
   creatorId: ID
   creator: String
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #消费单
 type Bill {
@@ -265,6 +277,7 @@ type Bill {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 #付款记录主表
 type Payment {
@@ -282,6 +295,7 @@ type Payment {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 
 #消费单辅表
@@ -298,6 +312,7 @@ type BillDetail {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 
 # 手术安排
@@ -315,6 +330,7 @@ type Surgery {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }
 
 # 疗程安排
@@ -333,4 +349,5 @@ type Treatment {
   editor: String
   editorId: ID
   editedAt: String
+  updatedAt: DateTime!
 }

@@ -40,12 +40,12 @@ type Mutation {
     email: String
     secondPhoneNum: String #第二联系电话
     introducer: String #介绍人
+    education: String
     career: String #职业
     marriage: String #婚姻状况
     phoneModel: String #手机型号
     carModel: String #汽车型号
-    addressDetail: String #二级联动详细地址
-    addressSpecific: String #具体地址
+    addressDetail: String #
     medicalHistory: String #病史
     reMark: String #备注
     mainProject: String #主项目
@@ -76,13 +76,13 @@ type Mutation {
     idCard: String #身份证号
     email: String
     secondPhoneNum: String #第二联系电话
+    education: String
     introducer: String #介绍人
     career: String #职业
     marriage: String #婚姻状况
     phoneModel: String #手机型号
     carModel: String #汽车型号
-    addressDetail: String #二级联动详细地址
-    addressSpecific: String #具体地址
+    addressDetail: String #具体地址
     medicalHistory: String #病史
     reMark: String #备注
     mainProject: String #主项目
@@ -150,6 +150,7 @@ type Mutation {
   updateDictionaryItem(
     id: String!
     itemName: String
+    itemSecondName: String
     itemAvailiable: Boolean
     sortIndex: Int
     rootIndex: Int
@@ -157,6 +158,7 @@ type Mutation {
   ): Dictionary
   addDictionaryItem(
     itemName: String!
+    itemSecondName: String
     itemParentId: String
     itemAvailiable: Boolean!
     sortIndex: Int
@@ -286,9 +288,9 @@ type Mutation {
     type: String #回访类型
     topic: String #回访主题
     status: String #回访状态
-    date: String #待回访日期
-    visitorId: String #回访人id
-    visitor: String #回访人
+    returnVisitDate: String #回访日期
+    returnVisitor: String #回访人
+    returnVisitorId: String #回访人id
   ): ReturnVisitTask!
   updateReturnVisitTask(
     id: ID!
@@ -298,39 +300,34 @@ type Mutation {
     type: String #回访类型
     topic: String #回访主题
     status: String #回访状态
-    date: String #待回访日期
-    visitorId: String #回访人id
-    visitor: String #回访人
+    returnVisitDate: String #回访日期
+    returnVisitor: String #回访人
+    returnVisitorId: String #回访人id
   ): ReturnVisitTask!
   deleteReturnVisitTask(id: ID!): ReturnVisitTask!
-
   #回访记录
   addReturnVisitRecord(
+    taskId: ID #回访任务id  ***
+    recordDetail: String #回访详情
     name: String #客户名称
     userId: ID #客户Id
-    tel: String #客户电话
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
     way: String #回访方式
     flow: String #客户流向
-    returnVisitDate: String #回访日期
-    returnVisitor: String #回访人
-    returnVisitorId: String #回访人id
   ): ReturnVisitRecord!
   updateReturnVisitRecord(
     id: ID!
     name: String #客户名称
     userId: ID #客户Id
-    tel: String #客户电话
+    taskId: ID #回访任务id  ***
     type: String #回访类型
     topic: String #回访主题
     result: String #回访结果
     way: String #回访方式
+    recordDetail: String #回访详情
     flow: String #客户流向
-    returnVisitDate: String #回访日期
-    returnVisitor: String #回访人
-    returnVisitorId: String #回访人id
   ): ReturnVisitRecord!
   deleteReturnVisitRecord(id: ID!): ReturnVisitRecord!
 
@@ -448,13 +445,13 @@ type UserBasic {
   idCard: String #身份证号
   email: String
   secondPhoneNum: String #第二联系电话
+  education: String #学历
   introducer: String #介绍人
   career: String #职业
   marriage: String #婚姻状况
   phoneModel: String #手机型号
   carModel: String #汽车型号
-  addressDetail: String #二级联动详细地址
-  addressSpecific: String #具体地址
+  addressDetail: String #具体地址
   medicalHistory: String #病史
   reMark: String #备注
   mainProject: String
@@ -516,6 +513,7 @@ type BookingRecord {
 type Dictionary {
   id: ID!
   itemName: String!
+  itemSecondName: String #双语
   itemParentId: String
   itemAvailiable: Boolean!
   rootIndex: Int
@@ -671,34 +669,13 @@ type Agency {
 # 回访任务
 type ReturnVisitTask {
   id: ID!
+  isCompleted: Boolean #任务完成状态
   name: String #客户名称
   userId: ID #客户Id
   tel: String #客户电话
   type: String #回访类型
   topic: String #回访主题
   status: String #回访状态
-  date: String #待回访日期
-  visitorId: String #回访人id
-  visitor: String #回访人
-  creatorId: ID
-  creator: String
-  editor: String
-  editorId: ID
-  editedAt: String
-  createdAt: DateTime!
-}
-
-# 回访记录
-type ReturnVisitRecord {
-  id: ID!
-  name: String #客户名称
-  userId: ID #客户Id
-  tel: String #客户电话
-  type: String #回访类型
-  topic: String #回访主题
-  result: String #回访结果
-  way: String #回访方式
-  flow: String #客户流向
   returnVisitDate: String #回访日期
   returnVisitor: String #回访人
   returnVisitorId: String #回访人id
@@ -708,6 +685,28 @@ type ReturnVisitRecord {
   editorId: ID
   editedAt: String
   createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# 回访记录
+type ReturnVisitRecord {
+  id: ID!
+  name: String #客户名称
+  userId: ID #客户Id
+  taskId: ID #回访任务id  ***
+  type: String #回访类型
+  topic: String #回访主题
+  result: String #回访结果
+  way: String #回访方式
+  recordDetail: String #回访详情
+  flow: String #客户流向
+  createdAt: DateTime!
+  creatorId: ID
+  creator: String
+  editor: String
+  editorId: ID
+  editedAt: String
+  updatedAt: DateTime!
 }
 
 #付款记录主表
