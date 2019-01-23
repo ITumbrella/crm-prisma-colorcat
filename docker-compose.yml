@@ -2,6 +2,7 @@ version: "3"
 services:
   prisma:
     image: prismagraphql/prisma:1.20
+    network_mode: "host"
     restart: always
     ports:
       - "4466:4466"
@@ -14,7 +15,7 @@ services:
           default:
             database: vita
             connector: mysql
-            host: 127.0.0.1
+            host: localhost
             port: 3306
             user: root
             password: avtvyv123
